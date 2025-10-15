@@ -13,7 +13,6 @@ function App() {
   //AddToCart
 
   //RemoveCart
-  const [cartStorage, setCartStorage] = useState([]);
 
   return (
     <Routes>
