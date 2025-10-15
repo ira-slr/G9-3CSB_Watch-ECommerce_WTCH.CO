@@ -1,0 +1,38 @@
+.card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.imagePlaceholder {
+  background-color: #d9d9d9;
+  height: 220px;
+  width: 100%;
+}
+
+.info {
+  padding: 15px;
+  text-align: center;
+}
+
+.productName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.price {
+  color: #555;
+  font-weight: 500;
+}
