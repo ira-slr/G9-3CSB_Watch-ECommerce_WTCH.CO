@@ -1,0 +1,93 @@
+.detailsPage {
+  padding: 50px 80px;
+  background: #fff;
+}
+
+.topSection {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.imageColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  background: #d9d9d9;
+  border-radius: 6px;
+}
+
+.mainImage {
+  flex: 1;
+  background: #d9d9d9;
+  border-radius: 12px;
+  height: 400px;
+}
+
+.info {
+  flex: 1;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.features {
+  margin-bottom: 20px;
+  list-style: disc;
+  padding-left: 20px;
+  color: #555;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.addToCart {
+  background: #000;
+  color: #fff;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.buyNow {
+  background: #0071e3;
+  color: #fff;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bottomSection {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 40px;
+}
+
+.description {
+  margin: 15px 0 40px;
+  color: #444;
+  line-height: 1.5;
+}
+
+.similarGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.similarCard {
+  background: #d9d9d9;
+  border-radius: 8px;
+  height: 200px;
+}

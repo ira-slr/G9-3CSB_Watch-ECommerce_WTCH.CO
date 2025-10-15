@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage";
-import ProductDetails from "./pages/ProductDetails";
 import ProductListing from "./pages/ProductListing";
+import ProductDetails from "./pages/ProductDetails";
 import CartCheckout from "./pages/CartCheckout";
 
 function App() {
@@ -13,12 +13,13 @@ function App() {
   //AddToCart
 
   //RemoveCart
+  const [cartStorage, setCartStorage] = useState([]);
 
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      {/* <Route path="/product/:id" element={<ProductDetails />} />
-      <Route path="/products" element={<ProductListing />} /> */}
+      <Route path="/products" element={<ProductListing />} />
+      <Route path="/products/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<CartCheckout />} />
     </Routes>
   );
