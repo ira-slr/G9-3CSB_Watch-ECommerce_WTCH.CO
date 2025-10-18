@@ -1,6 +1,5 @@
-// import React from "react";
-import styles from "./styles/ProductDetails.module.css";
-import ProductCard from "../components/ProductCard";
+
+
 // // Member #3 : Josua
 // function ProductDetails() {
 //   return (
@@ -52,26 +51,16 @@ import ProductCard from "../components/ProductCard";
 // export default ProductDetails;
 
 import React, { useState, useEffect } from "react";
-// import styles from "./styles/ProductDetails.module.css";
-// import ProductCard from "./ProductCard";
+import styles from "./styles/ProductDetails.module.css";
+import ProductCard from "../components/ProductCard";
+import products from "../assets/products.json"
 
 function ProductDetails() {
-  const [products, setProducts] = useState([]); // start as empty array
-
-  useEffect(() => {
-    fetch("/assets/data.json")
-      .then((response) => response.json())
-      .then((json) => setProducts(json))
-      .catch((error) => console.error("Error loading products:", error));
-  }, []);
 
   // Wait until data is loaded
   if (products.length === 0) {
     return <div className={styles.loading}>Loading product details...</div>;
   }
-
-  // Use first product as example
-  const mainProduct = products[0];
 
   return (
     <div className={styles.detailsPage}>
@@ -86,13 +75,6 @@ function ProductDetails() {
         <div className={styles.mainImage}></div>
 
         <div className={styles.info}>
-          <ProductCard
-            model={mainProduct.model}
-            brand={mainProduct.brand}
-            star_review={mainProduct.star_review}
-            price={mainProduct.price}
-          />
-
           <ul className={styles.features}>
             <li>Water Resistant</li>
             <li>Premium Stainless Steel</li>
@@ -116,7 +98,7 @@ function ProductDetails() {
 
         <h3>Similar Watches</h3>
         <div className={styles.similarGrid}>
-          {products.slice(1, 5).map((item, index) => (
+          {products.map((item, index) => (
             <ProductCard
               key={index}
               model={item.model}
