@@ -1,14 +1,13 @@
+
 import React from "react";
 import styles from "./styles/ProductListing.module.css";
 import ProductCard from "../components/ProductCard";
+import products from "../assets/products.json"; // ✅ direct import
+
 // Member 3: Josua
-
 function ProductListing() {
-  const placeholders = Array(8).fill(null); // display 8 cards
-
   return (
     <div className={styles.wrapper}>
-      {}
       <aside className={styles.sidebar}>
         <h3>Categories</h3>
         <ul>
@@ -40,8 +39,14 @@ function ProductListing() {
         </div>
 
         <div className={styles.grid}>
-          {placeholders.map((_, i) => (
-            <ProductCard key={i} />
+          {products.map((item, i) => (
+            <ProductCard
+              key={i}
+              model={item.model}
+              brand={item.brand}
+              star_review={item.star_review}
+              price={item.price}
+            />
           ))}
         </div>
 
@@ -52,3 +57,4 @@ function ProductListing() {
 }
 
 export default ProductListing;
+

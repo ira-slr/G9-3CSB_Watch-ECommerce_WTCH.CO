@@ -1,9 +1,70 @@
-import React from "react";
+
+
+// // Member #3 : Josua
+// function ProductDetails() {
+//   return (
+//     <div className={styles.detailsPage}>
+//       <div className={styles.topSection}>
+//         <div className={styles.imageColumn}>
+//           <div className={styles.thumbnail}></div>
+//           <div className={styles.thumbnail}></div>
+//           <div className={styles.thumbnail}></div>
+//         </div>
+
+//         <div className={styles.mainImage}></div>
+
+//         <div className={styles.info}>
+//           <h2>Watch Name</h2>
+//           <p className={styles.price}>₱0.00</p>
+//           <ul className={styles.features}>
+//             <li>Water Resistant</li>
+//             <li>Premium Stainless Steel</li>
+//             <li>Quartz Movement</li>
+//           </ul>
+
+//           <div className={styles.buttons}>
+//             <button className={styles.addToCart}>Add to Cart</button>
+//             <button className={styles.buyNow}>Buy Now</button>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className={styles.bottomSection}>
+//         <h3>Description | Reviews</h3>
+//         <p className={styles.description}>
+//           Product description goes here. You can write about the watch’s design,
+//           materials, and special features.
+//         </p>
+
+//         <h3>Similar Watches</h3>
+//         <div className={styles.similarGrid}>
+//           <div className={styles.similarCard}></div>
+//           <div className={styles.similarCard}></div>
+//           <div className={styles.similarCard}></div>
+//           <div className={styles.similarCard}></div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default ProductDetails;
+
+import React, { useState, useEffect } from "react";
 import styles from "./styles/ProductDetails.module.css";
-// Member #3 : Josua
+import ProductCard from "../components/ProductCard";
+import products from "../assets/products.json"
+
 function ProductDetails() {
+
+  // Wait until data is loaded
+  if (products.length === 0) {
+    return <div className={styles.loading}>Loading product details...</div>;
+  }
+
   return (
     <div className={styles.detailsPage}>
+      {/* Top Section - Main Product Info */}
       <div className={styles.topSection}>
         <div className={styles.imageColumn}>
           <div className={styles.thumbnail}></div>
@@ -14,8 +75,6 @@ function ProductDetails() {
         <div className={styles.mainImage}></div>
 
         <div className={styles.info}>
-          <h2>Watch Name</h2>
-          <p className={styles.price}>₱0.00</p>
           <ul className={styles.features}>
             <li>Water Resistant</li>
             <li>Premium Stainless Steel</li>
@@ -29,6 +88,7 @@ function ProductDetails() {
         </div>
       </div>
 
+      {/* Bottom Section */}
       <div className={styles.bottomSection}>
         <h3>Description | Reviews</h3>
         <p className={styles.description}>
@@ -38,10 +98,15 @@ function ProductDetails() {
 
         <h3>Similar Watches</h3>
         <div className={styles.similarGrid}>
-          <div className={styles.similarCard}></div>
-          <div className={styles.similarCard}></div>
-          <div className={styles.similarCard}></div>
-          <div className={styles.similarCard}></div>
+          {products.map((item, index) => (
+            <ProductCard
+              key={index}
+              model={item.model}
+              brand={item.brand}
+              star_review={item.star_review}
+              price={item.price}
+            />
+          ))}
         </div>
       </div>
     </div>

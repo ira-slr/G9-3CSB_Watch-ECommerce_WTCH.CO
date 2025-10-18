@@ -1,0 +1,182 @@
+[
+  {
+    "model": "Submariner Date",
+    "brand": "Rolex",
+    "star_review": 4.9,
+    "price": 13400
+  },
+  {
+    "model": "Day-Date 40",
+    "brand": "Rolex",
+    "star_review": 4.8,
+    "price": 38500
+  },
+  {
+    "model": "GMT-Master II Pepsi",
+    "brand": "Rolex",
+    "star_review": 4.7,
+    "price": 16700
+  },
+  {
+    "model": "Oyster Perpetual 36",
+    "brand": "Rolex",
+    "star_review": 4.5,
+    "price": 6700
+  },
+  {
+    "model": "Cosmograph Daytona",
+    "brand": "Rolex",
+    "star_review": 5.0,
+    "price": 32400
+  },
+  {
+    "model": "RM 11-03 Automatic Flyback Chronograph",
+    "brand": "Richard Mille",
+    "star_review": 4.9,
+    "price": 220000
+  },
+  {
+    "model": "RM 35-02 Rafael Nadal",
+    "brand": "Richard Mille",
+    "star_review": 4.8,
+    "price": 180000
+  },
+  {
+    "model": "RM 055 Bubba Watson",
+    "brand": "Richard Mille",
+    "star_review": 4.7,
+    "price": 150000
+  },
+  {
+    "model": "RM 07-01 Ladies Automatic",
+    "brand": "Richard Mille",
+    "star_review": 4.6,
+    "price": 125000
+  },
+  {
+    "model": "RM 65-01 Split Seconds Chronograph",
+    "brand": "Richard Mille",
+    "star_review": 5.0,
+    "price": 310000
+  },
+  {
+    "model": "Prospex Turtle SRP777",
+    "brand": "Seiko",
+    "star_review": 4.5,
+    "price": 495
+  },
+  {
+    "model": "Presage Cocktail Time SRPB43",
+    "brand": "Seiko",
+    "star_review": 4.6,
+    "price": 425
+  },
+  {
+    "model": "Seiko 5 Sports SRPD55",
+    "brand": "Seiko",
+    "star_review": 4.4,
+    "price": 250
+  },
+  {
+    "model": "Astron GPS Solar SSH003",
+    "brand": "Seiko",
+    "star_review": 4.7,
+    "price": 1900
+  },
+  {
+    "model": "King Seiko SPB281",
+    "brand": "Seiko",
+    "star_review": 4.8,
+    "price": 1700
+  },
+  {
+    "model": "G-Shock GA-2100-1A1",
+    "brand": "Casio",
+    "star_review": 4.6,
+    "price": 110
+  },
+  {
+    "model": "G-Shock DW-5600E-1V",
+    "brand": "Casio",
+    "star_review": 4.7,
+    "price": 60
+  },
+  {
+    "model": "Casio Vintage A168WG-9",
+    "brand": "Casio",
+    "star_review": 4.5,
+    "price": 45
+  },
+  {
+    "model": "Edifice EQB-1000D-1A",
+    "brand": "Casio",
+    "star_review": 4.6,
+    "price": 330
+  },
+  {
+    "model": "Pro Trek PRG-600YB-3",
+    "brand": "Casio",
+    "star_review": 4.7,
+    "price": 300
+  },
+  {
+    "model": "Speedmaster Moonwatch Professional",
+    "brand": "Omega",
+    "star_review": 5.0,
+    "price": 7600
+  },
+  {
+    "model": "Seamaster Diver 300M",
+    "brand": "Omega",
+    "star_review": 4.8,
+    "price": 6100
+  },
+  {
+    "model": "Aqua Terra 150M Co-Axial",
+    "brand": "Omega",
+    "star_review": 4.7,
+    "price": 5400
+  },
+  {
+    "model": "Constellation Co-Axial Master Chronometer",
+    "brand": "Omega",
+    "star_review": 4.9,
+    "price": 7200
+  },
+  {
+    "model": "De Ville Prestige",
+    "brand": "Omega",
+    "star_review": 4.6,
+    "price": 5000
+  },
+  {
+    "model": "G-Shock GA-B2100-1A",
+    "brand": "Casio",
+    "star_review": 4.5,
+    "price": 120
+  },
+  {
+    "model": "Grand Seiko Snowflake SBGA211",
+    "brand": "Seiko",
+    "star_review": 5.0,
+    "price": 5800
+  },
+  {
+    "model": "Rolex Explorer II",
+    "brand": "Rolex",
+    "star_review": 4.7,
+    "price": 10300
+  },
+  {
+    "model": "RM 72-01 Lifestyle Chronograph",
+    "brand": "Richard Mille",
+    "star_review": 4.9,
+    "price": 250000
+  },
+  {
+    "model": "Omega Seamaster Planet Ocean 600M",
+    "brand": "Omega",
+    "star_review": 4.8,
+    "price": 7400
+  }
+]
