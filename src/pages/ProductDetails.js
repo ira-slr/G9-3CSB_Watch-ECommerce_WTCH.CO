@@ -31,7 +31,7 @@ function ProductDetails({ addToCart }) {
       quantity: 1,
     });
 
-    setMessage("✅ Product added to cart!");
+    setMessage("Product added to cart!");
     setTimeout(() => setMessage(""), 2000);
   };
 
