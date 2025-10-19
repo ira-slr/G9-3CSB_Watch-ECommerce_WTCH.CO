@@ -10,45 +10,43 @@ function App() {
   const [cartStorage, setCartStorage] = useState([]);
 
   const addToCart = (product) => {
-    setCartStorage((prevCart) => {
-      const existing = prevCart.find((item) => item.model === product.model);
+    setCartStorage((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
       if (existing) {
-        return prevCart.map((item) =>
-          item.model === product.model
-            ? { ...item, quantity: (item.quantity || 1) + 1 }
+        return prev.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
       }
+      return [...prev, { ...product, quantity: 1 }];
     });
   };
 
   const removeFromCart = (id) => {
-    setCartStorage((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCartStorage((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCartStorage([]);
   };
 
   return (
     <Routes>
-
       <Route path="/" element={<HomePage />} />
-
-      <Route
-        path="/products"
-        element={<ProductListing addToCart={addToCart} />}
-      />
-
+      <Route path="/products" element={<ProductListing />} />
       <Route
         path="/products/:id"
         element={<ProductDetails addToCart={addToCart} />}
       />
-
       <Route
         path="/cart"
         element={
           <CartCheckout
-            cartStorage={cartStorage}
+            cartItems={cartStorage}
+            setCartItems={setCartStorage}
             removeFromCart={removeFromCart}
+            clearCart={clearCart}
           />
         }
       />

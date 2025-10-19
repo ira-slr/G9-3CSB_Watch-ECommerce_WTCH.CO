@@ -1,26 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles/CartCheckout.module.css";
 
-function CartCheckout() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Product A",
-      price: 300,
-      quantity: 1,
-      image:
-        "https://www.casio.com/content/dam/casio/product-info/locales/ph/en/timepiece/product/watch/G/GM/GMA/gma-s145pk-4a/assets/GMA-S145PK-4A.png",
-    },
-    {
-      id: 2,
-      name: "Product B",
-      price: 450,
-      quantity: 2,
-      image:
-        "https://www.casio.com/content/dam/casio/product-info/locales/ph/en/timepiece/product/watch/G/GM/GMA/gma-s145pk-4a/assets/GMA-S145PK-4A.png",
-    },
-  ]);
-
+function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
   const [form, setForm] = useState({
     name: "",
     address: "",
@@ -54,7 +35,7 @@ function CartCheckout() {
 
   const removeItem = (id) => {
     if (window.confirm("Are you sure you want to remove this item?")) {
-      setCartItems((items) => items.filter((item) => item.id !== id));
+      removeFromCart(id);
     }
   };
 
@@ -92,7 +73,7 @@ function CartCheckout() {
       `✅ Checkout successful!\n\nThank you, ${form.name}! Your order is being processed.`
     );
     setShowForm(false);
-    setCartItems([]);
+    clearCart();
     setForm({ name: "", address: "", contact: "", payment: "" });
     setPromoCode("");
     setPromoApplied(false);
@@ -106,7 +87,7 @@ function CartCheckout() {
       <nav aria-label="Breadcrumb" className={styles.breadcrumbBar}>
         <ol className={styles.breadcrumb}>
           <li className={styles.breadcrumb__item}>
-            <a href="/Home.jsx">Home</a>
+            <a href="/">Home</a>
           </li>
           <li className={styles.breadcrumb__item}>Cart</li>
         </ol>
@@ -122,14 +103,17 @@ function CartCheckout() {
                 <li key={item.id} className={styles.cartItem}>
                   <div className={styles.cartLeft}>
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={
+                        item.image ||
+                        "https://via.placeholder.com/100x100.png?text=Watch"
+                      }
+                      alt={item.model || item.name}
                       className={styles.productImage}
                     />
                     <div className={styles.itemDetails}>
-                      <strong>{item.name}</strong>
-                      <p>₱{item.price}</p>
-                      <p>Size: Medium</p>
+                      <strong>{item.model || item.name}</strong>
+                      <p>₱{item.price.toLocaleString()}</p>
+                      <p>{item.brand}</p>
                     </div>
                   </div>
 

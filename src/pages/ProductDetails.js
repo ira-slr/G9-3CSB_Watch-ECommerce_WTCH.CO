@@ -4,10 +4,13 @@ import styles from "./styles/ProductDetails.module.css";
 import ProductCard from "../components/ProductCard";
 import products from "../assets/products.json";
 
+// Member 3 : Josua
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = products[parseInt(id)];
+  const [message, setMessage] = React.useState(""); 
+
+  const product = products.find((p) => p.id === parseInt(id));
 
   if (!product) {
     return <div className={styles.loading}>Product not found...</div>;
@@ -18,37 +21,37 @@ function ProductDetails({ addToCart }) {
   );
 
   const handleAddToCart = () => {
-    if (typeof addToCart === "function") {
-      addToCart({
-        id: parseInt(id),
-        model: product.model,
-        brand: product.brand,
-        price: product.price,
-        star_review: product.star_review,
-        quantity: 1,
-      });
-    }
+    addToCart({
+      id: product.id,
+      model: product.model,
+      brand: product.brand,
+      price: product.price,
+      star_review: product.star_review,
+      image: product.image_link,
+      quantity: 1,
+    });
+
+    setMessage("✅ Product added to cart!");
+    setTimeout(() => setMessage(""), 2000);
   };
 
   const handleCheckout = () => {
-    // optionally add to cart first, then go to cart page
-    if (typeof addToCart === "function") {
-      addToCart({
-        id: parseInt(id),
-        model: product.model,
-        brand: product.brand,
-        price: product.price,
-        star_review: product.star_review,
-        quantity: 1,
-      });
-    }
     navigate("/cart");
   };
 
   return (
     <div className={styles.detailsPage}>
+      {message && <div className={styles.toast}>{message}</div>}
+
       <div className={styles.topSection}>
-        <div className={styles.mainImage}></div>
+        <div
+          className={styles.mainImage}
+          style={{
+            backgroundImage: `url(${product.image_link})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
 
         <div className={styles.info}>
           <h2>{product.model}</h2>
@@ -83,10 +86,10 @@ function ProductDetails({ addToCart }) {
 
         <h3>Similar Watches</h3>
         <div className={styles.similarGrid}>
-          {similar.map((item, index) => (
+          {similar.map((item) => (
             <ProductCard
-              key={index}
-              id={index}
+              key={item.id}
+              id={item.id}
               model={item.model}
               brand={item.brand}
               star_review={item.star_review}

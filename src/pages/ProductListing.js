@@ -4,6 +4,7 @@ import ProductCard from "../components/ProductCard";
 import productsData from "../assets/products.json";
 import { useNavigate } from "react-router-dom";
 
+// Member 3 : Josua
 function ProductListing() {
   const [search, setSearch] = useState("");
   const [filterBrand, setFilterBrand] = useState("All");
