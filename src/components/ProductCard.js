@@ -5,11 +5,12 @@ import styles from "./styles/ProductCard.module.css";
 // Member 3: Josua Rigodon
 function ProductCard({ id, model, brand, star_review, price, image_link }) {
   const [imageError, setImageError] = useState(false);
+  const showPlaceholder = !image_link || imageError;
 
   return (
     <div className={styles.card}>
       <Link to={`/products/${id}`} className={styles.cardLink}>
-        {image_link && !imageError ? (
+        {!showPlaceholder ? (
           <img
             src={image_link}
             alt={model}
@@ -23,7 +24,7 @@ function ProductCard({ id, model, brand, star_review, price, image_link }) {
         )}
 
         <div className={styles.info}>
-          <h3 className={styles.modelName}>{model}</h3>
+          <h3 className={styles.productName}>{model}</h3>
           <p className={styles.brand}>{brand}</p>
           <p className={styles.rating}>⭐ {star_review}</p>
           <p className={styles.price}>₱{price.toLocaleString()}</p>

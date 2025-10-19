@@ -4,7 +4,6 @@ import ProductCard from "../components/ProductCard";
 import productsData from "../assets/products.json";
 import { useNavigate } from "react-router-dom";
 
-// Member 3 : Josua
 function ProductListing() {
   const [search, setSearch] = useState("");
   const [filterBrand, setFilterBrand] = useState("All");
@@ -23,8 +22,10 @@ function ProductListing() {
     if (priceRange !== "All") {
       filtered = filtered.filter((item) => {
         if (priceRange === "0-1000") return item.price <= 1000;
-        if (priceRange === "1001-10000") return item.price >= 1001 && item.price <= 10000;
-        if (priceRange === "10001-50000") return item.price >= 10001 && item.price <= 50000;
+        if (priceRange === "1001-10000")
+          return item.price >= 1001 && item.price <= 10000;
+        if (priceRange === "10001-50000")
+          return item.price >= 10001 && item.price <= 50000;
         if (priceRange === "50001+") return item.price > 50000;
         return true;
       });
@@ -36,10 +37,14 @@ function ProductListing() {
       );
     }
 
-    if (sortOption === "priceLowHigh") filtered.sort((a, b) => a.price - b.price);
-    else if (sortOption === "priceHighLow") filtered.sort((a, b) => b.price - a.price);
-    else if (sortOption === "ratingHighLow") filtered.sort((a, b) => b.star_review - a.star_review);
-    else if (sortOption === "ratingLowHigh") filtered.sort((a, b) => a.star_review - b.star_review);
+    if (sortOption === "priceLowHigh")
+      filtered.sort((a, b) => a.price - b.price);
+    else if (sortOption === "priceHighLow")
+      filtered.sort((a, b) => b.price - a.price);
+    else if (sortOption === "ratingHighLow")
+      filtered.sort((a, b) => b.star_review - a.star_review);
+    else if (sortOption === "ratingLowHigh")
+      filtered.sort((a, b) => a.star_review - b.star_review);
 
     setDisplayProducts(filtered);
   }, [search, filterBrand, priceRange, sortOption]);
@@ -89,15 +94,17 @@ function ProductListing() {
       <aside className={styles.sidebar}>
         <h3>Brands</h3>
         <ul>
-          {["All", "Rolex", "Seiko", "Casio", "Omega", "Richard Mille"].map((brand) => (
-            <li
-              key={brand}
-              onClick={() => handleBrandClick(brand)}
-              className={filterBrand === brand ? styles.active : ""}
-            >
-              {brand}
-            </li>
-          ))}
+          {["All", "Rolex", "Seiko", "Casio", "Omega", "Richard Mille"].map(
+            (brand) => (
+              <li
+                key={brand}
+                onClick={() => handleBrandClick(brand)}
+                className={filterBrand === brand ? styles.active : ""}
+              >
+                {brand}
+              </li>
+            )
+          )}
         </ul>
 
         <h3>Price Range</h3>
@@ -162,18 +169,21 @@ function ProductListing() {
           <p>
             Showing:{" "}
             <strong>
-              {filterBrand} | {getPriceLabel(priceRange)} | {getSortLabel(sortOption)}
+              {filterBrand} | {getPriceLabel(priceRange)} |{" "}
+              {getSortLabel(sortOption)}
             </strong>
           </p>
-          <p className={styles.resultCount}>{displayProducts.length} products found</p>
+          <p className={styles.resultCount}>
+            {displayProducts.length} products found
+          </p>
         </div>
 
         <div className={styles.grid}>
           {displayProducts.length > 0 ? (
-            displayProducts.map((product, index) => (
+            displayProducts.map((product) => (
               <ProductCard
-                key={index}
-                id={index + 1}
+                key={product.id}
+                id={product.id} // ✅ use actual id from JSON
                 model={product.model}
                 brand={product.brand}
                 star_review={product.star_review}
