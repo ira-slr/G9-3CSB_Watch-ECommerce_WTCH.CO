@@ -8,7 +8,7 @@ import products from "../assets/products.json";
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [message, setMessage] = React.useState(""); 
+  const [message, setMessage] = React.useState("");
 
   const product = products.find((p) => p.id === parseInt(id));
 
@@ -79,11 +79,53 @@ function ProductDetails({ addToCart }) {
 
       <div className={styles.bottomSection}>
         <h3>Description</h3>
-        <p className={styles.description}>
-          A luxurious {product.brand} timepiece with elegant craftsmanship and
-          superior precision. Designed for timeless style and reliability.
-        </p>
+        <p className={styles.description}>{product.description}</p>
 
+        <h3>Customer Reviews</h3>
+        <div className={styles.reviewsSection}>
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>John D.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Absolutely love this watch! The quality and design exceeded my
+              expectations.
+            </p>
+          </div>
+
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>Maria S.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Looks great and feels premium. Delivery was quick and the
+              packaging was elegant.
+            </p>
+          </div>
+
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>Kevin L.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Perfect for both formal and casual wear. Highly recommended for
+              its precision.
+            </p>
+          </div>
+
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>Angela R.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Very elegant and classy. Worth every peso!
+            </p>
+          </div>
+        </div>
         <h3>Similar Watches</h3>
         <div className={styles.similarGrid}>
           {similar.map((item) => (
