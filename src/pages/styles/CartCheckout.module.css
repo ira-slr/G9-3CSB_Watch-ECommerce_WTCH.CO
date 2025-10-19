@@ -310,3 +310,35 @@
   background-color: #f9f9f9;
   border-radius: 10px;
 }
+.cartPage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cartSection {
+  flex: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 500px;
+}
+
+.checkoutSection {
+  flex: 1;
+  overflow: visible;
+}
+
+.cartPage {
+  height: 100vh;
+}
+
+.cartSection {
+  flex: 2;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cartSection::-webkit-scrollbar {
+  display: none;
+}

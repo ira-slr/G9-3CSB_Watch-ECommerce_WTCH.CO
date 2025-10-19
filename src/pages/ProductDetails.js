@@ -1,80 +1,64 @@
-
-
-// // Member #3 : Josua
-// function ProductDetails() {
-//   return (
-//     <div className={styles.detailsPage}>
-//       <div className={styles.topSection}>
-//         <div className={styles.imageColumn}>
-//           <div className={styles.thumbnail}></div>
-//           <div className={styles.thumbnail}></div>
-//           <div className={styles.thumbnail}></div>
-//         </div>
-
-//         <div className={styles.mainImage}></div>
-
-//         <div className={styles.info}>
-//           <h2>Watch Name</h2>
-//           <p className={styles.price}>₱0.00</p>
-//           <ul className={styles.features}>
-//             <li>Water Resistant</li>
-//             <li>Premium Stainless Steel</li>
-//             <li>Quartz Movement</li>
-//           </ul>
-
-//           <div className={styles.buttons}>
-//             <button className={styles.addToCart}>Add to Cart</button>
-//             <button className={styles.buyNow}>Buy Now</button>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className={styles.bottomSection}>
-//         <h3>Description | Reviews</h3>
-//         <p className={styles.description}>
-//           Product description goes here. You can write about the watch’s design,
-//           materials, and special features.
-//         </p>
-
-//         <h3>Similar Watches</h3>
-//         <div className={styles.similarGrid}>
-//           <div className={styles.similarCard}></div>
-//           <div className={styles.similarCard}></div>
-//           <div className={styles.similarCard}></div>
-//           <div className={styles.similarCard}></div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default ProductDetails;
-
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./styles/ProductDetails.module.css";
 import ProductCard from "../components/ProductCard";
-import products from "../assets/products.json"
+import products from "../assets/products.json";
 
-function ProductDetails() {
+// Member 3 : Josua
+function ProductDetails({ addToCart }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [message, setMessage] = React.useState("");
 
-  // Wait until data is loaded
-  if (products.length === 0) {
-    return <div className={styles.loading}>Loading product details...</div>;
+  const product = products.find((p) => p.id === parseInt(id));
+
+  if (!product) {
+    return <div className={styles.loading}>Product not found...</div>;
   }
+
+  const similar = products.filter(
+    (p) => p.brand === product.brand && p.model !== product.model
+  );
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      model: product.model,
+      brand: product.brand,
+      price: product.price,
+      star_review: product.star_review,
+      image: product.image_link,
+      quantity: 1,
+    });
+
+    setMessage("Product added to cart!");
+    setTimeout(() => setMessage(""), 2000);
+  };
+
+  const handleCheckout = () => {
+    navigate("/cart");
+  };
 
   return (
     <div className={styles.detailsPage}>
-      {/* Top Section - Main Product Info */}
-      <div className={styles.topSection}>
-        <div className={styles.imageColumn}>
-          <div className={styles.thumbnail}></div>
-          <div className={styles.thumbnail}></div>
-          <div className={styles.thumbnail}></div>
-        </div>
+      {message && <div className={styles.toast}>{message}</div>}
 
-        <div className={styles.mainImage}></div>
+      <div className={styles.topSection}>
+        <div
+          className={styles.mainImage}
+          style={{
+            backgroundImage: `url(${product.image_link})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
 
         <div className={styles.info}>
+          <h2>{product.model}</h2>
+          <p className={styles.brand}>{product.brand}</p>
+          <p className={styles.price}>₱{product.price.toLocaleString()}</p>
+          <p className={styles.rating}>⭐ {product.star_review}</p>
+
           <ul className={styles.features}>
             <li>Water Resistant</li>
             <li>Premium Stainless Steel</li>
@@ -82,25 +66,72 @@ function ProductDetails() {
           </ul>
 
           <div className={styles.buttons}>
-            <button className={styles.addToCart}>Add to Cart</button>
-            <button className={styles.buyNow}>Buy Now</button>
+            <button className={styles.addToCart} onClick={handleAddToCart}>
+              Add to Cart
+            </button>
+
+            <button className={styles.checkoutBtn} onClick={handleCheckout}>
+              Proceed to Checkout →
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom Section */}
       <div className={styles.bottomSection}>
-        <h3>Description | Reviews</h3>
-        <p className={styles.description}>
-          Product description goes here. You can write about the watch’s design,
-          materials, and special features.
-        </p>
+        <h3>Description</h3>
+        <p className={styles.description}>{product.description}</p>
 
+        <h3>Customer Reviews</h3>
+        <div className={styles.reviewsSection}>
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>John D.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Absolutely love this watch! The quality and design exceeded my
+              expectations.
+            </p>
+          </div>
+
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>Maria S.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Looks great and feels premium. Delivery was quick and the
+              packaging was elegant.
+            </p>
+          </div>
+
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>Kevin L.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Perfect for both formal and casual wear. Highly recommended for
+              its precision.
+            </p>
+          </div>
+
+          <div className={styles.reviewCard}>
+            <div className={styles.reviewHeader}>
+              <strong>Angela R.</strong>
+              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️</span>
+            </div>
+            <p className={styles.reviewComment}>
+              Very elegant and classy. Worth every peso!
+            </p>
+          </div>
+        </div>
         <h3>Similar Watches</h3>
         <div className={styles.similarGrid}>
-          {products.map((item, index) => (
+          {similar.map((item) => (
             <ProductCard
-              key={index}
+              key={item.id}
+              id={item.id}
               model={item.model}
               brand={item.brand}
               star_review={item.star_review}
