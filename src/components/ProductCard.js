@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles/ProductCard.module.css";
+import images from "../assets/imageLoader"// Import the loader
 
-// Member 3: Josua Rigodon
 function ProductCard({ id, model, brand, star_review, price, image_link }) {
+  // Directly get the image from the loader using the filename from the JSON
+  const imageSrc = images[image_link];
+
   const [imageError, setImageError] = useState(false);
-  const showPlaceholder = !image_link || imageError;
+  
+  // Show placeholder if the image wasn't found in the loader
+  const showPlaceholder = !imageSrc || imageError;
 
   return (
     <div className={styles.card}>
       <Link to={`/products/${id}`} className={styles.cardLink}>
         {!showPlaceholder ? (
           <img
-            src={image_link}
+            src={imageSrc}
             alt={model}
             className={styles.productImage}
-            onError={() => setImageError(true)}
+            // Fallback in case the image file itself is corrupted
+            onError={() => setImageError(true)} 
           />
         ) : (
           <div className={styles.imagePlaceholder}>

@@ -183,11 +183,12 @@ function ProductListing() {
             displayProducts.map((product) => (
               <ProductCard
                 key={product.id}
-                id={product.id} // ✅ use actual id from JSON
+                id={product.id}
                 model={product.model}
                 brand={product.brand}
                 star_review={product.star_review}
                 price={product.price}
+                image_link={product.image_link} // <-- ADD THIS LINE
               />
             ))
           ) : (

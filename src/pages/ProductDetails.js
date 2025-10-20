@@ -2,13 +2,23 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./styles/ProductDetails.module.css";
 import ProductCard from "../components/ProductCard";
+import ReviewCard from "../components/ReviewCard"; 
 import products from "../assets/products.json";
+import images from "../assets/imageLoader";
 
-// Member 3 : Josua
+// Sample review data (You would normally fetch this from an API)
+const sampleReviews = [
+  { id: 1, name: "Correllene I.", rating: 5, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", date: "October 1, 2025" },
+  { id: 2, name: "Josua R.", rating: 4, comment: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", date: "October 3, 2025" },
+  { id: 3, name: "Ira S.", rating: 5, comment: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", date: "October 2, 2025" },
+  { id: 4, name: "Aljake R.", rating: 4, comment: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", date: "October 4, 2025" }
+];
+
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
+  const [selectedSize, setSelectedSize] = React.useState("42mm");
 
   const product = products.find((p) => p.id === parseInt(id));
 
@@ -16,9 +26,12 @@ function ProductDetails({ addToCart }) {
     return <div className={styles.loading}>Product not found...</div>;
   }
 
-  const similar = products.filter(
+  const imagePath = images[product.image_link];
+
+  // Filter for suggestions and limit to 4
+  const suggestions = products.filter(
     (p) => p.brand === product.brand && p.model !== product.model
-  );
+  ).slice(0, 4); // Limit to 4 suggestions
 
   const handleAddToCart = () => {
     addToCart({
@@ -29,13 +42,24 @@ function ProductDetails({ addToCart }) {
       star_review: product.star_review,
       image: product.image_link,
       quantity: 1,
+      size: selectedSize,
     });
 
     setMessage("Product added to cart!");
     setTimeout(() => setMessage(""), 2000);
   };
 
-  const handleCheckout = () => {
+  const handleBuyNow = () => {
+    addToCart({
+      id: product.id,
+      model: product.model,
+      brand: product.brand,
+      price: product.price,
+      star_review: product.star_review,
+      image: product.image_link,
+      quantity: 1,
+      size: selectedSize,
+    });
     navigate("/cart");
   };
 
@@ -47,7 +71,7 @@ function ProductDetails({ addToCart }) {
         <div
           className={styles.mainImage}
           style={{
-            backgroundImage: `url(${product.image_link})`,
+            backgroundImage: `url(${imagePath})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -55,89 +79,81 @@ function ProductDetails({ addToCart }) {
 
         <div className={styles.info}>
           <h2>{product.model}</h2>
-          <p className={styles.brand}>{product.brand}</p>
+          <p className={styles.rating}>
+            <span className={styles.starIcon}>⭐️</span> {product.star_review}
+            /5
+          </p>
           <p className={styles.price}>₱{product.price.toLocaleString()}</p>
-          <p className={styles.rating}>⭐ {product.star_review}</p>
+          <p className={styles.descriptionText}>{product.description}</p>
 
-          <ul className={styles.features}>
-            <li>Water Resistant</li>
-            <li>Premium Stainless Steel</li>
-            <li>Quartz Movement</li>
-          </ul>
+          <div className={styles.sizeSelection}>
+            <p className={styles.sizeTitle}>Choose Size</p>
+            <div className={styles.sizeOptions}>
+              {["40mm", "41mm", "42mm"].map((size) => (
+                <button
+                  key={size}
+                  className={`${styles.sizeButton} ${
+                    selectedSize === size ? styles.selected : ""
+                  }`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className={styles.buttons}>
             <button className={styles.addToCart} onClick={handleAddToCart}>
               Add to Cart
             </button>
-
-            <button className={styles.checkoutBtn} onClick={handleCheckout}>
-              Proceed to Checkout →
+            <button className={styles.buyNowBtn} onClick={handleBuyNow}>
+              Buy Now
             </button>
           </div>
         </div>
       </div>
 
       <div className={styles.bottomSection}>
-        <h3>Description</h3>
-        <p className={styles.description}>{product.description}</p>
-
-        <h3>Customer Reviews</h3>
-        <div className={styles.reviewsSection}>
-          <div className={styles.reviewCard}>
-            <div className={styles.reviewHeader}>
-              <strong>John D.</strong>
-              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️⭐️</span>
-            </div>
-            <p className={styles.reviewComment}>
-              Absolutely love this watch! The quality and design exceeded my
-              expectations.
-            </p>
+        <div className={styles.reviewsContainer}>
+          <div className={styles.reviewsTitleWrapper}>
+            <h2 className={styles.reviewsTitle}>Rating & Reviews</h2>
           </div>
-
-          <div className={styles.reviewCard}>
-            <div className={styles.reviewHeader}>
-              <strong>Maria S.</strong>
-              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️</span>
-            </div>
-            <p className={styles.reviewComment}>
-              Looks great and feels premium. Delivery was quick and the
-              packaging was elegant.
-            </p>
+          <div className={styles.reviewsHeader}>
+            <p className={styles.allReviewsText}>All Reviews (32)</p>
+            <button className={styles.writeReviewBtn}>Write a Review</button>
           </div>
-
-          <div className={styles.reviewCard}>
-            <div className={styles.reviewHeader}>
-              <strong>Kevin L.</strong>
-              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️⭐️</span>
-            </div>
-            <p className={styles.reviewComment}>
-              Perfect for both formal and casual wear. Highly recommended for
-              its precision.
-            </p>
+          <div className={styles.reviewsGrid}>
+            {sampleReviews.map((review) => (
+              <ReviewCard
+                key={review.id}
+                name={review.name}
+                rating={review.rating}
+                comment={review.comment}
+                date={review.date}
+              />
+            ))}
           </div>
-
-          <div className={styles.reviewCard}>
-            <div className={styles.reviewHeader}>
-              <strong>Angela R.</strong>
-              <span className={styles.reviewStars}>⭐️⭐️⭐️⭐️</span>
-            </div>
-            <p className={styles.reviewComment}>
-              Very elegant and classy. Worth every peso!
-            </p>
-          </div>
+          <button className={styles.loadMoreBtn}>Load More Reviews</button>
         </div>
-        <h3>Similar Watches</h3>
-        <div className={styles.similarGrid}>
-          {similar.map((item) => (
-            <ProductCard
-              key={item.id}
-              id={item.id}
-              model={item.model}
-              brand={item.brand}
-              star_review={item.star_review}
-              price={item.price}
-            />
-          ))}
+
+        {/* You Might Also Like Section */}
+        <div className={styles.youMightAlsoLike}>
+          <h2 className={styles.youMightAlsoLikeTitle}>You might also like</h2>
+          <div className={styles.suggestionsGrid}>
+            {suggestions.map((item) => (
+              <div key={item.id} className={styles.suggestionCardWrapper}>
+                 <ProductCard
+                    id={item.id}
+                    model={item.model}
+                    brand={item.brand}
+                    star_review={item.star_review}
+                    price={item.price}
+                    image_link={item.image_link}
+                  />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
