@@ -24,8 +24,8 @@ function ProductCard({ id, model, brand, star_review, price, image_link }) {
         )}
 
         <div className={styles.info}>
-          <h3 className={styles.productName}>{model}</h3>
           <p className={styles.brand}>{brand}</p>
+          <h3 className={styles.productName}>{model}</h3>
           <p className={styles.rating}>⭐ {star_review}</p>
           <p className={styles.price}>₱{price.toLocaleString()}</p>
         </div>
