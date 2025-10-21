@@ -1,1 +1,67 @@
 /* Member 2: Aljake */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: black;
+}
+
+.navLinks {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.navLinks li {
+    font-size: 1.1em;
+    cursor: pointer;
+    color: #555;
+}
+
+.navLinks li:hover {
+    color: black;
+}
+
+.navIcons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.searchBar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+.cartIcon,
+.profileIcon {
+    font-size: 1.1em;
+    cursor: pointer;
+    color: #555;
+    /* In a real app, these would likely be SVG icons or font icons */
+}
+
+.cartIcon:hover,
+.profileIcon:hover {
+    color: black;
+}

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import HomePage from "./pages/HomePage.jsx";
-import ProductDetails from "./pages/ProductDetails.jsx";
-import CartCheckout from "./pages/CartCheckout.jsx";
-import ProductListing from "./pages/ProductListing.jsx";
+import HomePage from "./pages/HomePage.js";
+import ProductDetails from "./pages/ProductDetails.js";
+import CartCheckout from "./pages/CartCheckout.js";
+import ProductListing from "./pages/ProductListing.js";
 
 function App() {
   // useState ng laman ng cart
@@ -15,12 +15,11 @@ function App() {
   //RemoveCart
 
   return (
-
-
-    <Routes>
+   
+      <Routes>
         <Route path="/" element={<HomePage />} />
-        
-    </Routes>
+        {/* Added other placeholder routes for a full e-commerce flow */}
+      </Routes>
   );
 }
 

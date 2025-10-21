@@ -1,1 +1,451 @@
-/* Member 2: Aljake */
+/* =======================================
+   Member 2: Aljake - E-commerce Styles
+   ======================================= */
+
+/* === General Styles === */
+.container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-width: 1400px; /* Adjust based on your desired max width */
+  margin: 0 auto;
+}
+
+/* === Hero Section === */
+.heroSection {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 60px 40px;
+  gap: 40px;
+}
+
+.heroContent {
+  flex: 1;
+}
+
+.heroContent h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.heroContent p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.shopNowButton {
+  background-color: black;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.stats {
+  display: flex;
+  gap: 30px;
+}
+
+.stats div h3 {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.stats div p {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.heroImage {
+  flex: 1;
+  height: 400px; /* Placeholder for image */
+  background-color: #ccc; /* Placeholder background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  color: #666;
+  /* In a real app, you would use an <img> tag here */
+}
+
+/* === Brand Logos === */
+.brandLogos {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.brand {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #555;
+}
+
+/* === Product Grid (Featured) === */
+.productGrid {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.productGrid h2 {
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.productCard {
+  border: 1px solid #eee;
+  padding: 20px;
+  text-align: left;
+}
+
+.productCard h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.productCard p {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.productCard .oldPrice {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 5px;
+}
+
+.productCard .discount {
+  color: red;
+  font-weight: bold;
+}
+
+.viewAllButton {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+/* === Browse by Style === */
+.browseByStyle {
+  background-color: #f9f9f9;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.browseByStyle h2 {
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+
+.styleCategories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.styleCard {
+  height: 200px; /* Placeholder for image */
+  background-color: #ddd; /* Placeholder background */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  /* In a real app, use background-image for actual images */
+}
+
+/* === Customer Reviews === */
+.customerReviews {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.customerReviews h2 {
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.reviewCard {
+  border: 1px solid #eee;
+  padding: 30px;
+  text-align: left;
+}
+
+.reviewCard h4 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.reviewCard p {
+  font-size: 0.95em;
+  color: #666;
+}
+
+/* === New Arrivals Section === */
+.newArrivals {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.newArrivals h2 {
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+
+.newProducts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+  justify-items: center;
+}
+
+.newProductCard {
+  width: 250px;
+  padding: 20px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.newProductCard:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.newProductCard img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.newProductCard h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.newProductCard p {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.addToCart {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.addToCart:hover {
+  background-color: #444;
+}
+
+/* === Newsletter === */
+.newsletter {
+  background-color: black;
+  color: white;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.newsletter h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.newsletterForm input {
+  padding: 15px;
+  width: 300px;
+  border: none;
+  margin-right: 10px;
+}
+
+.newsletterForm button {
+  background-color: white;
+  color: black;
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* === Footer === */
+.footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 60px 40px;
+  background-color: #f0f0f0;
+}
+
+.footerColumn h3 {
+  margin-bottom: 20px;
+}
+
+.footerColumn ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerColumn ul li {
+  margin-bottom: 10px;
+}
+
+.footerColumn ul li a {
+  text-decoration: none;
+  color: #666;
+}
+
+.socialIcons {
+  margin-top: 20px;
+}
+
+/* Add styling for social icons if you integrate them */
+
+/* =======================================
+   === Responsive Layouts (Media Queries) ===
+   ======================================= */
+
+/* For tablets and below (<= 1024px) */
+@media (max-width: 1024px) {
+  .newProducts {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .newProductCard {
+    width: 100%;
+  }
+}
+
+/* For mobile phones (<= 600px) */
+@media (max-width: 600px) {
+  /* Hero Section Adjustments */
+  .heroSection {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 20px;
+  }
+
+  .heroImage {
+    height: 300px;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .stats div {
+    min-width: 45%; /* To allow two stats per line */
+  }
+
+  /* Brand Logos Adjustments */
+  .brandLogos {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+  
+  /* Product Grids Adjustments */
+  .productGrid,
+  .browseByStyle,
+  .customerReviews,
+  .newArrivals,
+  .newsletter {
+    padding: 40px 20px;
+  }
+
+  .productGrid h2,
+  .browseByStyle h2,
+  .customerReviews h2,
+  .newArrivals h2 {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+  }
+
+  .products {
+    grid-template-columns: 1fr; /* 1 card per row */
+  }
+
+  .newProducts {
+    grid-template-columns: 1fr; /* 1 card per row */
+    gap: 20px;
+  }
+
+  .newProductCard {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .newProductCard img {
+    height: 180px;
+  }
+
+  .addToCart {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 1em;
+  }
+
+  /* Newsletter Adjustments */
+  .newsletterForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .newsletterForm input,
+  .newsletterForm button {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  /* Footer Adjustments */
+  .footer {
+    grid-template-columns: 1fr; /* 1 column per row */
+    padding: 40px 20px;
+    gap: 30px;
+  }
+}
