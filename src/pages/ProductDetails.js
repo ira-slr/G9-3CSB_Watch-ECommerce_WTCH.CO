@@ -2,17 +2,33 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./styles/ProductDetails.module.css";
 import ProductCard from "../components/ProductCard";
-import ReviewCard from "../components/ReviewCard"; 
+import ReviewCard from "../components/ReviewCard";
 import products from "../assets/products.json";
 import images from "../assets/imageLoader";
 
-// Sample review data (You would normally fetch this from an API)
+// Sample review data updated to 6 reviews
 const sampleReviews = [
   { id: 1, name: "Correllene I.", rating: 5, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", date: "October 1, 2025" },
   { id: 2, name: "Josua R.", rating: 4, comment: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", date: "October 3, 2025" },
   { id: 3, name: "Ira S.", rating: 5, comment: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", date: "October 2, 2025" },
-  { id: 4, name: "Aljake R.", rating: 4, comment: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", date: "October 4, 2025" }
+  { id: 4, name: "Aljake R.", rating: 4, comment: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", date: "October 4, 2025" },
+  { id: 5, name: "Benedic S.", rating: 5, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", date: "October 5, 2025" },
+  { id: 6, name: "Gladwyn S.", rating: 4, comment: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", date: "October 6, 2025" }
 ];
+
+// Helper function to render star icons based on a rating score
+const renderStars = (rating) => {
+  const stars = [];
+  const fullStars = Math.floor(rating);
+  for (let i = 0; i < 5; i++) {
+    stars.push(
+      <span key={i} className={i < fullStars ? styles.starFilled : styles.starEmpty}>
+        ★
+      </span>
+    );
+  }
+  return stars;
+};
 
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
@@ -28,10 +44,9 @@ function ProductDetails({ addToCart }) {
 
   const imagePath = images[product.image_link];
 
-  // Filter for suggestions and limit to 4
   const suggestions = products.filter(
     (p) => p.brand === product.brand && p.model !== product.model
-  ).slice(0, 4); // Limit to 4 suggestions
+  ).slice(0, 4);
 
   const handleAddToCart = () => {
     addToCart({
@@ -44,7 +59,6 @@ function ProductDetails({ addToCart }) {
       quantity: 1,
       size: selectedSize,
     });
-
     setMessage("Product added to cart!");
     setTimeout(() => setMessage(""), 2000);
   };
@@ -79,10 +93,10 @@ function ProductDetails({ addToCart }) {
 
         <div className={styles.info}>
           <h2>{product.model}</h2>
-          <p className={styles.rating}>
-            <span className={styles.starIcon}>⭐️</span> {product.star_review}
-            /5
-          </p>
+          <div className={styles.rating}>
+            <div className={styles.starsWrapper}>{renderStars(product.star_review)}</div>
+            <span className={styles.ratingText}>{product.star_review}/5</span>
+          </div>
           <p className={styles.price}>₱{product.price.toLocaleString()}</p>
           <p className={styles.descriptionText}>{product.description}</p>
 
@@ -137,20 +151,19 @@ function ProductDetails({ addToCart }) {
           <button className={styles.loadMoreBtn}>Load More Reviews</button>
         </div>
 
-        {/* You Might Also Like Section */}
         <div className={styles.youMightAlsoLike}>
           <h2 className={styles.youMightAlsoLikeTitle}>You might also like</h2>
           <div className={styles.suggestionsGrid}>
             {suggestions.map((item) => (
               <div key={item.id} className={styles.suggestionCardWrapper}>
-                 <ProductCard
-                    id={item.id}
-                    model={item.model}
-                    brand={item.brand}
-                    star_review={item.star_review}
-                    price={item.price}
-                    image_link={item.image_link}
-                  />
+                <ProductCard
+                  id={item.id}
+                  model={item.model}
+                  brand={item.brand}
+                  star_review={item.star_review}
+                  price={item.price}
+                  image_link={item.image_link}
+                />
               </div>
             ))}
           </div>

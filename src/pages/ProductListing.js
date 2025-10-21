@@ -2,198 +2,189 @@ import React, { useState, useEffect } from "react";
 import styles from "./styles/ProductListing.module.css";
 import ProductCard from "../components/ProductCard";
 import productsData from "../assets/products.json";
-import { useNavigate } from "react-router-dom";
 
 function ProductListing() {
-  const [search, setSearch] = useState("");
-  const [filterBrand, setFilterBrand] = useState("All");
-  const [priceRange, setPriceRange] = useState("All");
-  const [sortOption, setSortOption] = useState("none");
-  const [displayProducts, setDisplayProducts] = useState(productsData);
-  const navigate = useNavigate();
+  const [products, setProducts] = useState(productsData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(9);
 
+  // State for active filters
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [priceRange, setPriceRange] = useState([500, 400000]); 
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  // Main filter effect
   useEffect(() => {
     let filtered = [...productsData];
 
-    if (filterBrand !== "All") {
-      filtered = filtered.filter((item) => item.brand === filterBrand);
+    if (selectedBrands.length > 0) {
+      filtered = filtered.filter(item => selectedBrands.includes(item.brand));
+    }
+    
+    filtered = filtered.filter(item => item.price >= priceRange[0] && item.price <= priceRange[1]);
+    
+    if (selectedSizes.length > 0) {
+      filtered = filtered.filter(item => selectedSizes.includes(item.case_size));
     }
 
-    if (priceRange !== "All") {
-      filtered = filtered.filter((item) => {
-        if (priceRange === "0-1000") return item.price <= 1000;
-        if (priceRange === "1001-10000")
-          return item.price >= 1001 && item.price <= 10000;
-        if (priceRange === "10001-50000")
-          return item.price >= 10001 && item.price <= 50000;
-        if (priceRange === "50001+") return item.price > 50000;
-        return true;
-      });
-    }
-
-    if (search.trim() !== "") {
-      filtered = filtered.filter((item) =>
-        item.model.toLowerCase().includes(search.toLowerCase())
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter(item => 
+        item.category.some(cat => selectedCategories.includes(cat))
       );
     }
 
-    if (sortOption === "priceLowHigh")
-      filtered.sort((a, b) => a.price - b.price);
-    else if (sortOption === "priceHighLow")
-      filtered.sort((a, b) => b.price - a.price);
-    else if (sortOption === "ratingHighLow")
-      filtered.sort((a, b) => b.star_review - a.star_review);
-    else if (sortOption === "ratingLowHigh")
-      filtered.sort((a, b) => a.star_review - b.star_review);
+    setProducts(filtered);
+    setCurrentPage(1);
+  }, [selectedBrands, priceRange, selectedSizes, selectedCategories]);
 
-    setDisplayProducts(filtered);
-  }, [search, filterBrand, priceRange, sortOption]);
-
-  const handleBrandClick = (brand) => {
-    if (filterBrand === brand) setFilterBrand("All");
-    else setFilterBrand(brand);
+  // Handlers for filters
+  const handleBrandChange = (brand) => {
+    setSelectedBrands(prev => 
+      prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
+    );
+  };
+  
+  const handleSizeChange = (size) => {
+    setSelectedSizes(prev => 
+      prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+    );
   };
 
-  const handlePriceClick = (range) => {
-    if (priceRange === range) setPriceRange("All");
-    else setPriceRange(range);
+  const handleCategoryChange = (category) => {
+    setSelectedCategories(prev =>
+      prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+    );
   };
+  
+  // Pagination calculations
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(products.length / productsPerPage);
 
-  const getPriceLabel = (range) => {
-    switch (range) {
-      case "0-1000":
-        return "₱0 - ₱1,000";
-      case "1001-10000":
-        return "₱1,001 - ₱10,000";
-      case "10001-50000":
-        return "₱10,001 - ₱50,000";
-      case "50001+":
-        return "₱50,001+";
-      default:
-        return "All Prices";
-    }
-  };
-
-  const getSortLabel = (option) => {
-    switch (option) {
-      case "priceLowHigh":
-        return "Price: Low to High";
-      case "priceHighLow":
-        return "Price: High to Low";
-      case "ratingHighLow":
-        return "Rating: High to Low";
-      case "ratingLowHigh":
-        return "Rating: Low to High";
-      default:
-        return "Default";
-    }
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className={styles.wrapper}>
       <aside className={styles.sidebar}>
-        <h3>Brands</h3>
-        <ul>
-          {["All", "Rolex", "Seiko", "Casio", "Omega", "Richard Mille"].map(
-            (brand) => (
-              <li
-                key={brand}
-                onClick={() => handleBrandClick(brand)}
-                className={filterBrand === brand ? styles.active : ""}
-              >
-                {brand}
-              </li>
-            )
-          )}
-        </ul>
+        <div className={styles.filterHeader}>
+          <h3>Filters</h3>
+          <span className={styles.filterIcon}>☰</span>
+        </div>
 
-        <h3>Price Range</h3>
-        <ul>
-          <li
-            onClick={() => handlePriceClick("All")}
-            className={priceRange === "All" ? styles.active : ""}
-          >
-            All Prices
-          </li>
-          <li
-            onClick={() => handlePriceClick("0-1000")}
-            className={priceRange === "0-1000" ? styles.active : ""}
-          >
-            ₱0 - ₱1,000
-          </li>
-          <li
-            onClick={() => handlePriceClick("1001-10000")}
-            className={priceRange === "1001-10000" ? styles.active : ""}
-          >
-            ₱1,001 - ₱10,000
-          </li>
-          <li
-            onClick={() => handlePriceClick("10001-50000")}
-            className={priceRange === "10001-50000" ? styles.active : ""}
-          >
-            ₱10,001 - ₱50,000
-          </li>
-          <li
-            onClick={() => handlePriceClick("50001+")}
-            className={priceRange === "50001+" ? styles.active : ""}
-          >
-            ₱50,001+
-          </li>
-        </ul>
+        <div className={styles.filterSection}>
+          <h4>Brand</h4>
+          {["Rolex", "Omega", "Seiko", "Richard Mille", "Casio"].map(brand => (
+            <div key={brand} className={styles.checkboxItem}>
+              <input type="checkbox" id={brand} onChange={() => handleBrandChange(brand)} checked={selectedBrands.includes(brand)} />
+              <label htmlFor={brand}>{brand}</label>
+            </div>
+          ))}
+        </div>
+        
+        <div className={styles.filterSection}>
+            <h4>Price</h4>
+            <div className={styles.priceSlidersContainer}>
+              {/* Min Price Slider */}
+              <div className={styles.priceInputGroup}>
+                <label htmlFor="minPrice">Min: ₱{priceRange[0].toLocaleString()}</label>
+                <input
+                  type="range"
+                  id="minPrice"
+                  min={500}
+                  max={400000}
+                  value={priceRange[0]}
+                  onChange={(event) => {
+                    const value = Math.min(Number(event.target.value), priceRange[1] - 1);
+                    setPriceRange([value, priceRange[1]]);
+                  }}
+                  className={styles.slider}
+                />
+              </div>
+
+              {/* Max Price Slider */}
+              <div className={styles.priceInputGroup}>
+                <label htmlFor="maxPrice">Max: ₱{priceRange[1].toLocaleString()}</label>
+                <input
+                  type="range"
+                  id="maxPrice"
+                  min={500}
+                  max={400000}
+                  value={priceRange[1]}
+                  onChange={(event) => {
+                    const value = Math.max(Number(event.target.value), priceRange[0] + 1);
+                    setPriceRange([priceRange[0], value]);
+                  }}
+                  className={styles.slider}
+                />
+              </div>
+            </div>
+        </div>
+
+        <div className={styles.filterSection}>
+            <h4>Size</h4>
+            <div className={styles.sizeOptions}>
+                {["40mm", "41mm", "42mm"].map(size => (
+                    <button 
+                      key={size} 
+                      onClick={() => handleSizeChange(size)}
+                      className={`${styles.sizeButton} ${selectedSizes.includes(size) ? styles.activeButton : ''}`}
+                    >
+                      {size}
+                    </button>
+                ))}
+            </div>
+        </div>
+
+        <div className={styles.filterSection}>
+            <h4>Categories</h4>
+            {["Men's", "Women's", "Formal", "Sportswear"].map(cat => (
+                <div key={cat} className={styles.checkboxItem}>
+                    <input type="checkbox" id={cat} onChange={() => handleCategoryChange(cat)} checked={selectedCategories.includes(cat)}/>
+                    <label htmlFor={cat}>{cat}</label>
+                </div>
+            ))}
+        </div>
       </aside>
 
       <main className={styles.main}>
         <div className={styles.header}>
-          <input
-            type="text"
-            placeholder="Search watches..."
-            className={styles.searchBox}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-          <select
-            className={styles.sortDropdown}
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-          >
-            <option value="none">Sort by</option>
-            <option value="priceLowHigh">Price: Low to High</option>
-            <option value="priceHighLow">Price: High to Low</option>
-            <option value="ratingHighLow">Rating: High to Low</option>
-            <option value="ratingLowHigh">Rating: Low to High</option>
-          </select>
-        </div>
-
-        <div className={styles.filterSummary}>
-          <p>
-            Showing:{" "}
-            <strong>
-              {filterBrand} | {getPriceLabel(priceRange)} |{" "}
-              {getSortLabel(sortOption)}
-            </strong>
-          </p>
-          <p className={styles.resultCount}>
-            {displayProducts.length} products found
-          </p>
+          <h2>Men's</h2>
+          <p>Showing {indexOfFirstProduct + 1}–{Math.min(indexOfLastProduct, products.length)} of {products.length} Products</p>
         </div>
 
         <div className={styles.grid}>
-          {displayProducts.length > 0 ? (
-            displayProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                model={product.model}
-                brand={product.brand}
-                star_review={product.star_review}
-                price={product.price}
-                image_link={product.image_link} // <-- ADD THIS LINE
-              />
-            ))
-          ) : (
-            <p>No products found.</p>
-          )}
+          {currentProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              model={product.model}
+              brand={product.brand}
+              star_review={product.star_review}
+              price={product.price}
+              image_link={product.image_link}
+            />
+          ))}
+        </div>
+
+        <div className={styles.pagination}>
+          <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+            &larr; Previous
+          </button>
+          {[...Array(totalPages).keys()].map(number => (
+            (number < 3 || number > totalPages - 4 || Math.abs(currentPage - (number + 1)) < 2) &&
+            <button 
+              key={number + 1} 
+              onClick={() => paginate(number + 1)} 
+              className={currentPage === number + 1 ? styles.activePage : ''}
+            >
+              {number + 1}
+            </button>
+          ))}
+          <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+            Next &rarr;
+          </button>
         </div>
       </main>
     </div>

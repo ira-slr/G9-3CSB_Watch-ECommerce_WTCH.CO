@@ -61,12 +61,27 @@
   margin-bottom: 5px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   font-weight: 500;
 }
 
-.rating .starIcon {
-  color: #f1b400;
+.starsWrapper {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.starFilled {
+  color: #ffc107;
+}
+
+.starEmpty {
+  color: #e0e0e0;
+}
+
+.ratingText {
+  color: #777;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .descriptionText {
@@ -97,7 +112,7 @@
   color: #111;
   padding: 10px 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 600;
@@ -165,7 +180,6 @@
   padding-top: 40px;
 }
 
-/* === Reviews Section Styles === */
 .reviewsContainer {
   padding: 40px 0;
 }
@@ -225,7 +239,7 @@
 
 .reviewsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin-bottom: 40px;
 }
@@ -249,9 +263,8 @@
   border-color: #111;
 }
 
-/* === You Might Also Like Section Styles === */
 .youMightAlsoLike {
-  margin-top: 60px; /* Space from reviews */
+  margin-top: 60px;
   padding-top: 40px;
   text-align: center;
 }
@@ -265,30 +278,17 @@
 
 .suggestionsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted for 4 cards */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  justify-items: center; /* Center cards in their columns */
-  max-width: 1200px; /* Limit overall width */
-  margin: 0 auto; /* Center the grid */
+  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .suggestionCardWrapper {
   position: relative;
   width: 100%;
-  max-width: 300px; /* Max width for individual cards */
-}
-
-.discountBadge {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: #e30000; /* Red for discount */
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  z-index: 10;
+  max-width: 300px;
 }
 
 .toast {
@@ -326,10 +326,9 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
   .suggestionsGrid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -370,15 +369,12 @@
     font-size: 1.8rem;
   }
   .suggestionsGrid {
-    grid-template-columns: 1fr; /* 1 column on small screens */
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
   .detailsPage {
     padding: 20px;
-  }
-  .reviewsGrid {
-    grid-template-columns: 1fr;
   }
 }
