@@ -1,451 +1,313 @@
-/* =======================================
-   Member 2: Aljake - E-commerce Styles
-   ======================================= */
-
-/* === General Styles === */
-.container {
-  font-family: Arial, sans-serif;
-  color: #333;
-  max-width: 1400px; /* Adjust based on your desired max width */
-  margin: 0 auto;
+/* ======== GLOBAL RESET ======== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* === Hero Section === */
-.heroSection {
+body {
+  font-family: "Poppins", sans-serif;
+  color: #111;
+  background-color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ======== HERO SECTION ======== */
+.hero {
   display: flex;
   align-items: center;
-  background-color: #f0f0f0;
-  padding: 60px 40px;
-  gap: 40px;
+  justify-content: space-between;
+  gap: 80px;
+  padding: 100px 8vw;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+  min-height: 90vh;
 }
 
-.heroContent {
+.heroText {
   flex: 1;
+  max-width: 600px;
 }
 
-.heroContent h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
+.heroText h1 {
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 25px;
+  line-height: 1.2;
+  color: #111;
 }
 
-.heroContent p {
-  font-size: 1.2em;
+.heroText p {
+  font-size: 1.1rem;
+  color: #555;
   margin-bottom: 30px;
+  max-width: 90%;
 }
 
-.shopNowButton {
-  background-color: black;
-  color: white;
-  padding: 15px 30px;
+.heroText button {
+  background: #000;
+  color: #fff;
+  padding: 14px 28px;
   border: none;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom: 40px;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.stats {
-  display: flex;
-  gap: 30px;
-}
-
-.stats div h3 {
-  font-size: 1.5em;
-  margin-bottom: 5px;
-}
-
-.stats div p {
-  font-size: 0.9em;
-  color: #666;
+.heroText button:hover {
+  background: #222;
+  transform: translateY(-2px);
 }
 
 .heroImage {
   flex: 1;
-  height: 400px; /* Placeholder for image */
-  background-color: #ccc; /* Placeholder background */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.heroImage img {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ======== BRANDS ======== */
+.brands {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5em;
-  color: #666;
-  /* In a real app, you would use an <img> tag here */
+  flex-wrap: wrap;
+  gap: 60px;
+  padding: 60px 5vw;
+  background-color: #fafafa;
 }
 
-/* === Brand Logos === */
-.brandLogos {
-  display: flex;
-  justify-content: space-around;
-  padding: 30px 0;
-  border-bottom: 1px solid #eee;
+.brands img {
+  height: 45px;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
 }
 
-.brand {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #555;
+.brands img:hover {
+  opacity: 1;
 }
 
-/* === Product Grid (Featured) === */
-.productGrid {
-  padding: 60px 40px;
+/* ======== PRODUCT SECTION ======== */
+.productSection {
   text-align: center;
+  padding: 100px 8vw;
+  background-color: #fff;
 }
 
-.productGrid h2 {
-  font-size: 2em;
-  margin-bottom: 40px;
+.productSection h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
 }
 
-.products {
+.productGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
 }
 
 .productCard {
-  border: 1px solid #eee;
-  padding: 20px;
-  text-align: left;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.productCard img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  margin-bottom: 18px;
 }
 
 .productCard h3 {
-  font-size: 1.1em;
-  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
-.productCard p {
-  font-size: 1.2em;
+.price {
+  color: #111;
   font-weight: bold;
-  display: inline-block;
-  margin-right: 10px;
+  margin-bottom: 6px;
 }
 
-.productCard .oldPrice {
-  text-decoration: line-through;
-  color: #999;
-  margin-right: 5px;
+.stars {
+  color: #f5a623;
+  font-size: 0.95rem;
 }
 
-.productCard .discount {
-  color: red;
-  font-weight: bold;
-}
-
-.viewAllButton {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-  padding: 10px 20px;
+.viewAll {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  margin-top: 40px;
   cursor: pointer;
-  font-size: 1em;
+  transition: background 0.3s ease;
 }
 
-/* === Browse by Style === */
-.browseByStyle {
-  background-color: #f9f9f9;
-  padding: 60px 40px;
+.viewAll:hover {
+  background-color: #222;
+}
+
+/* ======== CATEGORIES ======== */
+.categories {
+  padding: 100px 8vw;
   text-align: center;
 }
 
-.browseByStyle h2 {
-  font-size: 2em;
-  margin-bottom: 40px;
+.categories h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
 }
 
-.styleCategories {
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
 }
 
-.styleCard {
-  height: 200px; /* Placeholder for image */
-  background-color: #ddd; /* Placeholder background */
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 20px;
-  font-size: 1.5em;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  /* In a real app, use background-image for actual images */
+.card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-/* === Customer Reviews === */
-.customerReviews {
-  padding: 60px 40px;
-  text-align: center;
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
 }
 
-.customerReviews h2 {
-  font-size: 2em;
-  margin-bottom: 40px;
+.card h3 {
+  position: absolute;
+  bottom: 20px;
+  left: 25px;
+  color: #fff;
+  font-size: 1.3rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* ======== REVIEWS ======== */
 .reviews {
+  background-color: #fafafa;
+  text-align: center;
+  padding: 100px 8vw;
+}
+
+.reviews h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.reviewGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  gap: 35px;
 }
 
 .reviewCard {
-  border: 1px solid #eee;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
   padding: 30px;
-  text-align: left;
 }
 
 .reviewCard h4 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  color: #333;
+  font-weight: 600;
 }
 
-.reviewCard p {
-  font-size: 0.95em;
-  color: #666;
+.text {
+  color: #555;
+  font-style: italic;
+  font-size: 1rem;
+  margin: 12px 0;
 }
 
-/* === New Arrivals Section === */
-.newArrivals {
-  padding: 60px 40px;
-  text-align: center;
+/* ======== FOOTER ======== */
+.footer {
+  background-color: #111;
+  color: #ddd;
+  padding: 80px 8vw 30px;
 }
 
-.newArrivals h2 {
-  font-size: 2em;
-  margin-bottom: 40px;
-}
-
-.newProducts {
+.footerContent {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+  gap: 50px;
   margin-bottom: 40px;
-  justify-items: center;
 }
 
-.newProductCard {
-  width: 250px;
-  padding: 20px;
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  transition: all 0.3s ease;
+.footer h3, .footer h4 {
+  color: #fff;
+  margin-bottom: 12px;
 }
 
-.newProductCard:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
-}
-
-.newProductCard img {
-  width: 100%;
-  height: 220px;
-  object-fit: contain;
-  margin-bottom: 15px;
-}
-
-.newProductCard h3 {
-  font-size: 1.1em;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #222;
-}
-
-.newProductCard p {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.addToCart {
-  display: inline-block;
-  background-color: black;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.addToCart:hover {
-  background-color: #444;
-}
-
-/* === Newsletter === */
-.newsletter {
-  background-color: black;
-  color: white;
-  padding: 60px 40px;
-  text-align: center;
-}
-
-.newsletter h2 {
-  font-size: 2em;
-  margin-bottom: 30px;
-}
-
-.newsletterForm input {
-  padding: 15px;
-  width: 300px;
-  border: none;
-  margin-right: 10px;
-}
-
-.newsletterForm button {
-  background-color: white;
-  color: black;
-  padding: 15px 30px;
-  border: none;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-}
-
-/* === Footer === */
-.footer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
-  padding: 60px 40px;
-  background-color: #f0f0f0;
-}
-
-.footerColumn h3 {
-  margin-bottom: 20px;
-}
-
-.footerColumn ul {
+.footer ul {
   list-style: none;
   padding: 0;
 }
 
-.footerColumn ul li {
-  margin-bottom: 10px;
+.footer li {
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-.footerColumn ul li a {
-  text-decoration: none;
-  color: #666;
+.footer li:hover {
+  color: #fff;
 }
 
-.socialIcons {
+.copy {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
   margin-top: 20px;
 }
 
-/* Add styling for social icons if you integrate them */
-
-/* =======================================
-   === Responsive Layouts (Media Queries) ===
-   ======================================= */
-
-/* For tablets and below (<= 1024px) */
-@media (max-width: 1024px) {
-  .newProducts {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-
-  .newProductCard {
-    width: 100%;
-  }
-}
-
-/* For mobile phones (<= 600px) */
-@media (max-width: 600px) {
-  /* Hero Section Adjustments */
-  .heroSection {
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+  .hero {
     flex-direction: column;
-    padding: 40px 20px;
-    gap: 20px;
+    text-align: center;
+    padding: 80px 5vw;
   }
 
   .heroImage {
-    height: 300px;
-  }
-
-  .stats {
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .stats div {
-    min-width: 45%; /* To allow two stats per line */
-  }
-
-  /* Brand Logos Adjustments */
-  .brandLogos {
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding: 20px 0;
-  }
-  
-  /* Product Grids Adjustments */
-  .productGrid,
-  .browseByStyle,
-  .customerReviews,
-  .newArrivals,
-  .newsletter {
-    padding: 40px 20px;
   }
 
-  .productGrid h2,
-  .browseByStyle h2,
-  .customerReviews h2,
-  .newArrivals h2 {
-    font-size: 1.5em;
-    margin-bottom: 25px;
+  .heroImage img {
+    max-width: 400px;
   }
 
-  .products {
-    grid-template-columns: 1fr; /* 1 card per row */
-  }
-
-  .newProducts {
-    grid-template-columns: 1fr; /* 1 card per row */
-    gap: 20px;
-  }
-
-  .newProductCard {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .newProductCard img {
-    height: 180px;
-  }
-
-  .addToCart {
-    width: 100%;
-    text-align: center;
-    padding: 12px 0;
-    font-size: 1em;
-  }
-
-  /* Newsletter Adjustments */
-  .newsletterForm {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .newsletterForm input,
-  .newsletterForm button {
-    width: 100%;
-    margin-right: 0;
-  }
-
-  /* Footer Adjustments */
-  .footer {
-    grid-template-columns: 1fr; /* 1 column per row */
-    padding: 40px 20px;
-    gap: 30px;
+  .heroText {
+    max-width: 100%;
   }
 }

@@ -1,206 +1,189 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
-import styles from './styles/HomePage.module.css';
+import React from "react";
+import styles from "./styles/HomePage.module.css";
+import Navbar from "../components/Navbar";
+import ProductCard from "../components/ProductCard";
+import products from "../assets/products.json";
+import { Link } from "react-router-dom";
 
-const HomePage = () => {
-    return (
-        <div className={styles.container}>
-            <Navbar />
+const HomePage = ({ cartItemsLength }) => {
+  const rolexProducts = products.filter((p) => p.brand === "Rolex");
+  const richardMilleProducts = products.filter((p) => p.brand === "Richard Mille");
 
-            <header className={styles.heroSection}>
-                <div className={styles.heroContent}>
-                    <h1>MATCH YOUR STYLE WITH THE RIGHT WATCH</h1>
-                    <p>
-                        Discover our new collection of watches that perfectly complement
-                        your individuality and sophistication.
-                    </p>
-                    <button className={styles.shopNowButton}>SHOP NOW</button>
-                    <div className={styles.stats}>
-                        <div>
-                            <h3>850+</h3>
-                            <p>International Brands</p>
-                        </div>
-                        <div>
-                            <h3>12,500+</h3>
-                            <p>High Quality Products</p>
-                        </div>
-                        <div>
-                            <h3>85,000+</h3>
-                            <p>Happy Customers</p>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.heroImage}>
-                    <img src="/images/hero-models.png" alt="Models wearing watches" />
-                </div>
-            </header>
+  const reviews = [
+    { name: "John D.", review: "Absolutely love my new Rolex Submariner!", rating: 5 },
+    { name: "Sarah M.", review: "The Richard Mille watch I bought is stunning!", rating: 5 },
+    { name: "Carlos R.", review: "Great experience shopping here.", rating: 4 },
+    { name: "Jessica P.", review: "High-quality packaging and flawless watch.", rating: 5 },
+  ];
 
-            <section className={styles.brandLogos}>
-                <div className={styles.brand}>ROLEX</div>
-                <div className={styles.brand}>SEIKO</div>
-                <div className={styles.brand}>OMEGA</div>
-                <div className={styles.brand}>RICHARD MILLE</div>
-            </section>
+  const StarRating = ({ rating }) => {
+    const fullStars = Math.round(rating);
+    return <span className={styles.starIcon}>{"★".repeat(fullStars)}</span>;
+  };
 
-            <section className={styles.newArrivals}>
-                <h2>NEW ARRIVALS</h2>
-                <div className={styles.newProducts}>
-                    <div className={styles.newProductCard}>
-                        <img src="/images/new-watch1.png" alt="Classic Chronograph" />
-                        <h3>Classic Chronograph</h3>
-                        <p>$220</p>
-                        <button className={styles.addToCart}>Add to Cart</button>
-                    </div>
-                    <div className={styles.newProductCard}>
-                        <img src="/images/new-watch2.png" alt="Elegant Silver" />
-                        <h3>Elegant Silver</h3>
-                        <p>$190</p>
-                        <button className={styles.addToCart}>Add to Cart</button>
-                    </div>
-                    <div className={styles.newProductCard}>
-                        <img src="/images/new-watch3.png" alt="Modern Minimalist" />
-                        <h3>Modern Minimalist</h3>
-                        <p>$260</p>
-                        <button className={styles.addToCart}>Add to Cart</button>
-                    </div>
-                </div>
-            </section>
+  return (
+    <>
+      <Navbar cartItemsLength={cartItemsLength} />
 
-            <section className={styles.productGrid}>
-                <h2>TOP SELLING</h2>
-                <div className={styles.products}>
-                    <div className={styles.productCard}>
-                        <img src="/images/watch1.png" alt="Chronograph Steel Watch" />
-                        <h3>Chronograph Steel Watch</h3>
-                        <p>$120</p>
-                        <span className={styles.oldPrice}>$240</span>
-                        <span className={styles.discount}>-50%</span>
-                    </div>
-                    <div className={styles.productCard}>
-                        <img src="/images/watch2.png" alt="Minimalist Leather Strap" />
-                        <h3>Minimalist Leather Strap</h3>
-                        <p>$260</p>
-                        <span className={styles.oldPrice}>$440</span>
-                        <span className={styles.discount}>-40%</span>
-                    </div>
-                    <div className={styles.productCard}>
-                        <img src="/images/watch3.png" alt="Sport Digital Watch" />
-                        <h3>Sport Digital Watch</h3>
-                        <p>$180</p>
-                        <span className={styles.oldPrice}>$360</span>
-                        <span className={styles.discount}>-50%</span>
-                    </div>
-                    <div className={styles.productCard}>
-                        <img src="/images/watch4.png" alt="Vintage Square Face" />
-                        <h3>Vintage Square Face</h3>
-                        <p>$130</p>
-                        <span className={styles.oldPrice}>$160</span>
-                        <span className={styles.discount}>-20%</span>
-                    </div>
-                </div>
-                <button className={styles.viewAllButton}>View All</button>
-            </section>
-
-            <section className={styles.browseByStyle}>
-                <h2>BROWSE BY WATCHES STYLE</h2>
-                <div className={styles.styleCategories}>
-                    <div className={styles.styleCard}>
-                        <img src="/images/casual.png" alt="Casual" />
-                        <h3>Casual</h3>
-                    </div>
-                    <div className={styles.styleCard}>
-                        <img src="/images/formal.png" alt="Formal" />
-                        <h3>Formal</h3>
-                    </div>
-                    <div className={styles.styleCard}>
-                        <img src="/images/party.png" alt="Party" />
-                        <h3>Party</h3>
-                    </div>
-                    <div className={styles.styleCard}>
-                        <img src="/images/gym.png" alt="Gym" />
-                        <h3>Gym</h3>
-                    </div>
-                </div>
-            </section>
-
-            <section className={styles.customerReviews}>
-                <h2>OUR HAPPY CUSTOMERS</h2>
-                <div className={styles.reviews}>
-                    <div className={styles.reviewCard}>
-                        <div className={styles.stars}>★★★★★</div>
-                        <h4>Sarah M.</h4>
-                        <p>"I'm blown away by the craftsmanship and precision of the watches I received from Wtch.co. Everything is exactly what I'm looking for. Highly recommend!"</p>
-                    </div>
-                    <div className={styles.reviewCard}>
-                        <div className={styles.stars}>★★★★★</div>
-                        <h4>Alex K.</h4>
-                        <p>"Finding a timepiece that aligns with my style has always been a challenge until I discovered Wtch.co. Incredible range and design!"</p>
-                    </div>
-                    <div className={styles.reviewCard}>
-                        <div className={styles.stars}>★★★★★</div>
-                        <h4>James L.</h4>
-                        <p>"As someone who values horology, Wtch.co has become my go-to. Their attention to detail and mechanical quality sets them apart."</p>
-                    </div>
-                </div>
-            </section>
-
-            <section className={styles.newsletter}>
-                <h2>STAY UPTO DATE ABOUT OUR LATEST OFFERS</h2>
-                <div className={styles.newsletterForm}>
-                    <input type="email" placeholder="Enter your email address" />
-                    <button>Subscribe to Newsletter</button>
-                </div>
-            </section>
-
-            <footer className={styles.footer}>
-                <div className={styles.footerColumn}>
-                    <h3>WTCH.CO</h3>
-                    <p>We offer timepieces that suit your style and make you proud to wear them every day.</p>
-                    <div className={styles.socialIcons}>
-                        <img src="/icons/facebook.svg" alt="Facebook" />
-                        <img src="/icons/instagram.svg" alt="Instagram" />
-                        <img src="/icons/twitter.svg" alt="Twitter" />
-                    </div>
-                </div>
-                <div className={styles.footerColumn}>
-                    <h3>COMPANY</h3>
-                    <ul>
-                        <li>About</li>
-                        <li>Features</li>
-                        <li>Works</li>
-                        <li>Career</li>
-                    </ul>
-                </div>
-                <div className={styles.footerColumn}>
-                    <h3>HELP</h3>
-                    <ul>
-                        <li>Customer Support</li>
-                        <li>Delivery Details</li>
-                        <li>Terms & Conditions</li>
-                        <li>Privacy Policy</li>
-                    </ul>
-                </div>
-                <div className={styles.footerColumn}>
-                    <h3>FAQ</h3>
-                    <ul>
-                        <li>Account</li>
-                        <li>Manage Deliveries</li>
-                        <li>Orders</li>
-                        <li>Payments</li>
-                    </ul>
-                </div>
-                <div className={styles.footerColumn}>
-                    <h3>RESOURCES</h3>
-                    <ul>
-                        <li>Free eBooks</li>
-                        <li>Development Tutorial</li>
-                        <li>How-to Blog</li>
-                        <li>Youtube Playlist</li>
-                    </ul>
-                </div>
-            </footer>
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <h1>MATCH YOUR STYLE WITH THE RIGHT WATCH</h1>
+          <p>
+            Discover timeless craftsmanship and modern luxury. Find the perfect
+            watch that fits your personality and lifestyle.
+          </p>
+          <Link to="/products" className={styles.heroButtonLink}>
+            <button>Shop Now</button>
+          </Link>
         </div>
-    );
+      </section>
+
+      <section className={styles.brands}>
+        <img src="/logos/iwc.png" alt="IWC" />
+        <img src="/logos/rolex.png" alt="Rolex" />
+        <img src="/logos/seiko.png" alt="Seiko" />
+        <img src="/logos/omega.png" alt="Omega" />
+        <img src="/logos/richardmille.png" alt="Richard Mille" />
+      </section>
+
+      <section className={styles.productSection}>
+        <h2>ROLEX</h2>
+        <div className={styles.productGrid}>
+          {rolexProducts.slice(0, 4).map((item) => (
+            <ProductCard
+              key={item.id}
+              id={item.id}
+              model={item.model}
+              brand={item.brand}
+              star_review={item.star_review}
+              price={item.price}
+              image_link=""
+            />
+          ))}
+        </div>
+        <Link to="/products?brand=Rolex">
+          <button className={styles.viewAll}>View All</button>
+        </Link>
+      </section>
+
+      <section className={styles.productSection}>
+        <h2>RICHARD MILLE</h2>
+        <div className={styles.productGrid}>
+          {richardMilleProducts.slice(0, 4).map((item) => (
+            <ProductCard
+              key={item.id}
+              id={item.id}
+              model={item.model}
+              brand={item.brand}
+              star_review={item.star_review}
+              price={item.price}
+              image_link=""
+            />
+          ))}
+        </div>
+        <Link to="/products?brand=Richard%20Mille">
+          <button className={styles.viewAll}>View All</button>
+        </Link>
+      </section>
+
+      <section className={styles.categories}>
+        <h2>BROWSE BY CATEGORIES</h2>
+        <div className={styles.categoryGrid}>
+          <div className={styles.categoryCard}>
+            <div className={styles.blankImage}></div>
+            <h3>Men’s</h3>
+          </div>
+          <div className={styles.categoryCard}>
+            <div className={styles.blankImage}></div>
+            <h3>Women’s</h3>
+          </div>
+          <div className={styles.categoryCard}>
+            <div className={styles.blankImage}></div>
+            <h3>Formal</h3>
+          </div>
+          <div className={styles.categoryCard}>
+            <div className={styles.blankImage}></div>
+            <h3>Sportswear</h3>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.reviews}>
+        <h2>OUR HAPPY CUSTOMERS</h2>
+        <div className={styles.reviewGrid}>
+          {reviews.map((r, index) => (
+            <div key={index} className={styles.reviewCard}>
+              <div className={styles.reviewHeader}>
+                <div className={styles.blankImage}></div>
+                <div className={styles.reviewerInfo}>
+                  <h4>{r.name}</h4>
+                  <div className={styles.stars}>
+                    <StarRating rating={r.rating} />
+                  </div>
+                </div>
+              </div>
+              <p className={styles.reviewText}>"{r.review}"</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div className={styles.footerGrid}>
+          <div className={styles.footerInfo}>
+            <h3>WTCH</h3>
+            <p>We have an array of watch that suits your style and which you're proud to wear.</p>
+            <div className={styles.socialIcons}>
+              <a href="#"><i className="fa-brands fa-twitter"></i></a>
+              <a href="#"><i className="fa-brands fa-facebook-f"></i></a>
+              <a href="#"><i className="fa-brands fa-instagram"></i></a>
+              <a href="#"><i className="fa-brands fa-github"></i></a>
+            </div>
+          </div>
+
+          <div className={styles.footerLinkGroup}>
+            <h4>LINK</h4>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/products">Categories</Link></li>
+              <li><Link to="/products">Brands</Link></li>
+            </ul>
+          </div>
+
+          <div className={styles.footerLinkGroup}>
+            <h4>ACCOUNT</h4>
+            <ul>
+              <li><Link to="/profile">Profile</Link></li>
+              <li><Link to="/cart">Cart</Link></li>
+              <li><Link to="/checkout">Checkout</Link></li>
+            </ul>
+          </div>
+
+          <div className={styles.footerLinkGroup}>
+            <h4>HELP</h4>
+            <ul>
+              <li><Link to="/delivery">Delivery Details</Link></li>
+              <li><Link to="/terms">Terms & Conditions</Link></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        <hr className={styles.footerSeparator} />
+
+        <div className={styles.footerBottom}>
+          <p className={styles.copy}>wtch.co © 2025-2026, All Rights Reserved</p>
+          <div className={styles.paymentIcons}>
+            <img src="/icons/visa.png" alt="Visa" />
+            <img src="/icons/mastercard.png" alt="Mastercard" />
+            <img src="/icons/paypal.png" alt="PayPal" />
+            <img src="/icons/applepay.png" alt="Apple Pay" />
+            <img src="/icons/googlepay.png" alt="Google Pay" />
+          </div>
+        </div>
+      </footer>
+    </>
+  );
 };
 
 export default HomePage;
