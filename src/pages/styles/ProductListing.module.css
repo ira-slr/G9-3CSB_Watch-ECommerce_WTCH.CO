@@ -7,7 +7,6 @@
   margin: 0 auto;
 }
 
-/* Sidebar Styles */
 .sidebar {
   background-color: #fdfdfd;
   padding: 24px;
@@ -42,7 +41,6 @@
   margin-bottom: 0;
 }
 
-
 .filterSection h4 {
   font-size: 1rem;
   font-weight: 600;
@@ -64,83 +62,59 @@
   cursor: pointer;
 }
 
+.priceSlidersContainer {
+  padding: 8px 0;
+}
+
+.priceLabelsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.priceLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  width: 48%;
+}
+
+.priceLabel label {
+  font-size: 0.8rem;
+  color: #6e6e73;
+  text-align: center;
+}
+
+.priceLabel span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
 .sizeOptions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .sizeButton {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #fff;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .sizeButton.activeButton {
-    background-color: #111;
-    color: #fff;
-    border-color: #111;
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
 }
 
-/* === Updated Price Slider Styles === */
-.priceSlidersContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 8px;
-}
-
-.priceInputGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.priceInputGroup label {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 8px;
-}
-
-.slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
-  background: #e0e0e0;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-}
-
-/* Slider Thumb (Handle) for WebKit browsers (Chrome, Safari) */
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  background: #111;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-/* Slider Thumb (Handle) for Firefox */
-.slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: #111;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-
-/* Main Content Styles */
 .main {
   width: 100%;
 }
@@ -167,7 +141,6 @@
   gap: 24px;
 }
 
-/* Pagination Styles */
 .pagination {
   display: flex;
   justify-content: center;
@@ -203,7 +176,6 @@
   border-color: #111;
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);

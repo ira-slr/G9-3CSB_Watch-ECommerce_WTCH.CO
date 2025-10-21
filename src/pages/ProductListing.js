@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react"; // 1. Import useCallback
 import styles from "./styles/ProductListing.module.css";
 import ProductCard from "../components/ProductCard";
 import productsData from "../assets/products.json";
+import PriceRangeSlider from "../components/PriceRangeSlider";
 
 function ProductListing() {
   const [products, setProducts] = useState(productsData);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(9);
 
-  // State for active filters
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [priceRange, setPriceRange] = useState([500, 400000]); 
+  const [priceRange, setPriceRange] = useState([500, 400000]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  // Main filter effect
   useEffect(() => {
     let filtered = [...productsData];
 
@@ -38,7 +37,6 @@ function ProductListing() {
     setCurrentPage(1);
   }, [selectedBrands, priceRange, selectedSizes, selectedCategories]);
 
-  // Handlers for filters
   const handleBrandChange = (brand) => {
     setSelectedBrands(prev => 
       prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
@@ -57,7 +55,12 @@ function ProductListing() {
     );
   };
   
-  // Pagination calculations
+  // 2. Wrap the price change handler in useCallback
+  // This ensures the function reference is stable across renders.
+  const handlePriceChange = useCallback(([min, max]) => {
+    setPriceRange([min, max]);
+  }, []); // The empty dependency array [] means this function will never change.
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -86,38 +89,21 @@ function ProductListing() {
         <div className={styles.filterSection}>
             <h4>Price</h4>
             <div className={styles.priceSlidersContainer}>
-              {/* Min Price Slider */}
-              <div className={styles.priceInputGroup}>
-                <label htmlFor="minPrice">Min: ₱{priceRange[0].toLocaleString()}</label>
-                <input
-                  type="range"
-                  id="minPrice"
-                  min={500}
-                  max={400000}
-                  value={priceRange[0]}
-                  onChange={(event) => {
-                    const value = Math.min(Number(event.target.value), priceRange[1] - 1);
-                    setPriceRange([value, priceRange[1]]);
-                  }}
-                  className={styles.slider}
-                />
+              {/* 3. Pass the stable function to the slider */}
+              <PriceRangeSlider
+                min={500}
+                max={400000}
+                onChange={handlePriceChange}
+              />
+            </div>
+            <div className={styles.priceLabelsContainer}>
+              <div className={styles.priceLabel}>
+                <label>Min</label>
+                <span>₱{priceRange[0].toLocaleString()}</span>
               </div>
-
-              {/* Max Price Slider */}
-              <div className={styles.priceInputGroup}>
-                <label htmlFor="maxPrice">Max: ₱{priceRange[1].toLocaleString()}</label>
-                <input
-                  type="range"
-                  id="maxPrice"
-                  min={500}
-                  max={400000}
-                  value={priceRange[1]}
-                  onChange={(event) => {
-                    const value = Math.max(Number(event.target.value), priceRange[0] + 1);
-                    setPriceRange([priceRange[0], value]);
-                  }}
-                  className={styles.slider}
-                />
+              <div className={styles.priceLabel}>
+                <label>Max</label>
+                <span>₱{priceRange[1].toLocaleString()}</span>
               </div>
             </div>
         </div>
