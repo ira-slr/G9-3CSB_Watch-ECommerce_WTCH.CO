@@ -1,1 +1,187 @@
-/* Member 2: Aljake */
+/* styles/Navbar.module.css */
+
+.navbar {
+    width: 100%;
+}
+
+/* --- Top Banner --- */
+.topBanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000; /* Pure Black */
+    color: white;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+.topBanner p {
+    margin: 0;
+}
+
+.topBanner a {
+    color: white;
+    text-decoration: underline;
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    opacity: 0.8;
+}
+.closeButton:hover {
+    opacity: 1;
+}
+
+/* --- Main Navigation Bar --- */
+.mainNav {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: white;
+    border-bottom: 1px solid #E0E0E0;
+    font-family: Arial, sans-serif;
+}
+
+.logo {
+    margin-right: 30px;
+}
+
+.logoText {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: -1px;
+}
+
+/* --- Dropdowns and Links --- */
+.navLinks {
+    display: flex;
+    gap: 30px;
+    font-size: 1rem;
+    color: #000000; /* Black for links */
+    margin-right: 30px;
+    font-weight: 600; /* Slightly less bold than before but still strong */
+}
+
+.dropdown {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 0;
+    user-select: none;
+    position: relative; /* Essential for positioning the dropdown menu */
+}
+
+.arrowIcon {
+    /* Use the imported dropdown image instead of the text arrow */
+    width: 10px; 
+    height: 10px;
+    opacity: 0.8; 
+}
+
+.dropdown:hover .arrowIcon {
+    opacity: 1;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%; /* Position right below the link */
+    left: 0;
+    background-color: white;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    min-width: 150px;
+    padding: 5px 0;
+    margin-top: 10px; /* Space between link and menu */
+}
+
+.dropdownItem {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333333;
+    font-weight: normal;
+    font-size: 0.95rem;
+}
+
+.dropdownItem:hover {
+    background-color: #F5F5F5;
+}
+
+/* --- Search Bar: Max flexibility --- */
+.searchContainer {
+    flex-grow: 1; /* Takes up most available space */
+    /* Removed max-width to allow it to fully flex and decrease gracefully */
+}
+
+.searchInputWrapper {
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 25px;
+    padding: 10px 15px;
+}
+
+.searchIcon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+    margin-right: 10px;
+}
+
+.searchInput {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    padding: 0;
+    outline: none;
+    color: #333333;
+}
+
+.searchInput::placeholder {
+    color: #AAAAAA;
+}
+
+/* --- User Actions (Cart/Profile) --- */
+.userActions {
+    display: flex;
+    gap: 20px;
+    margin-left: 10px;
+}
+
+.iconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionIcon {
+    width: 24px;
+    height: 24px;
+    /* Increased opacity to make icons very dark/black */
+    opacity: 0.95; 
+    transition: opacity 0.2s;
+}
+
+.iconButton:hover .actionIcon {
+    opacity: 1; /* Pure black on hover */
+}
