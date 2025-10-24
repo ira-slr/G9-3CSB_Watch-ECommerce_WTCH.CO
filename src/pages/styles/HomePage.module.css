@@ -1,1 +1,308 @@
-/* Member 2: Aljake */
+/* Container Class */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 5%;
+  width: 100%;
+}
+
+/* 1. Hero Section - Updated */
+.heroSection {
+  width: 100%;
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+  padding: 2rem 5%;
+  color: #fff;
+  background-size: cover;
+  /* This is the key change: */
+  background-position: right center; /* Aligns image to the right */
+}
+
+.heroContent {
+  max-width: 500px;
+}
+
+.heroContent h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+}
+
+.heroButton {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.heroButton:hover {
+  background-color: #333;
+}
+
+/* 2. Brand Banner - TEXT */
+.brandBanner {
+  width: 100%;
+  background-color: #000;
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.brandBanner p {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* 3. & 4. Product Highlight Sections */
+.productHighlight {
+  padding: 4rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Updated logo style */
+/* ... all other styles ... */
+
+/* This style works perfectly for <img> tags */
+.sectionLogo {
+  height: 50px;
+  max-width: 300px;
+  margin-bottom: 2rem;
+  object-fit: contain;
+  filter: invert(1); /* <-- ADD THIS LINE */
+}
+
+/* ... all other styles ... */
+/* If logos are black, you might need to fill them with a color */
+.sectionLogo path {
+  /* fill: #000; */ /* Uncomment this if your logos are invisible */
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 0 0 2.5rem 0;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.viewAllButton {
+  padding: 0.7rem 2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #333;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2.5rem; 
+}
+
+.viewAllButton:hover {
+  background-color: #f9f9f9;
+  border-color: #ccc;
+}
+
+
+/* 5. "Show More" Button */
+.showMoreContainer {
+  text-align: center;
+  padding: 0 0 4rem; 
+}
+
+.showMoreButton {
+  padding: 0.8rem 2.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.showMoreButton:hover {
+  background-color: #000;
+}
+
+
+/* 6. Category Section */
+.categorySection {
+  padding: 4rem 0;
+  width: 100%;
+}
+
+.categoryWrapper {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.categoryCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.categoryCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease-out;
+}
+
+.categoryCard:hover img {
+  transform: scale(1.05);
+}
+
+.categoryOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+  padding: 1.5rem 1.5rem 3rem;
+  text-align: left;
+}
+
+.categoryOverlay h3 {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* 7. Customer Reviews */
+.reviewSection {
+  padding: 4rem 0;
+  width: 100%;
+}
+
+.reviewCarousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 0.5rem 2rem 0.5rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.reviewCarousel::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* --- RESPONSIVENESS --- */
+
+@media (max-width: 1200px) {
+  .productGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .heroContent h1 {
+    font-size: 2.8rem;
+  }
+  .productGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .categoryGrid {
+    grid-template-columns: 1fr;
+  }
+  .brandBanner {
+    justify-content: center;
+    gap: 1.5rem 2.5rem;
+  }
+  .brandBanner p {
+    font-size: 1.2rem;
+  }
+  .sectionLogo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    /* Now it aligns right, so we just adjust min-height */
+    min-height: 80vh; 
+  }
+  .heroContent {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 100%;
+  }
+  .heroContent h1 {
+    font-size: 2.2rem;
+  }
+  .heroContent p {
+    font-size: 1rem;
+  }
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+  .brandBanner {
+    gap: 1rem 1.5rem;
+  }
+  .brandBanner p {
+    font-size: 1rem;
+  }
+  .sectionLogo {
+    height: 35px;
+  }
+  .categoryWrapper {
+    padding: 1.5rem;
+  }
+}
