@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import style from "./styles/HomePage.module.css";
 
 // Components
@@ -9,25 +9,26 @@ import ReviewCard from "../components/ReviewCard";
 import products from "../assets/products.json";
 
 // Images
-// import hero from "../assets/designs/hero-page-bg.png"; // Old hero
-import heroNew from "../assets/designs/hero-page-bg-removebg-preview.png"; // New hero
+import heroNew from "../assets/designs/hero-page-bg-removebg-preview.png";
 import mens from "../assets/designs/person-01.jpg";
 import womens from "../assets/designs/person-02.jpg";
 import formal from "../assets/designs/person-04.png";
 import sportwear from "../assets/designs/person-03.png";
 
-// Brand logos (Imported as standard image paths)
+// Brand logos
 import rolexLogo from "../assets/designs/logos/rolex-logo.png";
 import iwcLogo from "../assets/designs/logos/iwc-logo.png";
 import omegaLogo from "../assets/designs/logos/omega-logo.png";
 import seikoLogo from "../assets/designs/logos/seiko-logo.png";
 import richardLogo from "../assets/designs/logos/richard-mille-logo.png";
 
-// Mock data
-const mockReviews = [
-  { id: 1, name: "Alex T.", rating: 5, text: "Absolutely stunning timepiece. The service was impeccable from start to finish. Highly recommend!" },
-  { id: 2, name: "Maria G.", rating: 5, text: "I'm in love with my new watch! It arrived faster than expected and was beautifully packaged." },
-  { id: 3, name: "David K.", rating: 4, text: "Great selection and competitive prices. The website was easy to navigate. Will shop here again." }
+const sampleReviews = [
+  { id: 1, name: "Correllene I.", rating: 5, comment: "Absolutely in love with my new watch! The quality is outstanding and it looks even better in person. 10/10!", date: "October 1, 2025" },
+  { id: 2, name: "Josua R.", rating: 4, comment: "Great customer service and fast shipping. The watch is beautiful, though a bit heavier than I expected. Still a fantastic piece.", date: "October 3, 2025" },
+  { id: 3, name: "Ira S.", rating: 5, comment: "This was a gift for my husband and he was thrilled. The craftsmanship is impeccable. Will definitely be shopping here again.", date: "October 2, 2025" },
+  { id: 4, name: "Aljake R.", rating: 5, comment: "From the unboxing experience to wearing it daily, everything about this watch is premium. Worth every penny.", date: "October 4, 2025" },
+  { id: 5, name: "Benedic S.", rating: 5, comment: "I've been a watch collector for years, and this piece is a stunning addition. The detail on the dial is incredible.", date: "October 5, 2025" },
+  { id: 6, name: "Gladwyn S.", rating: 4, comment: "A truly reliable and stylish timepiece. It's become my go-to for both formal events and casual outings.", date: "October 6, 2025" }
 ];
 
 // Pre-filter all product sets
@@ -39,19 +40,28 @@ const omegaProducts = products.filter(p => p.brand === "Omega").slice(0, 4);
 
 function HomePage() {
   const [showAllBrands, setShowAllBrands] = useState(false);
+  const carouselRef = useRef(null);
+
+  // --- UPDATED SCROLL FUNCTION ---
+  const scroll = (direction) => {
+    if (carouselRef.current) {
+      // Get the full visible width of the carousel
+      const scrollAmount = carouselRef.current.clientWidth * (direction === 'left' ? -1 : 1);
+      
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   return (
     <main>
       
-      {/* 1. Hero Section - Updated */}
+      {/* 1. Hero Section */}
       <section className={style.heroSection}>
-        {/* First Child: Text Content */}
         <div className={style.heroContent}>
           <h1>MATCH YOUR STYLE WITH THE RIGHT WATCH</h1>
           <p>Shop from our latest collection of premium watches from top brands around the world.</p>
           <button className={style.heroButton}>Go Shopping</button>
         </div>
-        {/* Second Child: Image Content */}
         <div className={style.heroImageContainer}>
           <img src={heroNew} alt="Models wearing watches" className={style.heroImage} />
         </div>
@@ -199,14 +209,27 @@ function HomePage() {
       {/* 8. Customer Reviews */}
       <section className={style.reviewSection}>
         <div className={style.container}>
-          <h2 className={style.sectionTitle}>OUR HAPPY CUSTOMERS</h2>
-          <div className={style.reviewCarousel}>
-            {mockReviews.map(review => (
+          
+          <div className={style.reviewHeader}>
+            <h2 className={style.sectionTitle}>OUR HAPPY CUSTOMERS</h2>
+            <div className={style.reviewNav}>
+              <button onClick={() => scroll('left')} title="Scroll left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button onClick={() => scroll('right')} title="Scroll right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          
+          <div className={style.reviewCarousel} ref={carouselRef}>
+            {sampleReviews.map(review => (
               <ReviewCard
                 key={review.id}
                 name={review.name}
                 rating={review.rating}
-                text={review.text}
+                comment={review.comment}
+                date={review.date}
               />
             ))}
           </div>

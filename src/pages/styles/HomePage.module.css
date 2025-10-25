@@ -25,7 +25,6 @@
   gap: 2rem; /* Space between text and image */
   color: #000; 
   background-color: #fff;
-  /* margin-bottom: 3rem; */ /* <-- REMOVED this */
 }
 
 .heroContent {
@@ -77,8 +76,8 @@
 .heroImage {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* This is correct to fill the container */
-  object-position: right; /* <-- THIS IS THE FIX: Aligns image to the right */
+  object-fit: cover;
+  object-position: right;
 }
 
 
@@ -252,9 +251,65 @@
   padding: 1rem 0.5rem 2rem 0.5rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 .reviewCarousel::-webkit-scrollbar {
   display: none;
+}
+
+/* --- THIS IS THE NEW RULE --- */
+/* It targets the ReviewCard components inside the carousel */
+.reviewCarousel > * {
+  flex-shrink: 0; /* Prevents cards from shrinking */
+  width: 32%; /* Shows 3 cards */
+  min-width: 300px; /* On mobile, ensures cards are at least 300px wide */
+}
+
+
+/* --- NEW REVIEW HEADER STYLES --- */
+.reviewHeader {
+  display: flex;
+  justify-content: center; /* Centers the title */
+  align-items: center;
+  position: relative; /* For positioning the arrows */
+}
+
+/* Overrides default margin-bottom on title for this section only */
+.reviewHeader .sectionTitle {
+  margin-bottom: 2.5rem;
+}
+
+.reviewNav {
+  position: absolute;
+  right: 0; /* Aligns arrows to the far right */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.reviewNav button {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.reviewNav button:hover {
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+.reviewNav button svg {
+  width: 20px;
+  height: 20px;
 }
 
 
@@ -267,19 +322,22 @@
 }
 
 @media (max-width: 992px) {
-  /* Updated hero responsiveness */
   .heroSection {
-    flex-direction: column; /* Stack text on top of image */
+    flex-direction: column; 
     justify-content: center;
     text-align: center;
-    padding-top: 6rem; /* Adjust padding for mobile */
-    align-items: center; /* Re-center for stacked view */
+    padding-top: 6rem;
+    align-items: center;
+    height: auto; /* Let height be auto on mobile */
   }
   .heroContent {
-      margin-bottom: 2rem; /* Add space between stacked items */
+      margin-bottom: 2rem; 
   }
   .heroContent h1 {
     font-size: 2.8rem;
+  }
+  .heroImageContainer {
+    height: auto; /* Let height be auto on mobile */
   }
 
   .productGrid {
@@ -301,9 +359,6 @@
 }
 
 @media (max-width: 768px) {
-  .heroSection {
-    /* No min-height needed */
-  }
   .heroContent {
     max-width: 100%;
   }
@@ -315,6 +370,20 @@
   }
   .sectionTitle {
     font-size: 2rem;
+  }
+  
+  /* Stack review nav buttons on mobile */
+  .reviewHeader {
+    flex-direction: column;
+  }
+  .reviewNav {
+    position: static;
+    transform: none;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem; /* Add space between buttons and cards */
+  }
+  .reviewHeader .sectionTitle {
+    margin-bottom: 0; /* Remove bottom margin */
   }
 }
 
@@ -333,5 +402,11 @@
   }
   .categoryWrapper {
     padding: 1.5rem;
+  }
+  
+  /* --- New rule for mobile review cards --- */
+  .reviewCarousel > * {
+    width: 85%; /* On small screens, make cards take up most of the width */
+    min-width: unset; /* Unset the min-width */
   }
 }
