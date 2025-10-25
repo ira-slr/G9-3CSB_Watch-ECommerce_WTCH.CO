@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* This fixes the width issue */
+}
+
 /* Container Class */
 .container {
   max-width: 1440px;
@@ -9,32 +15,37 @@
 /* 1. Hero Section - Updated */
 .heroSection {
   width: 100%;
-  min-height: 100vh; 
+  height: 770px;
+  padding-left: 100px;
+  padding-right: 100px;
   display: flex;
-  align-items: center;
-  padding: 2rem 5%;
-  color: #fff;
-  background-size: cover;
-  /* This is the key change: */
-  background-position: right center; /* Aligns image to the right */
+  align-items: flex-end;
+  justify-content: center; /* Center-aligns text and image */
+  flex-wrap: wrap;
+  gap: 2rem; /* Space between text and image */
+  color: #000; 
+  background-color: #fff;
+  /* margin-bottom: 3rem; */ /* <-- REMOVED this */
 }
 
 .heroContent {
-  max-width: 500px;
+  flex: 1; 
+  min-width: 350px; 
+  max-width: 550px;
+  margin-bottom: 10.18rem;
 }
 
 .heroContent h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 900;
   line-height: 1.2;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   margin-bottom: 1rem;
 }
 
 .heroContent p {
   font-size: 1.2rem;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 2rem;
+  color: #555; 
 }
 
 .heroButton {
@@ -44,7 +55,7 @@
   color: #fff;
   background-color: #000;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -52,6 +63,25 @@
 .heroButton:hover {
   background-color: #333;
 }
+
+/* New styles for the hero image */
+.heroImageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* align-items: flex-end; */
+  min-width: 350px;
+  height: 100%;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This is correct to fill the container */
+  object-position: right; /* <-- THIS IS THE FIX: Aligns image to the right */
+}
+
+
 
 /* 2. Brand Banner - TEXT */
 .brandBanner {
@@ -90,22 +120,12 @@
   text-transform: uppercase;
 }
 
-/* Updated logo style */
-/* ... all other styles ... */
-
-/* This style works perfectly for <img> tags */
 .sectionLogo {
   height: 50px;
   max-width: 300px;
   margin-bottom: 2rem;
   object-fit: contain;
-  filter: invert(1); /* <-- ADD THIS LINE */
-}
-
-/* ... all other styles ... */
-/* If logos are black, you might need to fill them with a color */
-.sectionLogo path {
-  /* fill: #000; */ /* Uncomment this if your logos are invisible */
+  filter: invert(1); /* Keeps logos black */
 }
 
 .divider {
@@ -247,9 +267,21 @@
 }
 
 @media (max-width: 992px) {
+  /* Updated hero responsiveness */
+  .heroSection {
+    flex-direction: column; /* Stack text on top of image */
+    justify-content: center;
+    text-align: center;
+    padding-top: 6rem; /* Adjust padding for mobile */
+    align-items: center; /* Re-center for stacked view */
+  }
+  .heroContent {
+      margin-bottom: 2rem; /* Add space between stacked items */
+  }
   .heroContent h1 {
     font-size: 2.8rem;
   }
+
   .productGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -270,12 +302,9 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    /* Now it aligns right, so we just adjust min-height */
-    min-height: 80vh; 
+    /* No min-height needed */
   }
   .heroContent {
-    margin: 0 auto;
-    text-align: center;
     max-width: 100%;
   }
   .heroContent h1 {

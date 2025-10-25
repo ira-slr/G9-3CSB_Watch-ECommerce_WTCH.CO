@@ -9,20 +9,19 @@ import ReviewCard from "../components/ReviewCard";
 import products from "../assets/products.json";
 
 // Images
-import hero from "../assets/designs/hero-page-bg.png";
+// import hero from "../assets/designs/hero-page-bg.png"; // Old hero
+import heroNew from "../assets/designs/hero-page-bg-removebg-preview.png"; // New hero
 import mens from "../assets/designs/person-01.jpg";
 import womens from "../assets/designs/person-02.jpg";
 import formal from "../assets/designs/person-04.png";
 import sportwear from "../assets/designs/person-03.png";
 
 // Brand logos (Imported as standard image paths)
-// import rolexLogo from "../assets/designs/logos/rolex-logo.png";
-import rolexLogo from "../assets/designs/logos/rolex-logo.png"; // <-- Use this image for the test
+import rolexLogo from "../assets/designs/logos/rolex-logo.png";
 import iwcLogo from "../assets/designs/logos/iwc-logo.png";
 import omegaLogo from "../assets/designs/logos/omega-logo.png";
 import seikoLogo from "../assets/designs/logos/seiko-logo.png";
 import richardLogo from "../assets/designs/logos/richard-mille-logo.png";
-// import patekLogo from "../assets/designs/logos/patek-philippe-logo.png"; // Removed
 
 // Mock data
 const mockReviews = [
@@ -37,7 +36,6 @@ const rmProducts = products.filter(p => p.brand === "Richard Mille").slice(0, 4)
 const iwcProducts = products.filter(p => p.brand === "IWC").slice(0, 4);
 const seikoProducts = products.filter(p => p.brand === "Seiko").slice(0, 4);
 const omegaProducts = products.filter(p => p.brand === "Omega").slice(0, 4);
-// const patekProducts = products.filter(p => p.brand === "Patek Philippe").slice(0, 4); // Removed
 
 function HomePage() {
   const [showAllBrands, setShowAllBrands] = useState(false);
@@ -45,12 +43,17 @@ function HomePage() {
   return (
     <main>
       
-      {/* 1. Hero Section */}
-      <section className={style.heroSection} style={{ backgroundImage: `url(${hero})` }}>
+      {/* 1. Hero Section - Updated */}
+      <section className={style.heroSection}>
+        {/* First Child: Text Content */}
         <div className={style.heroContent}>
           <h1>MATCH YOUR STYLE WITH THE RIGHT WATCH</h1>
           <p>Shop from our latest collection of premium watches from top brands around the world.</p>
           <button className={style.heroButton}>Go Shopping</button>
+        </div>
+        {/* Second Child: Image Content */}
+        <div className={style.heroImageContainer}>
+          <img src={heroNew} alt="Models wearing watches" className={style.heroImage} />
         </div>
       </section>
 
@@ -61,10 +64,9 @@ function HomePage() {
         <p>Seiko</p>
         <p>Omega</p>
         <p>Richard Mille</p>
-        {/* <p>Patek Philippe</p> */} {/* Removed */}
       </section>
 
-      {/* 3. Rolex Products - Using <img> tag */}
+      {/* 3. Rolex Products */}
       <section className={style.productHighlight}>
         <div className={style.container}>
           <img src={rolexLogo} alt="Rolex" className={style.sectionLogo} />
@@ -81,7 +83,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 4. Richard Mille Products - Using <img> tag */}
+      {/* 4. Richard Mille Products */}
       <section className={style.productHighlight}>
         <div className={style.container}>
           <img src={richardLogo} alt="Richard Mille" className={style.sectionLogo} />
@@ -107,7 +109,7 @@ function HomePage() {
         </div>
       )}
 
-      {/* 6. Hidden Sections - Using <img> tag */}
+      {/* 6. Hidden Sections */}
       {showAllBrands && (
         <>
           {/* IWC Products */}
@@ -151,9 +153,6 @@ function HomePage() {
               <button className={style.viewAllButton}>View All</button>
             </div>
           </section>
-
-          {/* Patek Philippe Section Removed */}
-
         </>
       )}
 
