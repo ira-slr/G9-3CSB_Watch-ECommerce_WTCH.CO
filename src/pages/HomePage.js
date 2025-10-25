@@ -15,12 +15,19 @@ import womens from "../assets/designs/person-02.jpg";
 import formal from "../assets/designs/person-04.png";
 import sportwear from "../assets/designs/person-03.png";
 
-// Brand logos
+// Brand logos (for banner)
 import rolexLogo from "../assets/designs/logos/rolex-logo.png";
-import iwcLogo from "../assets/designs/logos/iwc-logo.png";
 import omegaLogo from "../assets/designs/logos/omega-logo.png";
 import seikoLogo from "../assets/designs/logos/seiko-logo.png";
 import richardLogo from "../assets/designs/logos/richard-mille-logo.png";
+import casioLogo from "../assets/designs/logos/casio-logo.png";
+
+// Brand labels (for product sections)
+import casioLabel from "../assets/designs/label/casio-label.png";
+import omegaLabel from "../assets/designs/label/omega-label.png";
+import richardLabel from "../assets/designs/label/richard-mille-label.png";
+import rolexLabel from "../assets/designs/label/rolex-label.png";
+import seikoLabel from "../assets/designs/label/seiko-label.png";
 
 const sampleReviews = [
   { id: 1, name: "Correllene I.", rating: 5, comment: "Absolutely in love with my new watch! The quality is outstanding and it looks even better in person. 10/10!", date: "October 1, 2025" },
@@ -34,7 +41,7 @@ const sampleReviews = [
 // Pre-filter all product sets
 const rolexProducts = products.filter(p => p.brand === "Rolex").slice(0, 4);
 const rmProducts = products.filter(p => p.brand === "Richard Mille").slice(0, 4);
-const iwcProducts = products.filter(p => p.brand === "IWC").slice(0, 4);
+const casioProducts = products.filter(p => p.brand === "Casio").slice(0, 4);
 const seikoProducts = products.filter(p => p.brand === "Seiko").slice(0, 4);
 const omegaProducts = products.filter(p => p.brand === "Omega").slice(0, 4);
 
@@ -42,12 +49,9 @@ function HomePage() {
   const [showAllBrands, setShowAllBrands] = useState(false);
   const carouselRef = useRef(null);
 
-  // --- UPDATED SCROLL FUNCTION ---
   const scroll = (direction) => {
     if (carouselRef.current) {
-      // Get the full visible width of the carousel
       const scrollAmount = carouselRef.current.clientWidth * (direction === 'left' ? -1 : 1);
-      
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -67,19 +71,19 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 2. Brand Banner */}
+      {/* 2. Brand Banner - Added specific classNames */}
       <section className={style.brandBanner}>
-        <p>IWC</p>
-        <p>Rolex</p>
-        <p>Seiko</p>
-        <p>Omega</p>
-        <p>Richard Mille</p>
+        <img src={casioLogo} alt="Casio" className={`${style.bannerLogo} ${style.casioBannerLogo}`} />
+        <img src={rolexLogo} alt="Rolex" className={`${style.bannerLogo} ${style.rolexBannerLogo}`} />
+        <img src={seikoLogo} alt="Seiko" className={`${style.bannerLogo} ${style.seikoBannerLogo}`} />
+        <img src={omegaLogo} alt="Omega" className={`${style.bannerLogo} ${style.omegaBannerLogo}`} />
+        <img src={richardLogo} alt="Richard Mille" className={`${style.bannerLogo} ${style.richardBannerLogo}`} />
       </section>
 
-      {/* 3. Rolex Products */}
+      {/* 3. Rolex Products - Added specific classNames */}
       <section className={style.productHighlight}>
         <div className={style.container}>
-          <img src={rolexLogo} alt="Rolex" className={style.sectionLogo} />
+          <img src={rolexLabel} alt="Rolex" className={`${style.sectionLabel} ${style.rolexSectionLabel}`} />
           <hr className={style.divider} />
           <div className={style.productGrid}>
             {rolexProducts.map(product => (
@@ -93,10 +97,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 4. Richard Mille Products */}
+      {/* 4. Richard Mille Products - Added specific classNames */}
       <section className={style.productHighlight}>
         <div className={style.container}>
-          <img src={richardLogo} alt="Richard Mille" className={style.sectionLogo} />
+          <img src={richardLabel} alt="Richard Mille" className={`${style.sectionLabel} ${style.richardSectionLabel}`} />
           <hr className={style.divider} />
           <div className={style.productGrid}>
             {rmProducts.map(product => (
@@ -119,16 +123,16 @@ function HomePage() {
         </div>
       )}
 
-      {/* 6. Hidden Sections */}
+      {/* 6. Hidden Sections - Added specific classNames */}
       {showAllBrands && (
         <>
-          {/* IWC Products */}
+          {/* Casio Products */}
           <section className={style.productHighlight}>
             <div className={style.container}>
-              <img src={iwcLogo} alt="IWC" className={style.sectionLogo} />
+              <img src={casioLabel} alt="Casio" className={`${style.sectionLabel} ${style.casioSectionLabel}`} />
               <hr className={style.divider} />
               <div className={style.productGrid}>
-                {iwcProducts.map(product => (
+                {casioProducts.map(product => (
                   <ProductCard key={product.id} {...product} />
                 ))}
               </div>
@@ -139,7 +143,7 @@ function HomePage() {
           {/* Seiko Products */}
           <section className={style.productHighlight}>
             <div className={style.container}>
-              <img src={seikoLogo} alt="Seiko" className={style.sectionLogo} />
+              <img src={seikoLabel} alt="Seiko" className={`${style.sectionLabel} ${style.seikoSectionLabel}`} />
               <hr className={style.divider} />
               <div className={style.productGrid}>
                 {seikoProducts.map(product => (
@@ -153,7 +157,7 @@ function HomePage() {
           {/* Omega Products */}
           <section className={style.productHighlight}>
             <div className={style.container}>
-              <img src={omegaLogo} alt="Omega" className={style.sectionLogo} />
+              <img src={omegaLabel} alt="Omega" className={`${style.sectionLabel} ${style.omegaSectionLabel}`} />
               <hr className={style.divider} />
               <div className={style.productGrid}>
                 {omegaProducts.map(product => (
