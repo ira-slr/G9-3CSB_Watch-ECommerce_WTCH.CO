@@ -5,6 +5,7 @@ import cartIcon from "../assets/designs/icons/cart.png";
 import profileIcon from "../assets/designs/icons/profile.png"; 
 import searchIcon from "../assets/designs/icons/search.png"; 
 import dropdownIcon from "../assets/designs/icons/dropdown.png"; // Renamed to avoid conflict
+import { Link } from "react-router-dom";
 
 // Define the content for the dropdowns
 const CATEGORIES = ["Men's", "Women's", "Formal", "Sportswear"];
@@ -109,7 +110,10 @@ function Navbar({ onSearchChange }) {
         {/* Cart and Profile Icons: Darkened in CSS */}
         <div className={style.userActions}>
           <button className={style.iconButton}>
-            <img src={cartIcon} alt="Shopping Cart" className={style.actionIcon} />
+            <Link to="/cart">
+              <img src={cartIcon} alt="Shopping Cart" className={style.actionIcon} />
+            </Link>
+            
           </button>
           <button className={style.iconButton}>
             <img src={profileIcon} alt="User Profile" className={style.actionIcon} />

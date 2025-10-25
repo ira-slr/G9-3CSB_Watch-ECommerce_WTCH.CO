@@ -1,5 +1,4 @@
 // src/assets/imageLoader.js
-
 const images = {
   "rolex-01.png": require("./designs/watches/rolex/rolex-01.png"),
   "rolex-02.png": require("./designs/watches/rolex/rolex-02.png"),
@@ -11,5 +10,6 @@ const images = {
   "rm-04.png": require("./designs/watches/richard-mille/rm-04.png"),
 
 };
+
 
 export default images;

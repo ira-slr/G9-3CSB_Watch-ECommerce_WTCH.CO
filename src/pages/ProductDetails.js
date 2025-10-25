@@ -6,6 +6,7 @@ import ReviewCard from "../components/ReviewCard";
 import products from "../assets/products.json";
 import images from "../assets/imageLoader";
 
+
 // Sample review data updated to 6 reviews
 const sampleReviews = [
   { id: 1, name: "Correllene I.", rating: 5, comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", date: "October 1, 2025" },
@@ -71,7 +72,6 @@ function ProductDetails({ addToCart }) {
       price: product.price,
       star_review: product.star_review,
       image: product.image_link,
-      quantity: 1,
       size: selectedSize,
     });
     navigate("/cart");

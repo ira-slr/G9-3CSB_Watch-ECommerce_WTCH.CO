@@ -1,344 +1,301 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* General Page Styling */
 .cartPage {
-  font-family: "Poppins", sans-serif;
-  max-width: 1200px;
-  padding: 1rem 2rem;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  padding: 1.5rem clamp(1rem, 5%, 100px); /* Responsive padding */
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: sans-serif; /* Basic font */
 }
 
-.breadcrumbBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
+.yourCart {
+  font-size: 2.5rem;
+  font-weight: 900; /* Bolder */
+  margin-bottom: 2.5rem;
+  text-align: left; /* Aligned left */
 }
 
-.breadcrumb {
-  list-style: none;
-  display: flex;
-  gap: 0.5rem;
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-  color: #555;
-}
-
-.breadcrumb__item::after {
-  content: ">";
-  margin-left: 0.3rem;
-  color: #000000;
-}
-
-.breadcrumb__item:last-child::after {
-  content: "";
-}
-
-.breadcrumb__item a {
-  text-decoration: none;
-  color: #000000;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
+/* --- Layout --- */
 .cartLayout {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
+  flex-direction: column; /* Mobile first: stack vertically */
+  gap: 2.5rem; /* Increased gap */
+  width: 100%;
 }
 
 .cartSection {
-  flex: 2;
-  background: #fff;
+  width: 100%;
+  order: 1;
+  background-color: #f8f9fa; /* Light grey background */
+  border-radius: 16px; /* Rounded corners */
   padding: 1.5rem;
-  border-radius: 20px;
-  border: 1px solid #eee;
 }
 
+.checkoutSection {
+  width: 100%;
+  background-color: #f8f9fa; /* Light grey background */
+  padding: 1.5rem;
+  border-radius: 16px; /* Rounded corners */
+  order: 2;
+}
+
+/* --- Cart List Styling --- */
 .cartList {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .cartItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center items */
+  padding: 1.5rem 0; /* Vertical padding */
+  border-bottom: 1px solid #dee2e6; /* Line separator */
+}
+.cartItem:last-child {
+  border-bottom: none; /* No line after the last item */
 }
 
-.cartLeft {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
 
 .productImage {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  width: 100px; /* Slightly larger image */
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px; /* Rounded image corners */
+  margin-right: 1.5rem; /* Space between image and details */
 }
 
-.itemDetails p {
-  margin: 3px 0;
-  font-size: 14px;
-  color: #333;
-}
-
-.cartRight {
+.itemDetails {
+  flex-grow: 1; /* Allow details to take remaining space */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  flex-direction: column; /* Stack details vertically */
+  gap: 0.25rem; /* Small gap between details */
 }
 
-.cartButtons {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cartButtons button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
+.itemTitle {
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
-.cartButtons button:hover {
-  background-color: #0056b3;
+.itemSize,
+.itemPrice {
+  font-size: 1rem;
+  color: #495057; /* Darker grey text */
+}
+
+.itemPrice {
+  font-weight: bold; /* Make price bold */
+  margin-top: 0.5rem; /* Add some space above price */
 }
 
 .deleteBtn {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 0.5rem;
+  margin-left: 1rem; /* Space before delete button */
+  color: #dc3545; /* Red color for delete icon */
 }
 
-.deleteIcon {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  transition: transform 0.2s ease;
+.deleteBtn:hover svg {
+  stroke: #a0202d; /* Darker red on hover */
 }
 
-.deleteBtn:hover .deleteIcon {
-  transform: scale(1.2);
-}
-
-.checkoutSection {
-  flex: 1;
-  padding: 1.5rem;
-  height: fit-content;
-  border-radius: 20px;
-  border: 1px solid #eee;
-}
-
-.orderSummary {
-  font-weight: bold;
+.emptyCart {
+  text-align: center;
+  padding: 3rem 1rem;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  color: #6c757d; /* Medium grey */
 }
+
+/* --- Checkout Section Styling --- */
+.orderSummary {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 0; /* Remove default top margin */
+  margin-bottom: 1.5rem;
+}
+
+.summaryDetails p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* Increased spacing */
+  font-size: 1rem;
+  color: #495057;
+}
+
+.summaryDetails p span:first-child {
+  color: #6c757d; /* Lighter grey for labels */
+}
+
+.discountAmount {
+  color: #dc3545; /* Red for discount */
+  font-weight: bold;
+}
+
+.summaryDivider {
+  border: none;
+  border-top: 1px solid #dee2e6; /* Match item separator */
+  margin: 1.5rem 0; /* Increased margin */
+}
+
+.totalAmount {
+  font-size: 1.1rem !important; /* Make total slightly larger */
+  color: #212529 !important; /* Black for total */
+}
+.totalAmount strong {
+  font-weight: 900; /* Extra bold total */
+}
+
 .promoSection {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 1rem 0;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .promoInput {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ced4da;
+  background-color: #e9ecef; /* Light grey input background */
+  border-radius: 25px; /* Rounded input */
+  margin-right: 15px; /* Overlap border with button */
+  font-size: 1rem;
+  color: #495057;
+
+}
+.promoInput:focus {
   outline: none;
-  transition: border-color 0.3s ease, color 0.3s ease;
+  border-color: #adb5bd;
+  background-color: #fff; /* White background on focus */
 }
-
-.promoInput.success {
-  border-color: green;
-  color: green;
+.promoInput::placeholder {
+  color: #adb5bd; /* Lighter placeholder */
 }
-
-.promoInput.error {
-  border-color: red;
-  color: red;
-}
+/* Style for messages inside input */
+.promoInput.success { color: green; }
+.promoInput.error { color: red; }
 
 .applyBtn {
-  background-color: #000;
+  padding: 0.75rem 1.5rem; /* More padding */
+  background-color: #000000; /* Dark button */
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
+  border-radius: 25px; /* Rounded button */
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  z-index: 2; /* Ensure button is above input border */
 }
-
-.applyBtn:hover {
-  background-color: #444;
-}
+.applyBtn:hover { background-color: #212529; }
+.applyBtn:disabled { background-color: #adb5bd; cursor: not-allowed; }
 
 .orderBtn {
-  display: block;
-  margin-top: 1rem;
-  padding: 0.7rem;
-  border: none;
-  border-radius: 30px;
-  background-color: #000;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-}
-
-.orderBtn:hover {
-  transform: scale(1.02);
-}
-
-@media (max-width: 900px) {
-  .cartLayout {
-    flex-direction: column;
-  }
-}
-
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
+  padding: 1rem;
+  background-color: #000000; /* Black button */
+  color: white;
+  border: none;
+  border-radius: 50px; /* More rounded */
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex; /* For aligning icon */
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  gap: 0.5rem; /* Space between text and icon */
+}
+.orderBtn:hover { background-color: #212529; }
+.orderBtn svg {
+  margin-top: 2px; /* Align arrow better */
 }
 
+/* --- Breadcrumb Styling --- */
+.breadcrumbBar {
+  margin-bottom: 1.5rem; /* Reduced space */
+  border-bottom: none; /* Removed bottom border */
+  padding-bottom: 0;
+}
+.breadcrumb {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #6c757d; /* Medium grey */
+}
+.breadcrumb__item a {
+  color: #6c757d; /* Match non-link color */
+  text-decoration: none;
+}
+.breadcrumb__item a:hover {
+  text-decoration: underline;
+}
+.breadcrumb__item::after {
+  content: '>'; /* Changed separator */
+  margin-left: 0.5rem;
+  color: #ced4da; /* Lighter grey separator */
+}
+.breadcrumb__item:last-child {
+  color: #212529; /* Darker color for current page */
+  font-weight: bold;
+}
+.breadcrumb__item:last-child::after {
+  content: '';
+}
+
+/* --- Modal Styling (Adjust as needed) --- */
+.modalOverlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); display: flex;
+  align-items: center; justify-content: center; z-index: 1000;
+}
 .modalContent {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 15px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.3s ease-in-out;
+  background-color: white; padding: 2rem; border-radius: 8px;
+  width: 90%; max-width: 500px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+.modalContent h2 { margin-top: 0; margin-bottom: 1.5rem; text-align: center; }
+.modalContent form label { display: block; margin-bottom: 1rem; font-weight: bold; }
+.modalContent form input, .modalContent form select {
+  width: 100%; padding: 0.75rem; margin-top: 0.25rem; border: 1px solid #ccc;
+  border-radius: 4px; font-size: 1rem;
+}
+.modalButtons { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+.modalButtons button {
+  padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;
+  font-size: 1rem; font-weight: bold;
+}
+.cancelBtn { background-color: #eee; color: #333; }
+.confirmBtn { background-color: #000; color: white; }
 
-.modalContent h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
 
-.modalContent label {
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
+/* --- RESPONSIVENESS --- */
+@media (min-width: 992px) { /* Adjust breakpoint if needed */
+  .cartLayout {
+    flex-direction: row; /* Side-by-side */
+    align-items: flex-start;
+    gap: 3rem; /* Larger gap */
+  }
 
-.modalContent input,
-.modalContent select {
-  margin-top: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-}
+  .cartSection {
+    flex: 6; /* Cart items take more space (approx 60%) */
+    order: 1;
+    padding: 2rem; /* More padding */
+  }
 
-.modalButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
-}
-
-.confirmBtn {
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.cancelBtn {
-  background-color: #ccc;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.confirmBtn:hover {
-  background-color: #222;
-}
-
-.cancelBtn:hover {
-  background-color: #bbb;
-}
-.orderBtn {
-  margin-top: 1rem;
-  padding: 1rem;
-  width: 100%;
-  border: none;
-  border-radius: 30px;
-  background-color: #000;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-}
-.emptyCart {
-  text-align: center;
-  font-size: 1rem;
-  color: #555;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-}
-.cartPage {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.cartSection {
-  flex: 2;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 500px;
-}
-
-.checkoutSection {
-  flex: 1;
-  overflow: visible;
-}
-
-.cartPage {
-  height: 100vh;
-}
-
-.cartSection {
-  flex: 2;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.cartSection::-webkit-scrollbar {
-  display: none;
+  .checkoutSection {
+    flex: 4; /* Checkout takes less space (approx 40%) */
+    order: 2;
+    position: sticky; /* Make checkout sticky */
+    top: 2rem;
+    padding: 2rem; /* More padding */
+  }
 }

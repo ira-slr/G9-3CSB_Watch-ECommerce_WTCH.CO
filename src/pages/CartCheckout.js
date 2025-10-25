@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styles from "./styles/CartCheckout.module.css";
+import images from "../assets/imageLoader"; // Make sure this path is correct relative to CartCheckout.js
 
 function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
+
   const [form, setForm] = useState({
     name: "",
     address: "",
@@ -16,22 +18,13 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
   const [promoStatus, setPromoStatus] = useState("");
   const [showForm, setShowForm] = useState(false);
 
-  const deliveryFee = cartItems.length > 0 ? 100 : 0;
+  // Delivery Fee set to 10000
+  const deliveryFee = cartItems.length > 0 ? 10000 : 0;
 
   const getSubtotal = () =>
     cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const getDiscount = () => getSubtotal() * discountRate;
   const getTotal = () => getSubtotal() - getDiscount() + deliveryFee;
-
-  const updateQuantity = (id, amount) => {
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
-          : item
-      )
-    );
-  };
 
   const removeItem = (id) => {
     if (window.confirm("Are you sure you want to remove this item?")) {
@@ -55,7 +48,7 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
       return;
     }
     if (code === "WTCH.CO") {
-      setDiscountRate(0.1);
+      setDiscountRate(0.1); // 10% discount
       setPromoApplied(true);
       showMessage("You got a 10% discount!", "success");
     } else {
@@ -69,11 +62,19 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      `Checkout successful! Thank you, ${form.name}! Your order is being processed.`
+    );
+    console.log("Order Details:", cartItems);
+    console.log("Form Data:", form);
+    console.log("Total Paid:", getTotal().toLocaleString('en-PH', { style: 'currency', currency: 'PHP' }));
+
     alert(
       `✅ Checkout successful!\n\nThank you, ${form.name}! Your order is being processed.`
     );
     setShowForm(false);
     clearCart();
+    // Reset form and promo states
     setForm({ name: "", address: "", contact: "", payment: "" });
     setPromoCode("");
     setPromoApplied(false);
@@ -81,6 +82,8 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
     setPromoMessage("");
     setPromoStatus("");
   };
+
+  // const placeholderImage = "https://placehold.co/100x100/eee/ccc?text=Watch"; // REMOVED
 
   return (
     <section className={styles.cartPage}>
@@ -96,71 +99,61 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
       <h2 className={styles.yourCart}>Your Cart</h2>
 
       <div className={styles.cartLayout}>
+        {/* Cart Items Section */}
         <section className={styles.cartSection}>
           {cartItems.length > 0 ? (
             <ul className={styles.cartList}>
-              {cartItems.map((item) => (
-                <li key={item.id} className={styles.cartItem}>
-                  <div className={styles.cartLeft}>
+              {cartItems.map((item) => {
+                // Get the image source from the loader
+                const imageSrc = images[item.image_link];
+                // const showPlaceholder = !imageSrc; // REMOVED
+
+                return ( // Return the list item JSX
+                  <li key={item.id} className={styles.cartItem}>
                     <img
-                      src={
-                        item.image ||
-                        "https://via.placeholder.com/100x100.png?text=Watch"
-                      }
+                      // Directly use imageSrc from the loader
+                      src={imageSrc} // UPDATED: Removed placeholder logic
                       alt={item.model || item.name}
                       className={styles.productImage}
+                      // onError handler REMOVED
                     />
                     <div className={styles.itemDetails}>
-                      <strong>{item.model || item.name}</strong>
-                      <p>₱{item.price.toLocaleString()}</p>
-                      <p>{item.brand}</p>
+                      <strong className={styles.itemTitle}>{item.brand} | {item.model || item.name}</strong>
+                      <span className={styles.itemSize}>Size: {item.case_size || 'N/A'}</span>
+                      <span className={styles.itemPrice}>₱{item.price.toLocaleString()}</span>
                     </div>
-                  </div>
-
-                  <div className={styles.cartRight}>
                     <button
                       className={styles.deleteBtn}
                       onClick={() => removeItem(item.id)}
+                      title="Remove item"
                     >
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/128/1214/1214428.png"
-                        alt="Delete"
-                        className={styles.deleteIcon}
-                      />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                     </button>
-                    <div className={styles.cartButtons}>
-                      <button onClick={() => updateQuantity(item.id, -1)}>
-                        -
-                      </button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, 1)}>
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                ); // End return
+              })} {/* End map */}
             </ul>
           ) : (
             <p className={styles.emptyCart}>🛍️ Your cart is empty.</p>
           )}
         </section>
 
+        {/* Checkout Summary Section */}
         {cartItems.length > 0 && (
           <section className={styles.checkoutSection}>
-            <h2 className={styles.orderSummary}>Order Summary</h2>
+            <h3 className={styles.orderSummary}>Order Summary</h3>
 
-            <div>
-              <p>Subtotal ₱{getSubtotal().toFixed(2)}</p>
+            <div className={styles.summaryDetails}>
+              <p><span>Subtotal</span> <span>₱{getSubtotal().toLocaleString()}</span></p>
               <p>
-                Discount ({(discountRate * 100).toFixed(0)}%): -₱
-                {getDiscount().toFixed(2)}
+                <span>Discount ({(discountRate * 100).toFixed(0)}%)</span>
+                <span className={styles.discountAmount}>-₱{getDiscount().toLocaleString()}</span>
               </p>
-              <p>Delivery Fee ₱{deliveryFee.toFixed(2)}</p>
-              <hr />
-              <p>
-                <strong>Total ₱{getTotal().toFixed(2)}</strong>
-              </p>
+              <p><span>Delivery Fee</span> <span>₱{deliveryFee.toLocaleString()}</span></p>
+
+              <hr className={styles.summaryDivider} />
+
+              <p className={styles.totalAmount}><strong>Total</strong> <strong>₱{getTotal().toLocaleString()}</strong></p>
 
               <div className={styles.promoSection}>
                 <input
@@ -172,7 +165,7 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
                       : ""
                   }`}
                   type="text"
-                  placeholder={promoMessage ? "" : "Add promo code"}
+                  placeholder="Add promo code"
                   value={promoMessage ? promoMessage : promoCode}
                   onChange={(e) => {
                     setPromoCode(e.target.value);
@@ -182,8 +175,8 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
                     }
                   }}
                   disabled={promoApplied}
+                  aria-label="Promo Code"
                 />
-
                 <button
                   type="button"
                   className={styles.applyBtn}
@@ -199,13 +192,15 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
                 className={styles.orderBtn}
                 onClick={() => setShowForm(true)}
               >
-                Go to Checkout →
+                Go to Checkout
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </button>
             </div>
           </section>
         )}
       </div>
 
+      {/* Checkout Form Modal */}
       {showForm && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
@@ -213,42 +208,19 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
             <form onSubmit={handleSubmit}>
               <label>
                 Full Name
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="text" name="name" value={form.name} onChange={handleChange} required />
               </label>
               <label>
                 Complete Address
-                <input
-                  type="text"
-                  name="address"
-                  value={form.address}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="text" name="address" value={form.address} onChange={handleChange} required />
               </label>
               <label>
                 Contact Number
-                <input
-                  type="text"
-                  name="contact"
-                  value={form.contact}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="tel" name="contact" value={form.contact} onChange={handleChange} required />
               </label>
               <label>
                 Mode of Payment
-                <select
-                  name="payment"
-                  value={form.payment}
-                  onChange={handleChange}
-                  required
-                >
+                <select name="payment" value={form.payment} onChange={handleChange} required >
                   <option value="">Select Payment Method</option>
                   <option value="Cash on Delivery">Cash on Delivery</option>
                   <option value="GCash">GCash</option>
@@ -257,15 +229,11 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
               </label>
 
               <div className={styles.modalButtons}>
-                <button
-                  type="button"
-                  className={styles.cancelBtn}
-                  onClick={() => setShowForm(false)}
-                >
+                <button type="button" className={styles.cancelBtn} onClick={() => setShowForm(false)}>
                   Cancel
                 </button>
                 <button type="submit" className={styles.confirmBtn}>
-                  Confirm
+                  Confirm Order
                 </button>
               </div>
             </form>
