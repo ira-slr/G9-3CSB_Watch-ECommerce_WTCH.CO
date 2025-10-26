@@ -1,30 +1,32 @@
 /* styles/Footer.module.css */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .footer {
     width: 100%;
-    background-color: #F5F5F5; /* Light gray background as seen in the image */
-    padding: 60px 0 30px 0;
+    background-color: #F5F5F5; 
     font-family: Arial, sans-serif;
+    padding: 80px 24px 40px; 
 }
 
 .contentWrapper {
-    max-width: 1200px; /* Standard container width */
-    margin: 0 auto;
-    padding: 0 30px;
+    width: 100%;
 }
 
 /* --- Main Grid Layout --- */
 .footerGrid {
     display: grid;
-    /* 4 columns with auto-sizing, matching the image */
-    grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: 40px;
     padding-bottom: 40px;
 }
 
 /* --- Column 1: Logo and About --- */
 .aboutSection {
-    /* Alignment is automatic in the grid */
 }
 
 .logoText {
@@ -51,35 +53,25 @@
 }
 
 .socialLink {
-    /* Styles the circular border shown in the image */
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 30px; 
+    height: 30px; 
     border-radius: 50%;
-    border: 1px solid #000000;
-    transition: background-color 0.3s;
+    border: 3px solid #000000
+    ;/* ADDED: This fills the circle with black */
 }
 
 .socialIcon {
-    width: 16px;
-    height: 16px;
-}
-
-.socialLink:hover {
-    background-color: #000000;
-}
-.socialLink:hover .socialIcon {
-    /* Note: If icons are complex images, they won't change color easily. 
-       This assumes the icons provided are monochromatic black images. */
-    filter: invert(1); /* Tries to invert the color to white on hover */
+    width: 30px; 
+    height: 30px; 
+   /* ADDED: This changes the icon color (black -> white) */
 }
 
 
 /* --- Columns 2, 3, 4: Navigation Links --- */
 .linkSection {
-    /* Alignment is automatic in the grid */
 }
 
 .linkTitle {
@@ -115,9 +107,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #E0E0E0; /* Divider line */
+    border-top: 1px solid #E0E0E0; 
     padding-top: 30px;
-    margin-top: 30px;
+    margin-top: 30px; 
 }
 
 .copyright {
@@ -134,37 +126,51 @@
 }
 
 .paymentIcon {
-    height: 20px; /* Set a consistent height for payment logos */
+    height: 35px; 
     width: auto;
-    filter: grayscale(100%); /* Make sure the icons are monochromatic if they aren't already */
     opacity: 0.8;
 }
 
-/* --- Mobile Responsiveness --- */
-@media (max-width: 768px) {
+/* --- RESPONSIVENESS --- */
+
+@media (min-width: 992px) {
+  .footer {
+    padding: 80px 100px 40px;
+  }
+}
+
+@media (max-width: 991px) { 
     .footerGrid {
-        /* Stack to two columns on tablets/mobile */
         grid-template-columns: 1fr 1fr;
         gap: 30px;
     }
-    
+
     .aboutSection {
-        grid-column: span 2; /* Logo section spans both columns */
+        grid-column: span 2; 
+        margin-bottom: 1rem; 
     }
 
     .bottomBar {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: column; 
+        align-items: center; 
         gap: 15px;
+    }
+     .copyright {
+        text-align: center; 
+    }
+    .paymentIcons {
+        justify-content: center; 
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) { 
     .footerGrid {
-        /* Stack all columns vertically on small mobile */
         grid-template-columns: 1fr;
     }
     .aboutSection {
-        grid-column: span 1;
+        grid-column: span 1; 
+    }
+     .tagline {
+        max-width: none; 
     }
 }

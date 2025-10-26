@@ -6,26 +6,25 @@
 
 /* Container Class */
 .container {
-  max-width: 1440px;
-  margin: 0 auto;
-  /* Use clamp for responsive padding with a max of 100px */
-  padding-left: clamp(1rem, 5%, 100px);  /* min, preferred, max */
-  padding-right: clamp(1rem, 5%, 100px); /* min, preferred, max */
+  /* No max-width or auto margin needed here now */
   width: 100%;
+  /* Default responsive padding for smaller screens */
+  padding-left: clamp(1rem, 5%, 100px);
+  padding-right: clamp(1rem, 5%, 100px);
 }
 
 /* 1. Hero Section - Updated */
 .heroSection {
   width: 100%;
   height: 770px;
-  /* Apply clamp directly here too for consistency */
+  /* Default responsive padding */
   padding-left: clamp(1rem, 5%, 100px);
   padding-right: clamp(1rem, 5%, 100px);
-  padding-top: 4rem; /* Keep some top padding */
-  padding-bottom: 0; /* Keep bottom padding 0 */
+  padding-top: 4rem;
+  padding-bottom: 0;
   display: flex;
   align-items: flex-end; /* Align items to bottom on desktop */
-  justify-content: center; /* Center-aligns text and image */
+  justify-content: center; /* Center items horizontally */
   flex-wrap: wrap;
   gap: 2rem; /* Space between text and image */
   color: #000;
@@ -95,7 +94,7 @@
 .brandBanner {
   width: 100%;
   background-color: #000;
-  /* Apply clamp directly here too */
+  /* Default responsive padding */
   padding-top: 2rem;
   padding-bottom: 2rem;
   padding-left: clamp(1rem, 5%, 100px);
@@ -110,8 +109,7 @@
 /* Styling for all banner logos */
 .bannerLogo {
   height: 40px; /* Default height */
-  opacity: 0.8;
-  filter: invert(1); /* Ensure logos are white */
+  opacity: 0.8;/* Ensure logos are white */
 }
 
 /* 3. & 4. Product Highlight Sections */
@@ -120,6 +118,9 @@
   text-align: center;
   width: 100%;
 }
+
+/* Section content is centered within .container which has the padding */
+
 
 .sectionTitle {
   font-size: 2.5rem;
@@ -264,24 +265,27 @@
   display: flex;
   overflow-x: auto;
   gap: 1.5rem; /* Gap between cards */
-  /* Remove side padding, let container padding handle spacing */
-  padding: 1rem 0 2rem 0;
+  padding: 1rem 0 2rem 0; /* No side padding needed due to container */
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  /* --- SCROLL SNAP --- */
-  scroll-snap-type: x mandatory; /* Snap horizontally */
+  scroll-snap-type: x mandatory;
+  /* Add padding to container to see edges */
+   padding-left: clamp(1rem, 5%, 100px);
+   padding-right: clamp(1rem, 5%, 100px);
+   /* Clip content that overflows the container's padding box */
+   margin-left: calc(clamp(1rem, 5%, 100px) * -1);
+   margin-right: calc(clamp(1rem, 5%, 100px) * -1);
 }
 .reviewCarousel::-webkit-scrollbar {
   display: none;
 }
 
-.reviewCarousel > * { /* Target direct children (ReviewCard) */
+.reviewCarousel > * {
   flex-shrink: 0;
-  width: 32%; /* Default width for desktop (shows ~3 cards) */
-  min-width: 300px; /* Minimum width before wrapping/shrinking too much */
-  /* --- SCROLL SNAP --- */
-  scroll-snap-align: center; /* Center each card in the viewport */
+  width: 32%;
+  min-width: 300px;
+  scroll-snap-align: center;
 }
 
 .reviewHeader {
@@ -289,6 +293,9 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  /* Ensure header respects container padding */
+  padding-left: clamp(1rem, 5%, 100px);
+  padding-right: clamp(1rem, 5%, 100px);
 }
 
 .reviewHeader .sectionTitle {
@@ -297,7 +304,7 @@
 
 .reviewNav {
   position: absolute;
-  right: 0; /* Position relative to the container padding */
+  right: clamp(1rem, 5%, 100px); /* Align with container padding */
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -305,51 +312,72 @@
 }
 
 .reviewNav button {
-  background: none;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #555;
-  transition: all 0.3s ease;
+  background: none; border: 1px solid #ddd; border-radius: 50%;
+  width: 40px; height: 40px; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; color: #555; transition: all 0.3s ease;
 }
-
-.reviewNav button:hover {
-  background-color: #f9f9f9;
-  color: #000;
-}
-
-.reviewNav button svg {
-  width: 20px;
-  height: 20px;
-}
+.reviewNav button:hover { background-color: #f9f9f9; color: #000; }
+.reviewNav button svg { width: 20px; height: 20px; }
 
 
 /* --- RESPONSIVENESS --- */
 
+/* Desktop Styles (Screens wider than 991px) */
+@media (min-width: 992px) {
+  .container {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  .heroSection {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+   .brandBanner {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  /* Keep .heroContent aligned left on desktop */
+  .heroContent {
+      text-align: left;
+  }
+  /* Adjust review carousel padding/margin for fixed desktop */
+  .reviewCarousel {
+      padding-left: 100px;
+      padding-right: 100px;
+      margin-left: -100px;
+      margin-right: -100px;
+  }
+  .reviewHeader {
+      padding-left: 100px;
+      padding-right: 100px;
+  }
+  .reviewNav {
+      right: 100px; /* Match fixed padding */
+  }
+
+}
+
 @media (max-width: 1200px) {
+  /* Adjust product grid earlier if needed */
   .productGrid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Breakpoint for tablet/mobile hero + general tablet styles */
-@media (max-width: 991px) {
+/* Breakpoint for hiding hero image & other tablet/mobile styles */
+@media (max-width: 991px) { /* Screens smaller than 992px */
   .heroSection {
     height: auto;
     min-height: 50vh;
-    padding: 6rem clamp(1rem, 5%, 100px);
+    padding: 6rem clamp(1rem, 5%, 100px); /* Use clamp here */
     align-items: center;
     text-align: center;
   }
+
   .heroContent {
       margin-bottom: 0;
       max-width: 600px;
-      text-align: center;
+      text-align: center; /* Center text on mobile */
       width: 100%;
   }
   .heroContent h1 { font-size: 2.8rem; }
@@ -370,7 +398,9 @@
 
   .reviewHeader {
     flex-direction: column;
-    text-align: center; /* Center title when buttons stack */
+    text-align: center;
+    padding-left: clamp(1rem, 5%, 100px); /* Respect container padding */
+    padding-right: clamp(1rem, 5%, 100px);
   }
   .reviewNav {
     position: static;
@@ -383,10 +413,9 @@
     margin-bottom: 0;
   }
 
-  /* Adjust review card width for better centering on mobile */
   .reviewCarousel > * {
-    width: 85%; /* Make card take most of the width */
-    min-width: unset; /* Remove min-width */
+    width: 85%;
+    min-width: unset;
   }
 }
 
@@ -397,8 +426,7 @@
   .sectionLabel { height: 35px; max-width: 200px; }
   .categoryWrapper { padding: 1.5rem; }
 
-  /* Further adjust review card width if needed */
   .reviewCarousel > * {
-    width: 90%; /* Slightly wider on very small screens */
+    width: 90%;
   }
 }

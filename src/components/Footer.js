@@ -44,10 +44,10 @@ const routeMap = {
 
 function Footer() {
     const socialIcons = [
-        { icon: fb, alt: "Facebook", link: "#" },
-        { icon: twitter, alt: "Twitter", link: "#" },
-        { icon: ig, alt: "Instagram", link: "#" },
-        { icon: github, alt: "GitHub", link: "#" },
+        { icon: fb, alt: "Facebook", link: "https://www.facebook.com/" },
+        { icon: twitter, alt: "Twitter", link: "https://www.x.com" },
+        { icon: ig, alt: "Instagram", link: "https://www.instagram.com" },
+        { icon: github, alt: "GitHub", link: "https://www.github.com" },
     ];
 
     const paymentIcons = [
