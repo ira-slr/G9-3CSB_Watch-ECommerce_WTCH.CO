@@ -158,10 +158,10 @@ function HomePage() {
           <div className={style.categoryWrapper}>
             <h2 className={style.sectionTitle}>BROWSE BY CATEGORY</h2>
             <div className={style.categoryGrid}>
-              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Men's</h3></div> <img src={mens} alt="Men's Watches"/> </div>
-              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Women's</h3></div> <img src={womens} alt="Women's Watches"/> </div>
-              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Formal</h3></div> <img src={formal} alt="Formal Watches"/> </div>
-              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Sportswear</h3></div> <img src={sportwear} alt="Sportswear Watches"/> </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Men's</h3></div> <Link to="/products?category=Men%27s"><img src={mens} alt="Men's Watches"/> </Link>  </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Women's</h3></div> <Link to="/products?category=Women%27s"> <img src={womens} alt="Women's Watches"/> </Link>  </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Formal</h3></div> <Link to="/products?category=Formal"> <img src={formal} alt="Formal Watches"/></Link>  </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Sportswear</h3></div> <Link to="/products?category=Sportswear"> <img src={sportwear} alt="Sportswear Watches"/> </Link>  </div>
             </div>
           </div>
         </div>

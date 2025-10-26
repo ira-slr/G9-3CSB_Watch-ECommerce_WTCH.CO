@@ -108,7 +108,7 @@
 
 /* Styling for all banner logos */
 .bannerLogo {
-  height: 40px; /* Default height */
+  height: 80px; /* Default height */
   opacity: 0.8;/* Ensure logos are white */
 }
 
@@ -132,17 +132,11 @@
 
 /* Styling for all section labels */
 .sectionLabel {
-  height: 50px; /* Default height */
+  height: 100px; /* Default height */
   max-width: 300px; /* Default max-width */
   margin-bottom: 2rem;
   object-fit: contain; /* Ensures the whole image fits */
 }
-
-/* Specific inversion for the Richard Mille label if it's white */
-.sectionLabel[alt="Richard Mille"] {
-  filter: invert(1);
-}
-
 
 .divider {
   border: none;
