@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import style from "./styles/HomePage.module.css";
+import { Link } from "react-router-dom";
 
 // Components
 import ProductCard from "../components/ProductCard";
@@ -49,162 +50,108 @@ function HomePage() {
   const [showAllBrands, setShowAllBrands] = useState(false);
   const carouselRef = useRef(null);
 
+  // --- UPDATED SCROLL FUNCTION ---
   const scroll = (direction) => {
-    if (carouselRef.current) {
-      const scrollAmount = carouselRef.current.clientWidth * (direction === 'left' ? -1 : 1);
+    if (carouselRef.current && carouselRef.current.children.length > 0) {
+      const card = carouselRef.current.children[0]; // Get the first review card element
+      const cardStyle = window.getComputedStyle(card); // Get its computed styles
+      const cardWidth = card.offsetWidth; // Get the full width including padding/border
+      // Get gap value, convert rem to pixels (assuming 1rem = 16px, adjust if your base font size is different)
+      // Or get computed style for gap if browser support is sufficient
+      const gapValue = parseFloat(window.getComputedStyle(carouselRef.current).gap) || (1.5 * 16); // Fallback to 1.5rem * 16px
+
+      // Calculate scroll amount: width of one card + gap
+      const scrollAmount = (cardWidth + gapValue) * (direction === 'left' ? -1 : 1);
+
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
+  // --- END UPDATED SCROLL FUNCTION ---
 
   return (
     <main>
-      
+
       {/* 1. Hero Section */}
       <section className={style.heroSection}>
         <div className={style.heroContent}>
           <h1>MATCH YOUR STYLE WITH THE RIGHT WATCH</h1>
           <p>Shop from our latest collection of premium watches from top brands around the world.</p>
-          <button className={style.heroButton}>Go Shopping</button>
+          <Link to="/products">
+             <button className={style.heroButton}>Go Shopping</button>
+          </Link>
         </div>
         <div className={style.heroImageContainer}>
           <img src={heroNew} alt="Models wearing watches" className={style.heroImage} />
         </div>
       </section>
 
-      {/* 2. Brand Banner - Added specific classNames */}
+      {/* 2. Brand Banner */}
       <section className={style.brandBanner}>
-        <img src={casioLogo} alt="Casio" className={`${style.bannerLogo} ${style.casioBannerLogo}`} />
-        <img src={rolexLogo} alt="Rolex" className={`${style.bannerLogo} ${style.rolexBannerLogo}`} />
-        <img src={seikoLogo} alt="Seiko" className={`${style.bannerLogo} ${style.seikoBannerLogo}`} />
-        <img src={omegaLogo} alt="Omega" className={`${style.bannerLogo} ${style.omegaBannerLogo}`} />
-        <img src={richardLogo} alt="Richard Mille" className={`${style.bannerLogo} ${style.richardBannerLogo}`} />
+        <img src={casioLogo} alt="Casio" className={style.bannerLogo} />
+        <img src={rolexLogo} alt="Rolex" className={style.bannerLogo} />
+        <img src={seikoLogo} alt="Seiko" className={style.bannerLogo} />
+        <img src={omegaLogo} alt="Omega" className={style.bannerLogo} />
+        <img src={richardLogo} alt="Richard Mille" className={style.bannerLogo} />
       </section>
 
-      {/* 3. Rolex Products - Added specific classNames */}
+      {/* 3-6. Product Sections (Unchanged) */}
+       {/* Rolex Products */}
       <section className={style.productHighlight}>
         <div className={style.container}>
-          <img src={rolexLabel} alt="Rolex" className={`${style.sectionLabel} ${style.rolexSectionLabel}`} />
+          <img src={rolexLabel} alt="Rolex" className={style.sectionLabel} />
           <hr className={style.divider} />
           <div className={style.productGrid}>
-            {rolexProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                {...product} 
-              />
-            ))}
+            {rolexProducts.map(product => (<ProductCard key={product.id} {...product} />))}
           </div>
           <button className={style.viewAllButton}>View All</button>
         </div>
       </section>
-
-      {/* 4. Richard Mille Products - Added specific classNames */}
+      {/* Richard Mille Products */}
       <section className={style.productHighlight}>
         <div className={style.container}>
-          <img src={richardLabel} alt="Richard Mille" className={`${style.sectionLabel} ${style.richardSectionLabel}`} />
+          <img src={richardLabel} alt="Richard Mille" className={style.sectionLabel} />
           <hr className={style.divider} />
           <div className={style.productGrid}>
-            {rmProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                {...product}
-              />
-            ))}
+            {rmProducts.map(product => (<ProductCard key={product.id} {...product} />))}
           </div>
           <button className={style.viewAllButton}>View All</button>
         </div>
       </section>
-
-      {/* 5. "Show More" Button */}
+      {/* Show More Button */}
       {!showAllBrands && (
         <div className={style.showMoreContainer}>
-          <button onClick={() => setShowAllBrands(true)} className={style.showMoreButton}>
-            Show More Brands
-          </button>
+          <button onClick={() => setShowAllBrands(true)} className={style.showMoreButton}> Show More Brands </button>
         </div>
       )}
-
-      {/* 6. Hidden Sections - Added specific classNames */}
+      {/* Hidden Sections */}
       {showAllBrands && (
         <>
           {/* Casio Products */}
           <section className={style.productHighlight}>
-            <div className={style.container}>
-              <img src={casioLabel} alt="Casio" className={`${style.sectionLabel} ${style.casioSectionLabel}`} />
-              <hr className={style.divider} />
-              <div className={style.productGrid}>
-                {casioProducts.map(product => (
-                  <ProductCard key={product.id} {...product} />
-                ))}
-              </div>
-              <button className={style.viewAllButton}>View All</button>
-            </div>
+            <div className={style.container}> <img src={casioLabel} alt="Casio" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {casioProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> <button className={style.viewAllButton}>View All</button> </div>
           </section>
-
           {/* Seiko Products */}
           <section className={style.productHighlight}>
-            <div className={style.container}>
-              <img src={seikoLabel} alt="Seiko" className={`${style.sectionLabel} ${style.seikoSectionLabel}`} />
-              <hr className={style.divider} />
-              <div className={style.productGrid}>
-                {seikoProducts.map(product => (
-                  <ProductCard key={product.id} {...product} />
-                ))}
-              </div>
-              <button className={style.viewAllButton}>View All</button>
-            </div>
+            <div className={style.container}> <img src={seikoLabel} alt="Seiko" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {seikoProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> <button className={style.viewAllButton}>View All</button> </div>
           </section>
-          
           {/* Omega Products */}
           <section className={style.productHighlight}>
-            <div className={style.container}>
-              <img src={omegaLabel} alt="Omega" className={`${style.sectionLabel} ${style.omegaSectionLabel}`} />
-              <hr className={style.divider} />
-              <div className={style.productGrid}>
-                {omegaProducts.map(product => (
-                  <ProductCard key={product.id} {...product} />
-                ))}
-              </div>
-              <button className={style.viewAllButton}>View All</button>
-            </div>
+            <div className={style.container}> <img src={omegaLabel} alt="Omega" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {omegaProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> <button className={style.viewAllButton}>View All</button> </div>
           </section>
         </>
       )}
 
-      {/* 7. Browse by Category */}
+
+      {/* 7. Browse by Category (Unchanged) */}
       <section className={style.categorySection}>
         <div className={style.container}>
-          <div className={style.categoryWrapper}> 
+          <div className={style.categoryWrapper}>
             <h2 className={style.sectionTitle}>BROWSE BY CATEGORY</h2>
             <div className={style.categoryGrid}>
-              
-              <div className={style.categoryCard}>
-                <div className={style.categoryOverlay}>
-                  <h3>Men's</h3>
-                </div>
-                <img src={mens} alt="Men's Watches" />
-              </div>
-              
-              <div className={style.categoryCard}>
-                <div className={style.categoryOverlay}>
-                  <h3>Women's</h3>
-                </div>
-                <img src={womens} alt="Women's Watches" />
-              </div>
-
-              <div className={style.categoryCard}>
-                <div className={style.categoryOverlay}>
-                  <h3>Formal</h3>
-                </div>
-                <img src={formal} alt="Formal Watches" />
-              </div>
-
-              <div className={style.categoryCard}>
-                <div className={style.categoryOverlay}>
-                  <h3>Sportswear</h3>
-                </div>
-                <img src={sportwear} alt="Sportswear Watches" />
-              </div>
-
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Men's</h3></div> <img src={mens} alt="Men's Watches"/> </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Women's</h3></div> <img src={womens} alt="Women's Watches"/> </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Formal</h3></div> <img src={formal} alt="Formal Watches"/> </div>
+              <div className={style.categoryCard}> <div className={style.categoryOverlay}><h3>Sportswear</h3></div> <img src={sportwear} alt="Sportswear Watches"/> </div>
             </div>
           </div>
         </div>
@@ -213,19 +160,13 @@ function HomePage() {
       {/* 8. Customer Reviews */}
       <section className={style.reviewSection}>
         <div className={style.container}>
-          
           <div className={style.reviewHeader}>
             <h2 className={style.sectionTitle}>OUR HAPPY CUSTOMERS</h2>
             <div className={style.reviewNav}>
-              <button onClick={() => scroll('left')} title="Scroll left">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button onClick={() => scroll('right')} title="Scroll right">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
+              <button onClick={() => scroll('left')} title="Scroll left"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg> </button>
+              <button onClick={() => scroll('right')} title="Scroll right"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg> </button>
             </div>
           </div>
-          
           <div className={style.reviewCarousel} ref={carouselRef}>
             {sampleReviews.map(review => (
               <ReviewCard
