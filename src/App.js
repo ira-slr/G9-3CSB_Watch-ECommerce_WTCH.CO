@@ -8,6 +8,9 @@ import ProductDetails from "./pages/ProductDetails";
 import CartCheckout from "./pages/CartCheckout";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Profile from "./pages/Profile"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
 
 function App() {
   const [cartStorage, setCartStorage] = useState([]);
@@ -75,6 +78,9 @@ function App() {
             />
           }
         />
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
       <Footer />
     </>
