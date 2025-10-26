@@ -7,7 +7,7 @@ import searchMobile from "../assets/designs/icons/search-mobile.png";
 import dropdownIcon from "../assets/designs/icons/dropdown.png";
 import imageLoader from "../assets/imageLoader";
 import products from "../assets/products.json";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Link is already imported
 
 const CATEGORIES = ["Men's", "Women's", "Formal", "Sportswear"];
 const BRANDS = ["Rolex", "Omega", "Seiko", "Richard Mille", "Casio"];
@@ -83,6 +83,12 @@ function Navbar({ onSearchChange }) {
     setIsMobileSearchOpen(false);
   };
 
+  // --- NEW: Close dropdowns when a dropdown item is clicked ---
+  const handleDropdownItemClick = () => {
+    setOpenDropdown(null); // Close desktop dropdown
+    setIsMobileMenuOpen(false); // Close mobile menu if open
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
@@ -111,8 +117,32 @@ function Navbar({ onSearchChange }) {
           <div className={style.logo}> <Link to="/" className={style.logoLink}> <span className={style.logoText}>WTCH</span> </Link> </div>
           {/* Desktop Nav Links */}
           <nav className={style.navLinks}>
-            <div className={style.dropdown} onClick={() => toggleDropdown('categories')} role="button" aria-expanded={openDropdown === 'categories'}> Categories <img src={dropdownIcon} alt="" className={style.arrowIcon} /> {openDropdown === 'categories' && ( <div className={style.dropdownMenu}> {CATEGORIES.map(cat => ( <a key={cat} href={`/products?category=${cat}`} className={style.dropdownItem}>{cat}</a> ))} </div> )} </div>
-            <div className={style.dropdown} onClick={() => toggleDropdown('brands')} role="button" aria-expanded={openDropdown === 'brands'}> Brands <img src={dropdownIcon} alt="" className={style.arrowIcon} /> {openDropdown === 'brands' && ( <div className={style.dropdownMenu}> {BRANDS.map(brand => ( <a key={brand} href={`/products?brand=${brand}`} className={style.dropdownItem}>{brand}</a> ))} </div> )} </div>
+            <div className={style.dropdown} onClick={() => toggleDropdown('categories')} role="button" aria-expanded={openDropdown === 'categories'}> Categories <img src={dropdownIcon} alt="" className={style.arrowIcon} />
+              {openDropdown === 'categories' && (
+                <div className={style.dropdownMenu}>
+                  {/* --- CHANGED a to Link --- */}
+                  {CATEGORIES.map(cat => (
+                    <Link key={cat} to={`/products?category=${encodeURIComponent(cat)}`} className={style.dropdownItem} onClick={handleDropdownItemClick}>
+                      {cat}
+                    </Link>
+                  ))}
+                  {/* --- END CHANGE --- */}
+                </div>
+              )}
+            </div>
+            <div className={style.dropdown} onClick={() => toggleDropdown('brands')} role="button" aria-expanded={openDropdown === 'brands'}> Brands <img src={dropdownIcon} alt="" className={style.arrowIcon} />
+              {openDropdown === 'brands' && (
+                <div className={style.dropdownMenu}>
+                  {/* --- CHANGED a to Link --- */}
+                  {BRANDS.map(brand => (
+                    <Link key={brand} to={`/products?brand=${encodeURIComponent(brand)}`} className={style.dropdownItem} onClick={handleDropdownItemClick}>
+                      {brand}
+                    </Link>
+                  ))}
+                  {/* --- END CHANGE --- */}
+                </div>
+              )}
+            </div>
           </nav>
           {/* Desktop Search Bar with Results */}
           <div className={`${style.searchContainer} ${style.searchContainerDesktop}`} ref={searchContainerRef}>
@@ -151,7 +181,6 @@ function Navbar({ onSearchChange }) {
         </div>
       ) : (
          /* Mobile Search Overlay with Results */
-         // --- CORRECTED SYNTAX: Removed stray '{' ---
          <div className={style.mobileSearchOverlay}>
              <button className={style.mobileSearchClose} onClick={toggleMobileSearch} aria-label="Close search">&times;</button>
              <div className={`${style.mobileSearchInputWrapper} ${style.searchContainerMobile}`} ref={searchContainerRef}>
@@ -180,18 +209,28 @@ function Navbar({ onSearchChange }) {
                  )}
              </div>
          </div>
-         // --- END CORRECTION ---
       )}
 
       {/* Mobile Menu (Slide-in) */}
-      {/* Use conditional class for transition */}
       <div className={`${style.mobileMenu} ${isMobileMenuOpen ? style.open : ''}`}>
            <button className={style.mobileMenuClose} onClick={toggleMobileMenu} aria-label="Close menu">&times;</button>
            <h3>Categories</h3>
-           {CATEGORIES.map(cat => ( <a key={cat} href={`/products?category=${cat}`} className={style.mobileMenuItem} onClick={toggleMobileMenu}> {cat} </a> ))}
+           {/* --- CHANGED a to Link --- */}
+           {CATEGORIES.map(cat => (
+             <Link key={cat} to={`/products?category=${encodeURIComponent(cat)}`} className={style.mobileMenuItem} onClick={handleDropdownItemClick}>
+               {cat}
+             </Link>
+           ))}
+           {/* --- END CHANGE --- */}
            <hr className={style.mobileMenuDivider}/>
            <h3>Brands</h3>
-           {BRANDS.map(brand => ( <a key={brand} href={`/products?brand=${brand}`} className={style.mobileMenuItem} onClick={toggleMobileMenu}> {brand} </a> ))}
+            {/* --- CHANGED a to Link --- */}
+           {BRANDS.map(brand => (
+             <Link key={brand} to={`/products?brand=${encodeURIComponent(brand)}`} className={style.mobileMenuItem} onClick={handleDropdownItemClick}>
+               {brand}
+             </Link>
+           ))}
+           {/* --- END CHANGE --- */}
       </div>
     </header>
   );
