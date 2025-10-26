@@ -1,76 +1,78 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "react-router-dom"; // 1. Import useSearchParams
+import { useSearchParams } from "react-router-dom";
 import styles from "./styles/ProductListing.module.css";
 import ProductCard from "../components/ProductCard";
 import productsData from "../assets/products.json";
 import PriceRangeSlider from "../components/PriceRangeSlider";
 
 function ProductListing() {
-  const [products, setProducts] = useState([]); // Initialize as empty, let useEffect populate
+  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(9);
 
-  // --- State Initialization ---
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [priceRange, setPriceRange] = useState([500, 400000]); // Keep initial range
+  const [priceRange, setPriceRange] = useState([500, 400000]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  // 2. Get searchParams function
+  // 1. Add state for the filter drawer
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
   const [searchParams] = useSearchParams();
 
-  // 3. useEffect to read URL parameters ONCE on mount
   useEffect(() => {
     const brandParams = searchParams.getAll('brand');
     const categoryParams = searchParams.getAll('category');
 
-    // Set state only if URL params exist
     if (brandParams.length > 0) {
         setSelectedBrands(brandParams);
     }
     if (categoryParams.length > 0) {
         setSelectedCategories(categoryParams);
     }
-     // Apply initial filtering based on URL params (and default price range)
-     // This logic is now duplicated here and below, let's consolidate
-     // No need to set initial state here, the main filter useEffect will handle it
+  }, [searchParams]);
 
-  }, [searchParams]); // Run only when searchParams object changes (effectively on mount/navigation)
-
-
-  // Main filtering logic - runs when state changes (including after initial params are read)
   useEffect(() => {
-    console.log("Filtering with:", { selectedBrands, selectedCategories, priceRange, selectedSizes }); // Debugging line
-    let filtered = [...productsData];
+    // Prevent scrolling when filter is open
+    if (isFilterOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    // Cleanup function
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isFilterOpen]);
 
-    // Brand Filtering (Case-Insensitive)
+
+  useEffect(() => {
+    let filtered = [...productsData];
+    // ... (filtering logic remains the same) ...
     if (selectedBrands.length > 0) {
       const lowerSelectedBrands = selectedBrands.map(b => b.toLowerCase());
       filtered = filtered.filter(item =>
         item.brand && lowerSelectedBrands.includes(item.brand.toLowerCase())
       );
     }
-
-    // Price Filtering
     filtered = filtered.filter(item => item.price >= priceRange[0] && item.price <= priceRange[1]);
-
-    // Size Filtering
     if (selectedSizes.length > 0) {
       filtered = filtered.filter(item => item.case_size && selectedSizes.includes(item.case_size));
     }
-
-    // Category Filtering
     if (selectedCategories.length > 0) {
       filtered = filtered.filter(item =>
         item.category && Array.isArray(item.category) && item.category.some(cat => selectedCategories.includes(cat))
       );
     }
-
-    console.log("Filtered Count:", filtered.length); // Debugging line
+    
     setProducts(filtered);
-    setCurrentPage(1); // Reset page number when filters change
-  }, [selectedBrands, priceRange, selectedSizes, selectedCategories]); // Dependencies remain the same
+    setCurrentPage(1);
+  }, [selectedBrands, priceRange, selectedSizes, selectedCategories]);
 
+  // 2. Add a function to toggle the filter
+  const toggleFilter = () => {
+    setIsFilterOpen(prev => !prev);
+  };
 
   // --- Handlers remain the same ---
   const handleBrandChange = (brand) => {
@@ -92,7 +94,7 @@ function ProductListing() {
     setPriceRange([min, max]);
   }, []);
 
-  // Pagination Logic remains the same
+  // ... (pagination logic remains the same) ...
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -103,13 +105,13 @@ function ProductListing() {
      }
   };
 
-  // getHeaderTitle remains the same
+
   const getHeaderTitle = () => {
+    // ... (getHeaderTitle logic remains the same) ...
     const hasBrands = selectedBrands.length > 0;
     const hasCategories = selectedCategories.length > 0;
     const brandString = selectedBrands.join(' & ');
     const categoryString = selectedCategories.join(' & ');
-
     if (hasBrands && hasCategories) { return `${brandString} ${categoryString}`; }
     else if (hasBrands) { return brandString; }
     else if (hasCategories) { return categoryString; }
@@ -118,65 +120,78 @@ function ProductListing() {
 
   return (
     <div className={styles.wrapper}>
-      <aside className={styles.sidebar}>
-        {/* Filters UI remains the same, 'checked' attribute handles initial state */}
+      {/* 3. Add conditional class to sidebar. Add overlay for closing. */}
+      {isFilterOpen && <div className={styles.overlay} onClick={toggleFilter}></div>}
+      <aside className={`${styles.sidebar} ${isFilterOpen ? styles.sidebarOpen : ''}`}>
          <div className={styles.filterHeader}>
           <h3>Filters</h3>
-          <span className={styles.filterIcon}>☰</span>
+          {/* 4. Make the original icon a "close" button on mobile */}
+          <span className={styles.filterIcon} onClick={toggleFilter}>
+            <span className={styles.desktopIcon}>☰</span>
+            <span className={styles.mobileCloseIcon}>&times;</span>
+          </span>
         </div>
-        <div className={styles.filterSection}>
-          <h4>Brand</h4>
-          {["Rolex", "Omega", "Seiko", "Richard Mille", "Casio"].map(brand => (
-            <div key={brand} className={styles.checkboxItem}>
-              <input type="checkbox" id={`brand-${brand}`} name="brand" value={brand} onChange={() => handleBrandChange(brand)} checked={selectedBrands.includes(brand)} />
-              <label htmlFor={`brand-${brand}`}>{brand}</label>
-            </div>
-          ))}
-        </div>
-        <div className={styles.filterSection}>
-            <h4>Price</h4>
-            <div className={styles.priceSlidersContainer}>
-              <PriceRangeSlider
-                min={500} // Keep original min/max for slider UI
-                max={400000}
-                onChange={handlePriceChange}
-                // value={priceRange} // Pass value if slider needs it
-              />
-            </div>
-            <div className={styles.priceLabelsContainer}>
-              <div className={styles.priceLabel}> <label>Min</label> <span>₱{priceRange[0].toLocaleString()}</span> </div>
-              <div className={styles.priceLabel}> <label>Max</label> <span>₱{priceRange[1].toLocaleString()}</span> </div>
-            </div>
-        </div>
-        <div className={styles.filterSection}>
-            <h4>Size</h4>
-            <div className={styles.sizeOptions}>
-                {["40mm", "41mm", "42mm"].map(size => (
-                    <button key={size} onClick={() => handleSizeChange(size)} className={`${styles.sizeButton} ${selectedSizes.includes(size) ? styles.activeButton : ''}`}> {size} </button>
-                ))}
-            </div>
-        </div>
-        <div className={styles.filterSection}>
-            <h4>Categories</h4>
-            {["Men's", "Women's", "Formal", "Sportswear"].map(cat => (
-                <div key={cat} className={styles.checkboxItem}>
-                    <input type="checkbox" id={`cat-${cat}`} name="category" value={cat} onChange={() => handleCategoryChange(cat)} checked={selectedCategories.includes(cat)}/>
-                    <label htmlFor={`cat-${cat}`}>{cat}</label>
-                </div>
+        <div className={styles.filterContent}> {/* Added wrapper for scrolling */}
+          <div className={styles.filterSection}>
+            <h4>Brand</h4>
+            {["Rolex", "Omega", "Seiko", "Richard Mille", "Casio"].map(brand => (
+              <div key={brand} className={styles.checkboxItem}>
+                <input type="checkbox" id={`brand-${brand}`} name="brand" value={brand} onChange={() => handleBrandChange(brand)} checked={selectedBrands.includes(brand)} />
+                <label htmlFor={`brand-${brand}`}>{brand}</label>
+              </div>
             ))}
+          </div>
+          <div className={styles.filterSection}>
+              <h4>Price</h4>
+              <div className={styles.priceSlidersContainer}>
+                <PriceRangeSlider
+                  min={500}
+                  max={400000}
+                  onChange={handlePriceChange}
+                />
+              </div>
+              <div className={styles.priceLabelsContainer}>
+                <div className={styles.priceLabel}> <label>Min</label> <span>₱{priceRange[0].toLocaleString()}</span> </div>
+                <div className={styles.priceLabel}> <label>Max</label> <span>₱{priceRange[1].toLocaleString()}</span> </div>
+              </div>
+          </div>
+          <div className={styles.filterSection}>
+              <h4>Size</h4>
+              <div className={styles.sizeOptions}>
+                  {["40mm", "41mm", "42mm"].map(size => (
+                      <button key={size} onClick={() => handleSizeChange(size)} className={`${styles.sizeButton} ${selectedSizes.includes(size) ? styles.activeButton : ''}`}> {size} </button>
+                  ))}
+              </div>
+          </div>
+          <div className={styles.filterSection}>
+              <h4>Categories</h4>
+              {["Men's", "Women's", "Formal", "Sportswear"].map(cat => (
+                  <div key={cat} className={styles.checkboxItem}>
+                      <input type="checkbox" id={`cat-${cat}`} name="category" value={cat} onChange={() => handleCategoryChange(cat)} checked={selectedCategories.includes(cat)}/>
+                      <label htmlFor={`cat-${cat}`}>{cat}</label>
+                  </div>
+              ))}
+          </div>
         </div>
       </aside>
 
-      {/* Main Product Grid remains the same */}
       <main className={styles.main}>
+        {/* 5. Add the mobile-only filter trigger */}
+        <div className={styles.mobileFilterTrigger} onClick={toggleFilter}>
+            <span>Filters</span>
+            <span className={styles.filterIcon}>☰</span>
+        </div>
+
         <div className={styles.header}>
           <h2>{getHeaderTitle()}</h2>
           <p>Showing {products.length > 0 ? indexOfFirstProduct + 1 : 0}–{Math.min(indexOfLastProduct, products.length)} of {products.length} Products</p>
         </div>
+        
+        {/* ... (rest of the main content remains the same) ... */}
         {currentProducts.length > 0 ? (
           <div className={styles.grid}>
             {currentProducts.map((product) => (
-              <ProductCard key={product.id} {...product} /* Pass all props */ />
+              <ProductCard key={product.id} {...product} />
             ))}
           </div>
         ) : (
