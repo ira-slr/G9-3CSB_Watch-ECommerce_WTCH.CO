@@ -170,6 +170,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 2.5rem;
+  text-decoration: none;
 }
 
 .viewAllButton:hover {

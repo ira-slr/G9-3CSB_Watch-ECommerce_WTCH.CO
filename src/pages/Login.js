@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './styles/Login.module.css';
 import pic1 from "../assets/designs/login/submariner.jpg"
 import pic2 from "../assets/designs/login/submariner2.jpg"
+import { Link } from 'react-router-dom';
 
 // Original images array
 const images = [pic1, pic2];
@@ -97,7 +98,7 @@ function Login() {
         <div className={style.formSide}>
           <h1>Login</h1>
           <p className={style.subtitle}>
-            Do not have an account. <a href="#">create a new one.</a>
+            Do not have an account. <Link to="/register">create a new one.</Link>
           </p>
 
           <form onSubmit={handleSubmit}>

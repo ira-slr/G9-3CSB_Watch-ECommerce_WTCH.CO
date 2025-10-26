@@ -104,7 +104,7 @@ function Navbar({ onSearchChange }) {
     <header className={style.navbar} tabIndex="-1">
       {/* Top Banner */}
       <div className={style.topBanner}>
-        <p>Sign up and get 20% off to your first order. <a href="#">Sign Up Now</a></p>
+        <p>Sign up and get 20% off to your first order. <Link to="/register">Sign Up Now</Link></p>
         <button className={style.closeButton}>&times;</button>
       </div>
 
@@ -176,7 +176,7 @@ function Navbar({ onSearchChange }) {
           <div className={style.userActions}>
             <button className={`${style.iconButton} ${style.searchIconButtonMobile}`} onClick={toggleMobileSearch} aria-label="Open search"> <img src={searchMobile} alt="Search" className={style.actionIcon} /> </button>
             <Link to="/cart" className={style.iconButton} aria-label="Shopping Cart"> <img src={cartIcon} alt="" className={style.actionIcon} /> </Link>
-            <button className={style.iconButton} aria-label="User Profile"> <img src={profileIcon} alt="" className={style.actionIcon} /> </button>
+            <Link to="/profile" className={style.iconButton} aria-label="User Profile"> <img src={profileIcon} alt="" className={style.actionIcon} /> </Link>
           </div>
         </div>
       ) : (

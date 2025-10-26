@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from "./styles/Profile.module.css";
 
+
 function Profile() {
     // States for the editable form fields
     const [lastName, setLastName] = useState('Ducker');

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './styles/Register.module.css';
 import pic1 from "../assets/designs/login/submariner.jpg"
 import pic2 from "../assets/designs/login/submariner2.jpg"
+import { Link } from 'react-router-dom';
 
 // --- Carousel Logic (copied from Login) ---
 const images = [pic1, pic2];
@@ -96,7 +97,7 @@ function Register() {
         <div className={style.formSide}>
           <h1>Signup</h1>
           <p className={style.subtitle}>
-            Already Have An Account, <a href="#">Login.</a>
+            Already Have An Account, <Link to="/login">Login.</Link>
           </p>
 
           <form onSubmit={handleSubmit}>

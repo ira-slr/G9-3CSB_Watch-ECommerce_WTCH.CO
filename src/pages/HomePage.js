@@ -103,7 +103,7 @@ function HomePage() {
           <div className={style.productGrid}>
             {rolexProducts.map(product => (<ProductCard key={product.id} {...product} />))}
           </div>
-          <button className={style.viewAllButton}>View All</button>
+          <Link to="/products?brand=Rolex" className={style.viewAllButton}>View All</Link>
         </div>
       </section>
       {/* Richard Mille Products */}
@@ -114,7 +114,8 @@ function HomePage() {
           <div className={style.productGrid}>
             {rmProducts.map(product => (<ProductCard key={product.id} {...product} />))}
           </div>
-          <button className={style.viewAllButton}>View All</button>
+          {/* --- CHANGED THIS LINE --- */}
+          <Link to="/products?brand=Richard Mille" className={style.viewAllButton}>View All</Link>
         </div>
       </section>
       {/* Show More Button */}
@@ -128,15 +129,24 @@ function HomePage() {
         <>
           {/* Casio Products */}
           <section className={style.productHighlight}>
-            <div className={style.container}> <img src={casioLabel} alt="Casio" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {casioProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> <button className={style.viewAllButton}>View All</button> </div>
+            <div className={style.container}> <img src={casioLabel} alt="Casio" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {casioProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> 
+              {/* --- CHANGED THIS LINE --- */}
+              <Link to="/products?brand=Casio" className={style.viewAllButton}>View All</Link>
+            </div>
           </section>
           {/* Seiko Products */}
           <section className={style.productHighlight}>
-            <div className={style.container}> <img src={seikoLabel} alt="Seiko" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {seikoProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> <button className={style.viewAllButton}>View All</button> </div>
+            <div className={style.container}> <img src={seikoLabel} alt="Seiko" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {seikoProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> 
+              {/* --- CHANGED THIS LINE --- */}
+              <Link to="/products?brand=Seiko" className={style.viewAllButton}>View All</Link>
+            </div>
           </section>
           {/* Omega Products */}
           <section className={style.productHighlight}>
-            <div className={style.container}> <img src={omegaLabel} alt="Omega" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {omegaProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> <button className={style.viewAllButton}>View All</button> </div>
+            <div className={style.container}> <img src={omegaLabel} alt="Omega" className={style.sectionLabel} /> <hr className={style.divider} /> <div className={style.productGrid}> {omegaProducts.map(product => (<ProductCard key={product.id} {...product} />))} </div> 
+              {/* --- CHANGED THIS LINE --- */}
+              <Link to="/products?brand=Omega" className={style.viewAllButton}>View All</Link>
+            </div>
           </section>
         </>
       )}
@@ -164,6 +174,7 @@ function HomePage() {
             <h2 className={style.sectionTitle}>OUR HAPPY CUSTOMERS</h2>
             <div className={style.reviewNav}>
               <button onClick={() => scroll('left')} title="Scroll left"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg> </button>
+
               <button onClick={() => scroll('right')} title="Scroll right"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg> </button>
             </div>
           </div>
