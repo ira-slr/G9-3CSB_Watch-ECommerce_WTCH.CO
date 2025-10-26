@@ -7,7 +7,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 60px;
+  gap: 80px; 
   margin-bottom: 60px;
   align-items: flex-start;
 }
@@ -265,8 +265,10 @@
 
 .youMightAlsoLike {
   margin-top: 60px;
-  padding-top: 40px;
   text-align: center;
+  margin-left: -80px; 
+  margin-right: -80px;
+  padding: 40px 100px 0;
 }
 
 .youMightAlsoLikeTitle {
@@ -281,14 +283,11 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   justify-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .suggestionCardWrapper {
   position: relative;
   width: 100%;
-  max-width: 300px;
 }
 
 .toast {
@@ -339,6 +338,7 @@
   .topSection {
     flex-direction: column;
     gap: 30px;
+    align-items: center; /* ADDED: Centers the image and info box */
   }
   .info h2 {
     font-size: 2rem;
@@ -349,6 +349,16 @@
   .descriptionText {
     font-size: 1rem;
   }
+  
+  /* ADDED: Centers the size title */
+  .sizeTitle {
+    text-align: center;
+  }
+  /* ADDED: Centers the size buttons */
+  .sizeOptions {
+    justify-content: center;
+  }
+
   .addToCart,
   .buyNowBtn {
     width: 100%;
@@ -368,8 +378,15 @@
   .youMightAlsoLikeTitle {
     font-size: 1.8rem;
   }
+  .youMightAlsoLike {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
   .suggestionsGrid {
-    grid-template-columns: 1fr;
+    /* CHANGED: Set to 2 columns for mobile */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

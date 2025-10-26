@@ -41,9 +41,6 @@
 }
 
 /* ADDED: Wrapper for filter content to allow scrolling */
-.filterContent {
-  /* No styles needed on desktop */
-}
 
 .filterSection {
   margin-bottom: 24px;

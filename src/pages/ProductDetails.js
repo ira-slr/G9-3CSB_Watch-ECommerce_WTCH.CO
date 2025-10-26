@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // 1. Import useState and useEffect from React
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./styles/ProductDetails.module.css";
 import ProductCard from "../components/ProductCard";
@@ -37,6 +37,21 @@ function ProductDetails({ addToCart }) {
   const [message, setMessage] = React.useState("");
   const [selectedSize, setSelectedSize] = React.useState("42mm");
 
+  // 2. Add state to track mobile view
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // 3. Add useEffect to check window size
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    
+    handleResize(); // Call on initial mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures this runs only on mount and unmount
+
+
   const product = products.find((p) => p.id === parseInt(id));
 
   if (!product) {
@@ -50,6 +65,7 @@ function ProductDetails({ addToCart }) {
   ).slice(0, 4);
 
   const handleAddToCart = () => {
+    // ... (logic unchanged)
     addToCart({
       id: product.id,
       model: product.model,
@@ -65,6 +81,7 @@ function ProductDetails({ addToCart }) {
   };
 
   const handleBuyNow = () => {
+    // ... (logic unchanged)
     addToCart({
       id: product.id,
       model: product.model,
@@ -77,11 +94,15 @@ function ProductDetails({ addToCart }) {
     navigate("/cart");
   };
 
+  // 4. Create a new variable for reviews based on isMobile state
+  const reviewsToShow = isMobile ? sampleReviews.slice(0, 3) : sampleReviews;
+
   return (
     <div className={styles.detailsPage}>
       {message && <div className={styles.toast}>{message}</div>}
 
       <div className={styles.topSection}>
+        {/* ... (top section unchanged) ... */}
         <div
           className={styles.mainImage}
           style={{
@@ -90,7 +111,6 @@ function ProductDetails({ addToCart }) {
             backgroundPosition: "center",
           }}
         ></div>
-
         <div className={styles.info}>
           <h2>{product.model}</h2>
           <div className={styles.rating}>
@@ -99,7 +119,6 @@ function ProductDetails({ addToCart }) {
           </div>
           <p className={styles.price}>₱{product.price.toLocaleString()}</p>
           <p className={styles.descriptionText}>{product.description}</p>
-
           <div className={styles.sizeSelection}>
             <p className={styles.sizeTitle}>Choose Size</p>
             <div className={styles.sizeOptions}>
@@ -116,7 +135,6 @@ function ProductDetails({ addToCart }) {
               ))}
             </div>
           </div>
-
           <div className={styles.buttons}>
             <button className={styles.addToCart} onClick={handleAddToCart}>
               Add to Cart
@@ -138,7 +156,8 @@ function ProductDetails({ addToCart }) {
             <button className={styles.writeReviewBtn}>Write a Review</button>
           </div>
           <div className={styles.reviewsGrid}>
-            {sampleReviews.map((review) => (
+            {/* 5. Map over reviewsToShow instead of sampleReviews */}
+            {reviewsToShow.map((review) => (
               <ReviewCard
                 key={review.id}
                 name={review.name}
@@ -148,10 +167,14 @@ function ProductDetails({ addToCart }) {
               />
             ))}
           </div>
-          <button className={styles.loadMoreBtn}>Load More Reviews</button>
+          {/* 6. Conditionally hide the "Load More" button on mobile */}
+          {!isMobile && (
+            <button className={styles.loadMoreBtn}>Load More Reviews</button>
+          )}
         </div>
 
         <div className={styles.youMightAlsoLike}>
+          {/* ... (you might like section unchanged) ... */}
           <h2 className={styles.youMightAlsoLikeTitle}>You might also like</h2>
           <div className={styles.suggestionsGrid}>
             {suggestions.map((item) => (
