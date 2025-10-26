@@ -6,40 +6,38 @@
 
 /* General Page Styling */
 .cartPage {
-  padding: 1.5rem clamp(1rem, 5%, 100px); /* Responsive padding */
-  max-width: 1440px;
-  margin: 0 auto;
-  font-family: sans-serif; /* Basic font */
+  padding: 1.5rem 24px; 
+  font-family: sans-serif;
 }
 
 .yourCart {
   font-size: 2.5rem;
-  font-weight: 900; /* Bolder */
+  font-weight: 900;
   margin-bottom: 2.5rem;
-  text-align: left; /* Aligned left */
+  text-align: left;
 }
 
 /* --- Layout --- */
 .cartLayout {
   display: flex;
-  flex-direction: column; /* Mobile first: stack vertically */
-  gap: 2.5rem; /* Increased gap */
+  flex-direction: column; 
+  gap: 2.5rem;
   width: 100%;
 }
 
 .cartSection {
   width: 100%;
   order: 1;
-  background-color: #f8f9fa; /* Light grey background */
-  border-radius: 16px; /* Rounded corners */
+  background-color: #f8f9fa;
+  border-radius: 16px;
   padding: 1.5rem;
 }
 
 .checkoutSection {
   width: 100%;
-  background-color: #f8f9fa; /* Light grey background */
+  background-color: #f8f9fa;
   padding: 1.5rem;
-  border-radius: 16px; /* Rounded corners */
+  border-radius: 16px;
   order: 2;
 }
 
@@ -53,29 +51,29 @@
 }
 
 .cartItem {
-  display: flex; /* Use flexbox for alignment */
-  align-items: center; /* Vertically center items */
-  padding: 1.5rem 0; /* Vertical padding */
-  border-bottom: 1px solid #dee2e6; /* Line separator */
+  display: flex; 
+  align-items: center; 
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #dee2e6;
 }
 .cartItem:last-child {
-  border-bottom: none; /* No line after the last item */
+  border-bottom: none;
 }
 
 
 .productImage {
-  width: 100px; /* Slightly larger image */
+  width: 100px;
   height: 100px;
   object-fit: contain;
-  border-radius: 8px; /* Rounded image corners */
-  margin-right: 1.5rem; /* Space between image and details */
+  border-radius: 8px;
+  margin-right: 1.5rem;
 }
 
 .itemDetails {
-  flex-grow: 1; /* Allow details to take remaining space */
+  flex-grow: 1;
   display: flex;
-  flex-direction: column; /* Stack details vertically */
-  gap: 0.25rem; /* Small gap between details */
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .itemTitle {
@@ -86,12 +84,12 @@
 .itemSize,
 .itemPrice {
   font-size: 1rem;
-  color: #495057; /* Darker grey text */
+  color: #495057;
 }
 
 .itemPrice {
-  font-weight: bold; /* Make price bold */
-  margin-top: 0.5rem; /* Add some space above price */
+  font-weight: bold;
+  margin-top: 0.5rem;
 }
 
 .deleteBtn {
@@ -99,58 +97,58 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  margin-left: 1rem; /* Space before delete button */
-  color: #dc3545; /* Red color for delete icon */
+  margin-left: 1rem;
+  color: #dc3545;
 }
 
 .deleteBtn:hover svg {
-  stroke: #a0202d; /* Darker red on hover */
+  stroke: #a0202d;
 }
 
 .emptyCart {
   text-align: center;
   padding: 3rem 1rem;
   font-size: 1.2rem;
-  color: #6c757d; /* Medium grey */
+  color: #6c757d;
 }
 
 /* --- Checkout Section Styling --- */
 .orderSummary {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-top: 0; /* Remove default top margin */
+  margin-top: 0;
   margin-bottom: 1.5rem;
 }
 
 .summaryDetails p {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem; /* Increased spacing */
+  margin-bottom: 1rem;
   font-size: 1rem;
   color: #495057;
 }
 
 .summaryDetails p span:first-child {
-  color: #6c757d; /* Lighter grey for labels */
+  color: #6c757d;
 }
 
 .discountAmount {
-  color: #dc3545; /* Red for discount */
+  color: #dc3545;
   font-weight: bold;
 }
 
 .summaryDivider {
   border: none;
-  border-top: 1px solid #dee2e6; /* Match item separator */
-  margin: 1.5rem 0; /* Increased margin */
+  border-top: 1px solid #dee2e6;
+  margin: 1.5rem 0;
 }
 
 .totalAmount {
-  font-size: 1.1rem !important; /* Make total slightly larger */
-  color: #212529 !important; /* Black for total */
+  font-size: 1.1rem !important;
+  color: #212529 !important;
 }
 .totalAmount strong {
-  font-weight: 900; /* Extra bold total */
+  font-weight: 900;
 }
 
 .promoSection {
@@ -163,35 +161,35 @@
   flex-grow: 1;
   padding: 0.75rem 1rem;
   border: 1px solid #ced4da;
-  background-color: #e9ecef; /* Light grey input background */
-  border-radius: 25px; /* Rounded input */
-  margin-right: 15px; /* Overlap border with button */
+  background-color: #e9ecef;
+  border-radius: 25px;
+  margin-right: 10px;
   font-size: 1rem;
   color: #495057;
-
+  min-width: 0; /* Allows the input to shrink */
 }
 .promoInput:focus {
   outline: none;
   border-color: #adb5bd;
-  background-color: #fff; /* White background on focus */
+  background-color: #fff;
 }
 .promoInput::placeholder {
-  color: #adb5bd; /* Lighter placeholder */
+  color: #adb5bd;
 }
-/* Style for messages inside input */
 .promoInput.success { color: green; }
 .promoInput.error { color: red; }
 
 .applyBtn {
-  padding: 0.75rem 1.5rem; /* More padding */
-  background-color: #000000; /* Dark button */
+  padding: 0.75rem 1rem; /* Reduced padding */
+  background-color: #000000;
   color: white;
   border: none;
-  border-radius: 25px; /* Rounded button */
+  border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s;
-  z-index: 2; /* Ensure button is above input border */
+  z-index: 2;
+  flex-shrink: 0; /* Prevents the button from shrinking */
 }
 .applyBtn:hover { background-color: #212529; }
 .applyBtn:disabled { background-color: #adb5bd; cursor: not-allowed; }
@@ -199,28 +197,28 @@
 .orderBtn {
   width: 100%;
   padding: 1rem;
-  background-color: #000000; /* Black button */
+  background-color: #000000;
   color: white;
   border: none;
-  border-radius: 50px; /* More rounded */
+  border-radius: 50px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
-  display: flex; /* For aligning icon */
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem; /* Space between text and icon */
+  gap: 0.5rem;
 }
 .orderBtn:hover { background-color: #212529; }
 .orderBtn svg {
-  margin-top: 2px; /* Align arrow better */
+  margin-top: 2px;
 }
 
 /* --- Breadcrumb Styling --- */
 .breadcrumbBar {
-  margin-bottom: 1.5rem; /* Reduced space */
-  border-bottom: none; /* Removed bottom border */
+  margin-bottom: 1.5rem;
+  border-bottom: none;
   padding-bottom: 0;
 }
 .breadcrumb {
@@ -230,22 +228,22 @@
   display: flex;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: #6c757d; /* Medium grey */
+  color: #6c757d;
 }
 .breadcrumb__item a {
-  color: #6c757d; /* Match non-link color */
+  color: #6c757d;
   text-decoration: none;
 }
 .breadcrumb__item a:hover {
   text-decoration: underline;
 }
 .breadcrumb__item::after {
-  content: '>'; /* Changed separator */
+  content: '>';
   margin-left: 0.5rem;
-  color: #ced4da; /* Lighter grey separator */
+  color: #ced4da;
 }
 .breadcrumb__item:last-child {
-  color: #212529; /* Darker color for current page */
+  color: #212529;
   font-weight: bold;
 }
 .breadcrumb__item:last-child::after {
@@ -277,25 +275,93 @@
 .confirmBtn { background-color: #000; color: white; }
 
 
+/* --- Delete Confirmation Modal --- */
+.confirmModalContent {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 16px; /* Match other containers */
+  width: 90%;
+  max-width: 420px; /* Smaller width */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.confirmTitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.confirmText {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.confirmButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* New button styles for this modal */
+.confirmBtnSecondary,
+.confirmBtnPrimary {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  flex: 1;
+  max-width: 150px;
+}
+
+.confirmBtnSecondary {
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.confirmBtnSecondary:hover {
+  background-color: #e0e0e0;
+}
+
+.confirmBtnPrimary {
+  background-color: #dc3545; /* Red for delete */
+  color: white;
+  border: 1px solid #dc3545;
+}
+.confirmBtnPrimary:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+
 /* --- RESPONSIVENESS --- */
-@media (min-width: 992px) { /* Adjust breakpoint if needed */
+@media (min-width: 992px) { 
+  .cartPage {
+    padding: 2.5rem 100px;
+  }
+
   .cartLayout {
-    flex-direction: row; /* Side-by-side */
+    flex-direction: row;
     align-items: flex-start;
-    gap: 3rem; /* Larger gap */
+    gap: 3rem;
   }
 
   .cartSection {
-    flex: 6; /* Cart items take more space (approx 60%) */
+    flex: 6; 
     order: 1;
-    padding: 2rem; /* More padding */
+    padding: 2rem;
   }
 
   .checkoutSection {
-    flex: 4; /* Checkout takes less space (approx 40%) */
+    flex: 4; 
     order: 2;
-    position: sticky; /* Make checkout sticky */
+    position: sticky;
     top: 2rem;
-    padding: 2rem; /* More padding */
+    padding: 2rem;
   }
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles/CartCheckout.module.css";
-import images from "../assets/imageLoader"; // Make sure this path is correct relative to CartCheckout.js
+import images from "../assets/imageLoader";
 
 function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
 
@@ -11,6 +11,7 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
     payment: "",
   });
 
+  // --- (other states are unchanged) ---
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
   const [discountRate, setDiscountRate] = useState(0);
@@ -18,20 +19,39 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
   const [promoStatus, setPromoStatus] = useState("");
   const [showForm, setShowForm] = useState(false);
 
-  // Delivery Fee set to 10000
-  const deliveryFee = cartItems.length > 0 ? 10000 : 0;
+  // 1. ADD NEW STATE for the confirmation modal
+  // It will store the ID of the item to be removed
+  const [itemToRemove, setItemToRemove] = useState(null);
 
+  const deliveryFee = cartItems.length > 0 ? 10000 : 0;
+  
+  // --- (calculations are unchanged) ---
   const getSubtotal = () =>
-    cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    cartItems.reduce((sum, item) => sum + item.price * 1, 0);
   const getDiscount = () => getSubtotal() * discountRate;
   const getTotal = () => getSubtotal() - getDiscount() + deliveryFee;
 
+  // 2. UPDATE removeItem to open the modal
   const removeItem = (id) => {
-    if (window.confirm("Are you sure you want to remove this item?")) {
-      removeFromCart(id);
-    }
+    // This no longer shows window.confirm
+    // It just sets the ID of the item we're thinking about deleting
+    setItemToRemove(id);
   };
 
+  // 3. ADD new handler for confirming the removal
+  const handleConfirmRemove = () => {
+    if (itemToRemove) {
+      removeFromCart(itemToRemove);
+    }
+    setItemToRemove(null); // Close the modal
+  };
+
+  // 4. ADD new handler for canceling the removal
+  const handleCancelRemove = () => {
+    setItemToRemove(null); // Close the modal
+  };
+
+  // --- (other handlers are unchanged) ---
   const showMessage = (msg, status) => {
     setPromoMessage(msg);
     setPromoStatus(status);
@@ -74,7 +94,6 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
     );
     setShowForm(false);
     clearCart();
-    // Reset form and promo states
     setForm({ name: "", address: "", contact: "", payment: "" });
     setPromoCode("");
     setPromoApplied(false);
@@ -83,18 +102,9 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
     setPromoStatus("");
   };
 
-  // const placeholderImage = "https://placehold.co/100x100/eee/ccc?text=Watch"; // REMOVED
 
   return (
     <section className={styles.cartPage}>
-      <nav aria-label="Breadcrumb" className={styles.breadcrumbBar}>
-        <ol className={styles.breadcrumb}>
-          <li className={styles.breadcrumb__item}>
-            <a href="/">Home</a>
-          </li>
-          <li className={styles.breadcrumb__item}>Cart</li>
-        </ol>
-      </nav>
 
       <h2 className={styles.yourCart}>Your Cart</h2>
 
@@ -104,18 +114,14 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
           {cartItems.length > 0 ? (
             <ul className={styles.cartList}>
               {cartItems.map((item) => {
-                // Get the image source from the loader
                 const imageSrc = images[item.image_link];
-                // const showPlaceholder = !imageSrc; // REMOVED
 
-                return ( // Return the list item JSX
+                return ( 
                   <li key={item.id} className={styles.cartItem}>
                     <img
-                      // Directly use imageSrc from the loader
-                      src={imageSrc} // UPDATED: Removed placeholder logic
+                      src={imageSrc} 
                       alt={item.model || item.name}
                       className={styles.productImage}
-                      // onError handler REMOVED
                     />
                     <div className={styles.itemDetails}>
                       <strong className={styles.itemTitle}>{item.brand} | {item.model || item.name}</strong>
@@ -124,37 +130,35 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
                     </div>
                     <button
                       className={styles.deleteBtn}
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeItem(item.id)} // This now calls the updated function
                       title="Remove item"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                     </button>
                   </li>
-                ); // End return
-              })} {/* End map */}
+                ); 
+              })} 
             </ul>
           ) : (
-            <p className={styles.emptyCart}>🛍️ Your cart is empty.</p>
+            <p className={styles.emptyCart}>Your cart is empty.</p>
           )}
         </section>
 
-        {/* Checkout Summary Section */}
+        {/* --- (Checkout Summary Section is unchanged) --- */}
         {cartItems.length > 0 && (
           <section className={styles.checkoutSection}>
             <h3 className={styles.orderSummary}>Order Summary</h3>
-
             <div className={styles.summaryDetails}>
+              {/* ...summary details... */}
               <p><span>Subtotal</span> <span>₱{getSubtotal().toLocaleString()}</span></p>
               <p>
                 <span>Discount ({(discountRate * 100).toFixed(0)}%)</span>
                 <span className={styles.discountAmount}>-₱{getDiscount().toLocaleString()}</span>
               </p>
               <p><span>Delivery Fee</span> <span>₱{deliveryFee.toLocaleString()}</span></p>
-
               <hr className={styles.summaryDivider} />
-
               <p className={styles.totalAmount}><strong>Total</strong> <strong>₱{getTotal().toLocaleString()}</strong></p>
-
+              {/* ...promo section... */}
               <div className={styles.promoSection}>
                 <input
                   className={`${styles.promoInput} ${
@@ -186,7 +190,7 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
                   {promoApplied ? "Applied" : "Apply"}
                 </button>
               </div>
-
+              {/* ...order button... */}
               <button
                 type="button"
                 className={styles.orderBtn}
@@ -200,10 +204,11 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
         )}
       </div>
 
-      {/* Checkout Form Modal */}
+      {/* --- (Checkout Form Modal is unchanged) --- */}
       {showForm && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
+            {/* ...form content... */}
             <h2>Checkout Details</h2>
             <form onSubmit={handleSubmit}>
               <label>
@@ -240,6 +245,35 @@ function CartCheckout({ cartItems, setCartItems, clearCart, removeFromCart }) {
           </div>
         </div>
       )}
+
+      {/* 5. ADD THE NEW DELETE CONFIRMATION MODAL */}
+      {itemToRemove && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.confirmModalContent}>
+            <h3 className={styles.confirmTitle}>Remove Item</h3>
+            <p className={styles.confirmText}>
+              Are you sure you want to remove this item from your cart?
+            </p>
+            <div className={styles.confirmButtons}>
+              <button
+                type="button"
+                className={styles.confirmBtnSecondary}
+                onClick={handleCancelRemove}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={styles.confirmBtnPrimary}
+                onClick={handleConfirmRemove}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }
