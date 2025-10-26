@@ -25,12 +25,9 @@
     padding-bottom: 40px;
 }
 
-/* --- Column 1: Logo and About --- */
-.aboutSection {
-}
 
 .logoText {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 900;
     color: #000000;
     margin-bottom: 15px;
@@ -59,19 +56,13 @@
     width: 30px; 
     height: 30px; 
     border-radius: 50%;
-    border: 3px solid #000000
-    ;/* ADDED: This fills the circle with black */
+    border: 3px solid #000000; /* This is an outline border */
 }
 
 .socialIcon {
+    /* Made icon smaller to fit inside 30px circle with 3px border */
     width: 30px; 
     height: 30px; 
-   /* ADDED: This changes the icon color (black -> white) */
-}
-
-
-/* --- Columns 2, 3, 4: Navigation Links --- */
-.linkSection {
 }
 
 .linkTitle {
@@ -165,10 +156,18 @@
 
 @media (max-width: 576px) { 
     .footerGrid {
-        grid-template-columns: 1fr;
+        /* CHANGED: Set to 3 columns for the link sections */
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px; /* Reduced gap for mobile */
     }
     .aboutSection {
-        grid-column: span 1; 
+        /* CHANGED: Span all 3 columns to take the first row */
+        grid-column: 1 / -1; 
+        /* ADDED: Centering for logo, tagline, and social icons */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
      .tagline {
         max-width: none; 
