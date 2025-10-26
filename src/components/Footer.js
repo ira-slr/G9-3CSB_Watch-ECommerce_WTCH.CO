@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './styles/Footer.module.css';
+import { Link } from 'react-router-dom'; // 1. Import Link
 
 // Imported Social Media Icons
 import fb from "../assets/designs/footer/fb.png";
@@ -30,8 +31,18 @@ const NAV_LINKS = [
     }
 ];
 
+// 2. Create a mapping for link text to route paths
+const routeMap = {
+    "Home": "/",
+    "Categories": "/products",
+    "Brands": "/products",
+    "Profile": "/profile", // Assuming you have a /profile route
+    "Cart": "/cart",
+    "Checkout": "/cart" // Checkout is part of the cart page
+    // Add other internal links if needed
+};
+
 function Footer() {
-    // List of social icons for mapping
     const socialIcons = [
         { icon: fb, alt: "Facebook", link: "#" },
         { icon: twitter, alt: "Twitter", link: "#" },
@@ -39,7 +50,6 @@ function Footer() {
         { icon: github, alt: "GitHub", link: "#" },
     ];
 
-    // List of payment icons for mapping
     const paymentIcons = [
         { icon: visa, alt: "Visa" },
         { icon: mastercard, alt: "Mastercard" },
@@ -51,16 +61,14 @@ function Footer() {
     return (
         <footer className={style.footer}>
             <div className={style.contentWrapper}>
-                {/* Top Section: Main Content Columns */}
+                {/* Top Section */}
                 <div className={style.footerGrid}>
-                    {/* Column 1: Logo and About */}
+                    {/* Column 1: About */}
                     <div className={style.aboutSection}>
                         <h2 className={style.logoText}>WTCH</h2>
                         <p className={style.tagline}>
                             We have an array of watch that suits your style and which you're proud to wear.
                         </p>
-                        
-                        {/* Social Media Icons */}
                         <div className={style.socialIcons}>
                             {socialIcons.map((item) => (
                                 <a key={item.alt} href={item.link} target="_blank" rel="noopener noreferrer" className={style.socialLink}>
@@ -75,28 +83,40 @@ function Footer() {
                         <div key={section.title} className={style.linkSection}>
                             <h3 className={style.linkTitle}>{section.title}</h3>
                             <ul className={style.linkList}>
-                                {section.links.map((link) => (
-                                    <li key={link} className={style.linkItem}>
-                                        <a href={`#${link.toLowerCase().replace(/\s/g, '-')}`} className={style.link}>{link}</a>
-                                    </li>
-                                ))}
+                                {section.links.map((linkText) => {
+                                    // 3. Check if the link is in our routeMap
+                                    const path = routeMap[linkText];
+                                    return (
+                                        <li key={linkText} className={style.linkItem}>
+                                            {path ? (
+                                                // If it's an internal route, use Link
+                                                <Link to={path} className={style.link}>
+                                                    {linkText}
+                                                </Link>
+                                            ) : (
+                                                // Otherwise, use a standard <a> tag (for Help links)
+                                                <a href={`#${linkText.toLowerCase().replace(/\s&?/g, '-')}`} className={style.link}>
+                                                    {linkText}
+                                                </a>
+                                            )}
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     ))}
                 </div>
 
-                {/* Bottom Section: Copyright and Payment Methods */}
+                {/* Bottom Section */}
                 <div className={style.bottomBar}>
                     <p className={style.copyright}>wtch.co © 2025-2026, All Rights Reserved</p>
-                    
-                    {/* Payment Icons */}
                     <div className={style.paymentIcons}>
                         {paymentIcons.map((item) => (
-                            <img 
-                                key={item.alt} 
-                                src={item.icon} 
-                                alt={item.alt} 
-                                className={style.paymentIcon} 
+                            <img
+                                key={item.alt}
+                                src={item.icon}
+                                alt={item.alt}
+                                className={style.paymentIcon}
                             />
                         ))}
                     </div>
