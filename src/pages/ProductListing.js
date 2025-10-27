@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 import productsData from "../assets/products.json";
 import PriceRangeSlider from "../components/PriceRangeSlider";
 
+// Member 3 : Rigodon, Josua
 function ProductListing() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
