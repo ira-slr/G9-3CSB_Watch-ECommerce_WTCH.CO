@@ -418,7 +418,7 @@
   .productGrid { grid-template-columns: repeat(2, 1fr); }
   .brandBanner { gap: 1rem 1.5rem; }
   .bannerLogo { height: 24px; }
-  .sectionLabel { height: 35px; max-width: 200px; }
+  .sectionLabel { height: 50px; max-width: 200px; }
   .categoryWrapper { padding: 1.5rem; }
 
   .reviewCarousel > * {
