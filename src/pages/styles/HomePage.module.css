@@ -415,7 +415,7 @@
 }
 
 @media (max-width: 576px) {
-  .productGrid { grid-template-columns: 1fr; }
+  .productGrid { grid-template-columns: repeat(2, 1fr); }
   .brandBanner { gap: 1rem 1.5rem; }
   .bannerLogo { height: 24px; }
   .sectionLabel { height: 35px; max-width: 200px; }
