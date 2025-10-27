@@ -3,7 +3,7 @@ import style from './styles/Login.module.css';
 import pic1 from "../assets/designs/login/submariner.jpg"
 import pic2 from "../assets/designs/login/submariner2.jpg"
 import { Link } from 'react-router-dom';
-
+// Member 5: Gladwyn Sencil
 // Original images array
 const images = [pic1, pic2];
 // Create a "filmstrip" by duplicating the first image at the end
